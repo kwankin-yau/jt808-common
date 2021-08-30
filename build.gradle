@@ -1,0 +1,51 @@
+plugins {
+    id 'java-library'
+    id 'scala'
+    id 'maven'
+    id 'maven-publish'
+//    id "com.github.maiflai.scalatest" version "0.31"
+}
+
+group 'info.gratour.gnss'
+version '1.0.0'
+
+compileJava.options.encoding = 'UTF-8'
+compileScala.options.encoding = 'UTF-8'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    api('org.scala-lang:scala-library:2.13.6')
+    api group: 'com.typesafe.scala-logging', name: 'scala-logging_2.13', version: '3.9.2'
+
+    api('io.netty:netty-all:4.1.65.Final')
+
+    implementation('commons-codec:commons-codec:1.13')
+    implementation('org.apache.commons:commons-lang3:3.8.1')
+    api('com.google.code.gson:gson:2.8.6')
+    implementation('commons-validator:commons-validator:1.6')
+    implementation('dnsjava:dnsjava:3.3.1')
+
+//    testCompile 'org.scalatest:scalatest_2.13:3.2.0'
+//    testRuntime 'com.vladsch.flexmark:flexmark-all:0.35.10'
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+    }
+}
+
