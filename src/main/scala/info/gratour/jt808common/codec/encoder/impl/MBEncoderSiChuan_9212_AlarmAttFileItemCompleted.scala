@@ -18,12 +18,14 @@ object MBEncoderSiChuan_9212_AlarmAttFileItemCompleted extends AbstractJT808MsgB
     val params = m.getParams
     out.writeByteLenPrefixedStr(params.getFileItem.getFileName)
 
-    out.writeByte(params.getFileItem.getFileType)
+    out.writeByte(params.getFileItem.getFileType) // result
 
-    if (params.getReTransFileBlocks == null || params.getReTransFileBlocks.isEmpty)
-      out.writeByte(0)
-    else {
+    if (params.getReTransFileBlocks == null || params.getReTransFileBlocks.isEmpty) {
+      out.writeShort(0)
+    } else {
       out.writeByte(1)
+      out.writeByte(params.getReTransFileBlocks.size())
+
       for (i <- 0 until params.getReTransFileBlocks.size()) {
         val b = params.getReTransFileBlocks.get(i)
         out.writeInt(b.getOffset)

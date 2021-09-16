@@ -468,7 +468,7 @@ public class Trk implements MQEventAddt, Cloneable {
 
                 str.append(propName).append('=').append(FLOAT_FORMAT.format(value));
 
-                first = true;
+                first = false;
             }
         }
 
@@ -480,7 +480,7 @@ public class Trk implements MQEventAddt, Cloneable {
 
                 str.append(propName).append('=').append(JTUtils.formatAxis(value));
 
-                first = true;
+                first = false;
             }
         }
 
@@ -492,16 +492,12 @@ public class Trk implements MQEventAddt, Cloneable {
 
                 str.append(propName).append('=').append(value);
 
-                first = true;
+                first = false;
             }
         }
 
         public String stringifier() {
             str.append("Trk{");
-            if (id != null) {
-                str.append("id").append(id);
-                first = false;
-            }
 
             add("id", id);
             add("simNo", simNo);

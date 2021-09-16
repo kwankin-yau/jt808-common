@@ -11,6 +11,7 @@ public class AlmAttFileItem implements Cloneable {
 
     private String fileName;
     private int fileSize;
+    private transient boolean uploadCompleted;
 
     public String getFileName() {
         return fileName;
@@ -28,6 +29,14 @@ public class AlmAttFileItem implements Cloneable {
         this.fileSize = fileSize;
     }
 
+    public boolean isUploadCompleted() {
+        return uploadCompleted;
+    }
+
+    public void setUploadCompleted(boolean uploadCompleted) {
+        this.uploadCompleted = uploadCompleted;
+    }
+
     @Override
     public AlmAttFileItem clone() {
         try {
@@ -42,6 +51,7 @@ public class AlmAttFileItem implements Cloneable {
         return "AlmAttFileItem{" +
                 "fileName='" + fileName + '\'' +
                 ", fileSize=" + fileSize +
+                ", uploadCompleted=" + uploadCompleted +
                 '}';
     }
 }

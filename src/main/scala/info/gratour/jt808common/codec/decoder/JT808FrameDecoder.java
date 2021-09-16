@@ -105,7 +105,7 @@ public class JT808FrameDecoder {
         workBuf.release();
     }
 
-    public int calcCrc(ByteBuf buf) {
+    public static int calcCrc(ByteBuf buf) {
         int crc = 0;
         int count = buf.readableBytes();
         while (count > 0) {
@@ -116,7 +116,7 @@ public class JT808FrameDecoder {
         return crc;
     }
 
-    public boolean verifyCrc(ByteBuf wholeFrame) {
+    public static boolean verifyCrc(ByteBuf wholeFrame) {
         ByteBuf buf = wholeFrame.slice(1, wholeFrame.readableBytes() - 3);
         int crcCalc = calcCrc(buf);
         int crcActual = wholeFrame.getByte(wholeFrame.readableBytes()- 2);
@@ -131,7 +131,7 @@ public class JT808FrameDecoder {
      * @param tempBuf a temporary byte buffer used in decode procedure, should allocated by {@link JT808FrameDecoder#allocTempBuf()}
      * @return null if crc verification failed or other format violation
      */
-    public JT808Frame decodeFrame(ByteBuf buf, byte[] tempBuf) {
+    public static JT808Frame decodeFrame(ByteBuf buf, byte[] tempBuf) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("BEFORE-decodeFrame: " + NettyUtils.bufToHex(buf));
         }
