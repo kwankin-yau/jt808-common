@@ -9,14 +9,14 @@ package info.gratour.jt808common.codec.encoder.impl
 
 import info.gratour.jt808common.codec.CodecError
 import info.gratour.jt808common.codec.encoder.AbstractJT808MsgBodyEncoder2019Support
-import info.gratour.jt808common.protocol.msg.JTSiChuanMsg_9208_AlmAttUploadReq
+import info.gratour.jt808common.protocol.msg.JTAdasMsg_9208_AlmAttUploadReq
 import info.gratour.jtcommon.{ByteBufHelper, JTConsts}
 import io.netty.buffer.ByteBuf
 import org.apache.commons.codec.binary.Hex
 
-object MBEncoderSiChuan_9208_AlarmAttUploadReq extends AbstractJT808MsgBodyEncoder2019Support[JTSiChuanMsg_9208_AlmAttUploadReq] {
+object MBEncoderAdas_9208_AlarmAttUploadReq extends AbstractJT808MsgBodyEncoder2019Support[JTAdasMsg_9208_AlmAttUploadReq] {
 
-  override protected def encodeBody(protoVer: Byte, m: JTSiChuanMsg_9208_AlmAttUploadReq, out: ByteBuf): Unit = {
+  override protected def encodeBody(protoVer: Byte, m: JTAdasMsg_9208_AlmAttUploadReq, out: ByteBuf): Unit = {
     val p = checkNotNull(m.getParams, "params")
 
     out.writeByteLenPrefixedStr(checkNotNull(p.getServerIp, "serverIp"))

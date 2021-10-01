@@ -9,20 +9,22 @@ package info.gratour.jt808common.protocol.msg;
 
 import info.gratour.jt808common.protocol.JT808FrameHeader;
 import info.gratour.jt808common.protocol.JT808Msg;
-import info.gratour.jt808common.protocol.JTSiChuanMsgConsts;
+import info.gratour.jt808common.protocol.JTAdasMsgConsts;
 import info.gratour.jt808common.protocol.msg.types.cmdparams.CP_9212_AlmAttFileItemCompleted;
 import info.gratour.jtcommon.JTMsgId;
 
-@JTMsgId(JTSiChuanMsgConsts.ALM_ATT_FILE_ITEM_COMPLETED_9212)
-public class JTSiChuanMsg_9212_AlmAttFileItemCompleted extends JT808Msg {
+@JTMsgId(JTAdasMsgConsts.ALM_ATT_FILE_ITEM_COMPLETED_9212)
+public class JTAdasMsg_9212_AlmAttFileItemCompleted extends JT808Msg {
 
-    public static final int MSG_ID = JTSiChuanMsgConsts.ALM_ATT_FILE_ITEM_COMPLETED_9212;
+    public static final int MSG_ID = JTAdasMsgConsts.ALM_ATT_FILE_ITEM_COMPLETED_9212;
 
-    public JTSiChuanMsg_9212_AlmAttFileItemCompleted() {
+
+
+    public JTAdasMsg_9212_AlmAttFileItemCompleted() {
         setMsgId(MSG_ID);
     }
 
-    public JTSiChuanMsg_9212_AlmAttFileItemCompleted(JT808FrameHeader header) {
+    public JTAdasMsg_9212_AlmAttFileItemCompleted(JT808FrameHeader header) {
         super(header);
     }
 

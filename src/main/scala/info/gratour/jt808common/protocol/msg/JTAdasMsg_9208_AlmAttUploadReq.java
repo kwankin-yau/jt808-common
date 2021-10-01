@@ -9,20 +9,20 @@ package info.gratour.jt808common.protocol.msg;
 
 import info.gratour.jt808common.protocol.JT808FrameHeader;
 import info.gratour.jt808common.protocol.JT808Msg;
-import info.gratour.jt808common.protocol.JTSiChuanMsgConsts;
+import info.gratour.jt808common.protocol.JTAdasMsgConsts;
 import info.gratour.jt808common.protocol.msg.types.cmdparams.CP_9208_AlmAddtUploadReq;
 import info.gratour.jtcommon.JTMsgId;
 
-@JTMsgId(JTSiChuanMsgConsts.ALM_ATT_UPLOAD_REQ_9208)
-public class JTSiChuanMsg_9208_AlmAttUploadReq extends JT808Msg {
+@JTMsgId(JTAdasMsgConsts.ALM_ATT_UPLOAD_REQ_9208)
+public class JTAdasMsg_9208_AlmAttUploadReq extends JT808Msg {
 
-    public static final int MSG_ID = JTSiChuanMsgConsts.ALM_ATT_UPLOAD_REQ_9208;
+    public static final int MSG_ID = JTAdasMsgConsts.ALM_ATT_UPLOAD_REQ_9208;
 
-    public JTSiChuanMsg_9208_AlmAttUploadReq() {
+    public JTAdasMsg_9208_AlmAttUploadReq() {
         setMsgId(MSG_ID);
     }
 
-    public JTSiChuanMsg_9208_AlmAttUploadReq(JT808FrameHeader header) {
+    public JTAdasMsg_9208_AlmAttUploadReq(JT808FrameHeader header) {
         super(header);
     }
 

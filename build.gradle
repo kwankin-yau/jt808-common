@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'info.gratour.gnss'
-version '1.0.0'
+version '1.0.1'
 
 compileJava.options.encoding = 'UTF-8'
 compileScala.options.encoding = 'UTF-8'

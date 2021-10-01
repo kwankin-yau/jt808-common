@@ -55,9 +55,9 @@ object JT808MsgEncoder_Rev2019 extends JT808MsgEncoder {
 }
 
 object JT808MsgEncoder_SiChuan extends JT808MsgEncoder {
-  override def msgBodyEncoderRegistry: JT808MsgBodyEncoderRegistry = JT808MsgBodyEncoderRegistry_SiChuan
+  override def msgBodyEncoderRegistry: JT808MsgBodyEncoderRegistry = JT808MsgBodyEncoderRegistry_Adas
 }
 
 object JT808MsgEncoder_GDRTA2020 extends JT808MsgEncoder {
-  override def msgBodyEncoderRegistry: JT808MsgBodyEncoderRegistry = JT808MsgBodyEncoderRegistry_SiChuan
+  override def msgBodyEncoderRegistry: JT808MsgBodyEncoderRegistry = JT808MsgBodyEncoderRegistry_Adas
 }

@@ -4,9 +4,6 @@ public enum  JT808ProtocolVariant {
 
     REV_2013,
 
-    /**
-     * 川标
-     */
     SI_CHUAN,
 
     REV_2019,

@@ -12,7 +12,7 @@ import info.gratour.jtcommon.JTUtils;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-class JTSiChuanAdasAlarmNames {
+class JTAdasAlarmNames {
 
     public static final String MESSAGE_KEY_DRIVING_ASSIST_ALM = "adas.driving_assist.0";
     public static final String MESSAGE_KEY_DRIVER_BEHAV_ALM = "adas.driver_behav.1";
@@ -51,7 +51,7 @@ class JTSiChuanAdasAlarmNames {
 
 }
 
-public enum JTSiChuanAdasAlarmBit {
+public enum JTAdasAlarmBit {
 
     DRIVING_ASSIST_ALM(0),
     DRIVER_BEHAV_ALM(1),
@@ -62,7 +62,7 @@ public enum JTSiChuanAdasAlarmBit {
 
     private int index;
 
-    JTSiChuanAdasAlarmBit(int bitIndex) {
+    JTAdasAlarmBit(int bitIndex) {
         this.index = bitIndex;
     }
 
@@ -71,13 +71,13 @@ public enum JTSiChuanAdasAlarmBit {
     }
 
     public String alarmName(Locale locale) {
-        return JTSiChuanAdasAlarmNames.getAlarmName(index, locale);
+        return JTAdasAlarmNames.getAlarmName(index, locale);
     }
 
     public static String adasAlmText(int adasAlmBits, Locale locale) {
         StringBuilder str = new StringBuilder();
         boolean first = true;
-        for (JTSiChuanAdasAlarmBit bit : values()) {
+        for (JTAdasAlarmBit bit : values()) {
             if (JTUtils.test(adasAlmBits, bit.index)) {
                 if (first)
                     first = false;

@@ -7,7 +7,7 @@
  *******************************************************************************/
 package info.gratour.jt808common.protocol.msg.types.cmdparams;
 
-import info.gratour.jt808common.protocol.JTSiChuanMsgConsts;
+import info.gratour.jt808common.protocol.JTAdasMsgConsts;
 import info.gratour.jt808common.protocol.msg.types.almatt.AlmAttFileItemWithType;
 import info.gratour.jt808common.protocol.msg.types.almatt.AlmAttReTransFileBlock;
 import info.gratour.jtcommon.JTMsgId;
@@ -15,8 +15,11 @@ import info.gratour.jtcommon.JTMsgId;
 import java.util.ArrayList;
 import java.util.List;
 
-@JTMsgId(JTSiChuanMsgConsts.ALM_ATT_FILE_ITEM_COMPLETED_9212)
+@JTMsgId(JTAdasMsgConsts.ALM_ATT_FILE_ITEM_COMPLETED_9212)
 public class CP_9212_AlmAttFileItemCompleted implements JT808CmdParams {
+
+    public static final byte RESULT__COMPLETED = 0;
+    public static final byte RESULT__RETRANSMIT_NEEDED = 1;
 
     private AlmAttFileItemWithType fileItem;
     private List<AlmAttReTransFileBlock> reTransFileBlocks;

@@ -7,10 +7,10 @@
  *******************************************************************************/
 package info.gratour.jt808common.protocol.msg.types.cmdparams;
 
-import info.gratour.jt808common.protocol.JTSiChuanMsgConsts;
+import info.gratour.jt808common.protocol.JTAdasMsgConsts;
 import info.gratour.jtcommon.JTMsgId;
 
-@JTMsgId(JTSiChuanMsgConsts.ALM_ATT_UPLOAD_REQ_9208)
+@JTMsgId(JTAdasMsgConsts.ALM_ATT_UPLOAD_REQ_9208)
 public class CP_9208_AlmAddtUploadReq implements JT808CmdParams {
 
     private String serverIp;

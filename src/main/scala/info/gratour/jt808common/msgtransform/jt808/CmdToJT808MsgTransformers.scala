@@ -479,15 +479,15 @@ object CTMT_9306_PTZZoomCtrl extends CmdToJT808MsgTransformers[JT1078Msg_9306_PT
   }
 }
 
-object CTMT_9208_AlarmAttUploadReq extends CmdToJT808MsgTransformers[JTSiChuanMsg_9208_AlmAttUploadReq] {
-  override protected def setParams(m: JTSiChuanMsg_9208_AlmAttUploadReq, cmd: TermCmd): Unit = {
+object CTMT_9208_AlarmAttUploadReq extends CmdToJT808MsgTransformers[JTAdasMsg_9208_AlmAttUploadReq] {
+  override protected def setParams(m: JTAdasMsg_9208_AlmAttUploadReq, cmd: TermCmd): Unit = {
     val cp = cmd.getParams.asInstanceOf[CP_9208_AlmAddtUploadReq]
     m.setParams(cp)
   }
 }
 
-object CTMT_9212_AlarmAttFileItemCompleted extends CmdToJT808MsgTransformers[JTSiChuanMsg_9212_AlmAttFileItemCompleted] {
-  override protected def setParams(m: JTSiChuanMsg_9212_AlmAttFileItemCompleted, cmd: TermCmd): Unit = {
+object CTMT_9212_AlarmAttFileItemCompleted extends CmdToJT808MsgTransformers[JTAdasMsg_9212_AlmAttFileItemCompleted] {
+  override protected def setParams(m: JTAdasMsg_9212_AlmAttFileItemCompleted, cmd: TermCmd): Unit = {
     val cp = cmd.getParams.asInstanceOf[CP_9212_AlmAttFileItemCompleted]
     m.setParams(cp)
   }

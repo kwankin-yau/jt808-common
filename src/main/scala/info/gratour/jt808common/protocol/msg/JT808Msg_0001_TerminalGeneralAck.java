@@ -11,6 +11,11 @@ public class JT808Msg_0001_TerminalGeneralAck extends JT808Msg {
 
     public static final int MSG_ID = JT808MsgConsts.TERMINAL_GENERIC_ACK_0001;
 
+    public static final byte RESULT__SUCCESS = 0;
+    public static final byte RESULT__FAILED = 1;
+    public static final byte RESULT__BAD_FORMAT = 2;
+    public static final byte RESULT__NOT_SUPPORTED = 3;
+
     public JT808Msg_0001_TerminalGeneralAck() {
         setMsgId(MSG_ID);
     }

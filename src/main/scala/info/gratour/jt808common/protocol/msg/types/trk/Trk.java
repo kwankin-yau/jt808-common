@@ -375,7 +375,8 @@ public class Trk implements MQEventAddt, Cloneable {
             throw new NullPointerException();
 
         prepareAddt().setDrivingAssistAlm(alm);
-        adasAlmSet(AdasAlarmBits.ADAS_DRIVING_ASSIST_ALARM);
+        if (alm.getFlag() != 2)
+            adasAlmSet(AdasAlarmBits.ADAS_DRIVING_ASSIST_ALARM);
     }
 
     public void setDriverBehavAlm(AdasDriverBehavAlmAddt alm) {
@@ -383,7 +384,8 @@ public class Trk implements MQEventAddt, Cloneable {
             throw new NullPointerException();
 
         prepareAddt().setDriverBehavAlm(alm);
-        adasAlmSet(AdasAlarmBits.ADAS_DRIVER_BEHAVIOR_ALARM);
+        if (alm.getFlag() != 2)
+            adasAlmSet(AdasAlarmBits.ADAS_DRIVER_BEHAVIOR_ALARM);
     }
 
     public void setAdasTyreState(AdasTyreState tyreState) {
@@ -391,7 +393,8 @@ public class Trk implements MQEventAddt, Cloneable {
             throw new NullPointerException();
 
         prepareAddt().setTyreState(tyreState);
-        adasAlmSet(AdasAlarmBits.ADAS_TYRE_STATE);
+        if (tyreState.getFlag() != 2)
+            adasAlmSet(AdasAlarmBits.ADAS_TYRE_STATE);
     }
 
     public void setAdasBlindAreaAlarm(AdasBlindAreaAlmAddt alm) {
@@ -399,7 +402,8 @@ public class Trk implements MQEventAddt, Cloneable {
             throw new NullPointerException();
 
         prepareAddt().setBlindArea(alm);
-        adasAlmSet(AdasAlarmBits.ADAS_BLIND_AREA);
+        if (alm.getFlag() != 2)
+            adasAlmSet(AdasAlarmBits.ADAS_BLIND_AREA);
     }
 
     public void setAdasIntenseDrivingAlarm(AdasIntenseDrivingAlmAddt alm) {
@@ -407,7 +411,8 @@ public class Trk implements MQEventAddt, Cloneable {
             throw new NullPointerException();
 
         prepareAddt().setIntenseDrivingAlm(alm);
-        adasAlmSet(AdasAlarmBits.ADAS_INTENSE_DRIVING_ALARM);
+        if (alm.getFlag() != 2)
+            adasAlmSet(AdasAlarmBits.ADAS_INTENSE_DRIVING_ALARM);
     }
 
     public void setAdasOverSpdAlarm(AdasOverSpdAlmAddt alm) {
@@ -415,7 +420,8 @@ public class Trk implements MQEventAddt, Cloneable {
             throw new NullPointerException();
 
         prepareAddt().setAdasOverSpd(alm);
-        adasAlmSet(AdasAlarmBits.ADAS_OVER_SPEED_ALARM);
+        if (alm.getFlag() != 2)
+            adasAlmSet(AdasAlarmBits.ADAS_OVER_SPEED_ALARM);
     }
 
     public void assignFrom(Trk source) {

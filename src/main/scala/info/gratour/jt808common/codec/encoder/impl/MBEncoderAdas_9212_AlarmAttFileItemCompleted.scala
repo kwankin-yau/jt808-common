@@ -8,13 +8,13 @@
 package info.gratour.jt808common.codec.encoder.impl
 
 import info.gratour.jt808common.codec.encoder.AbstractJT808MsgBodyEncoder
-import info.gratour.jt808common.protocol.msg.JTSiChuanMsg_9212_AlmAttFileItemCompleted
+import info.gratour.jt808common.protocol.msg.JTAdasMsg_9212_AlmAttFileItemCompleted
 import info.gratour.jtcommon.ByteBufHelper
 import io.netty.buffer.ByteBuf
 
-object MBEncoderSiChuan_9212_AlarmAttFileItemCompleted extends AbstractJT808MsgBodyEncoder[JTSiChuanMsg_9212_AlmAttFileItemCompleted]{
+object MBEncoderAdas_9212_AlarmAttFileItemCompleted extends AbstractJT808MsgBodyEncoder[JTAdasMsg_9212_AlmAttFileItemCompleted]{
 
-  override protected def encodeBody(m: JTSiChuanMsg_9212_AlmAttFileItemCompleted, out: ByteBuf): Unit = {
+  override protected def encodeBody(m: JTAdasMsg_9212_AlmAttFileItemCompleted, out: ByteBuf): Unit = {
     val params = m.getParams
     out.writeByteLenPrefixedStr(params.getFileItem.getFileName)
 

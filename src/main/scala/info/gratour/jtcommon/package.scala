@@ -1,5 +1,6 @@
 package info.gratour
 
+import info.gratour.jt808common.JT808Utils
 import io.netty.buffer.ByteBuf
 import org.apache.commons.codec.binary.Hex
 
@@ -92,6 +93,8 @@ package object jtcommon {
       byteBuf.readBytes(r)
       r
     }
+
+    def readBytesHex(len: Int): String = Hex.encodeHexString(readBytesLen(len))
 
     def readStr(len: Int): String = {
       val bytes = new Array[Byte](len)
@@ -202,6 +205,11 @@ package object jtcommon {
         byteBuf.writeZero(delta)
     }
 
+    def writeFixedLenBytesHex(hex: String, len: Int): Unit = {
+      val bytes = Hex.decodeHex(hex)
+      writeFixedLenBytes(bytes, len)
+    }
+
     def writeByteLenPrefixedStr(s: String): Unit = {
       if (s == null || s.isEmpty) {
         byteBuf.writeByte(0)
@@ -274,6 +282,40 @@ package object jtcommon {
       val i = (axis * 1000000).toInt
       byteBuf.writeInt(i)
     }
+
+    /**
+     * Read a 6 bytes (12 digits) BCD and decode as a epoch millis.
+     *
+     * @param tempBuf a temp buffer used for read and decoding, may be null, the length of buffer must be greater than 6 if not null.
+     *                If null, the method will allocate a appropriate buffer internally.
+     * @return epoch millis timestamp. Return 0 if the first byte of BCD is 0.
+     */
+    def readBcd6Timestamp(tempBuf: Array[Byte]): Long = {
+      val buf =
+        if (tempBuf != null)
+          tempBuf
+        else
+          new Array[Byte](6)
+
+      byteBuf.readBytes(buf, 0, 6)
+      if (buf(0) == 0)
+        0
+      else
+        JT808Utils.bcd6ToTimestamp(buf)
+    }
+
+    /**
+     * Encode a epoch millis to a 6 bytes (12 digits) BCD bytes and write to ByteBuf.
+     *
+     * @param timestamp epoch millis timestamp. if `timestamp` is 0, the 6 of zero byte will be written into ByteBuf.
+     */
+    def writeBcd6Timestamp(timestamp: Long): Unit = {
+      if (timestamp == 0)
+        byteBuf.writeZero(6)
+      else
+        JT808Utils.timestampToBcd6(timestamp, byteBuf)
+    }
+
   }
 
 }
