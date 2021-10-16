@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JT808FrameDecoder {
+public class JT808FrameDecoder implements AutoCloseable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JT808FrameDecoder.class);
 
@@ -101,6 +101,7 @@ public class JT808FrameDecoder {
         buffers.clear();
     }
 
+    @Override
     public void close() {
         workBuf.release();
     }

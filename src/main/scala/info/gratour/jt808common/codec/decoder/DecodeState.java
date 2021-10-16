@@ -4,5 +4,9 @@ public enum  DecodeState {
 
     UNRECOGNIZED,
     RECOGNIZED,
-    DECODED
+    DECODED;
+
+    public boolean ok() {
+        return this != UNRECOGNIZED;
+    }
 }

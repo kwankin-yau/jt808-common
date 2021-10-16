@@ -8,9 +8,12 @@
 package info.gratour.jt808common.codec.encoder.impl
 
 import info.gratour.jt808common.JT808Utils
-import info.gratour.jt808common.protocol.msg.types.trk.Trk
+import info.gratour.jt808common.codec.CodecError
+import info.gratour.jt808common.protocol.msg.types.AdasAlmNo
+import info.gratour.jt808common.protocol.msg.types.trk.{AdasDriverBehavAlmAddt, Trk}
 import info.gratour.jtcommon.{ByteBufHelper, JTCodecHelper}
 import io.netty.buffer.ByteBuf
+import org.apache.commons.codec.binary.Hex
 
 object MBEncoder808_Track extends JTCodecHelper {
 
@@ -36,6 +39,42 @@ object MBEncoder808_Track extends JTCodecHelper {
       out.writeInt(value)
     }
 
+    def writeAlmNo(almNo: String): Unit = {
+      val bytes = Hex.decodeHex(almNo)
+
+      if (protoVer > 0) {
+        if (bytes.length < AdasAlmNo.ID_LEN_2019)
+          throw new CodecError(s"Invalid almNo: ${almNo}")
+      } else {
+        if (bytes.length != AdasAlmNo.ID_LEN_2013)
+          throw new CodecError(s"Invalid almNo: ${almNo}")
+      }
+      out.writeBytes(bytes)
+    }
+
+    def addtWriteDriverBehvaAlm(alm: AdasDriverBehavAlmAddt): Unit = {
+      out.writeByte(0x65)
+      val pos = out.writerIndex()
+      out.writeByte(0)
+
+      out.writeInt(alm.getAlmId)
+      out.writeByte(alm.getFlag)
+      out.writeByte(alm.getTyp)
+      out.writeByte(alm.getLvl)
+      out.writeByte(alm.getFatigue)
+      out.writeZero(4)
+      out.writeByte(alm.getSpd)
+      out.writeShort(alm.getAlt)
+      out.writeAxis(alm.getLat)
+      out.writeAxis(alm.getLng)
+      out.writeBcd6Timestamp(alm.getTm)
+      out.writeShort(alm.getVehSt)
+      writeAlmNo(alm.getAlmNo)
+
+      val sz = out.writerIndex() - pos - 1
+      out.setByte(pos, sz)
+    }
+
     val mile = t.getMile
     if (mile != null) {
       val v = (mile * 10).toInt
@@ -52,6 +91,12 @@ object MBEncoder808_Track extends JTCodecHelper {
     if (recSpd != null) {
       val v = (recSpd * 10).toShort
       addtWriteShort(0x03, v)
+    }
+
+    if (t.getAddt != null) {
+      val driverBehavAlmAddt = t.getAddt.getDriverBehavAlm
+      if (driverBehavAlmAddt != null)
+        addtWriteDriverBehvaAlm(driverBehavAlmAddt)
     }
   }
 

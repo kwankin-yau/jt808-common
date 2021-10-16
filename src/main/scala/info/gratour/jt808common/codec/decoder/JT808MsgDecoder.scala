@@ -6,7 +6,6 @@ import info.gratour.jt808common.protocol.{JT808Frame, JT808Msg}
 trait JT808MsgDecoder {
 
   def msgBodyDecoderRegistry: JT808MsgBodyDecoderRegistry
-  def allocDecodeTempBuf: Array[Byte] = JT808FrameDecoder.allocTempBuf()
 
   /**
    *
@@ -39,6 +38,8 @@ object JT808MsgDecoder_GDRTA2020 extends JT808MsgDecoder {
 }
 
 object JT808MsgDecoder {
+  def allocDecodeTempBuf: Array[Byte] = JT808FrameDecoder.allocTempBuf()
+
   def apply(protocolVariant: JT808ProtocolVariant): JT808MsgDecoder = protocolVariant match {
     case JT808ProtocolVariant.REV_2013 => JT808MsgDecoder_Rev2013
     case JT808ProtocolVariant.SI_CHUAN => JT808MsgDecoder_SiChuan

@@ -64,8 +64,9 @@ public class BeijingTime {
 
     public static OffsetDateTime stringToOffsetDateTime(String dateTime) {
         if (dateTime != null)
-            return OffsetDateTime.parse(dateTime, CONVENIENT_FORMATTER);
+            return LocalDateTime.parse(dateTime, CONVENIENT_FORMATTER).atOffset(ZONE_OFFSET);
         else
             return null;
     }
+
 }

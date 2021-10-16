@@ -19,7 +19,7 @@ object MBEncoderAdas_1210_FileList extends AbstractJT808MsgBodyEncoder2019Suppor
 
     out.writeFixedLenStr(m.getTermId, termIdLen)
     out.writeFixedLenBytesHex(m.getAlmNo, almNoLen)
-    out.writeFixedLenBytesHex(m.getPlatformAlmId, 32)
+    out.writeFixedLenStr(m.getPlatformAlmId, 32)
     out.writeByte(m.getKind)
 
     val cnt = if (m.getFileList != null) m.getFileList.size() else 0

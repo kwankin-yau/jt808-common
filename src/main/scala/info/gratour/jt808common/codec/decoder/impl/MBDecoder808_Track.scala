@@ -66,6 +66,7 @@ object MBDecoder808_Track extends JTCodecHelper {
     while (buf.readableBytes() >= 2) {
       val infoId = buf.readUnsignedByte()
       val len = buf.readUnsignedByte()
+      if (len > 0) {}
       val readerIndex = buf.readerIndex()
 
       //      logger.debug("infoId: " + StringUtils.intToHex(infoId, 2))

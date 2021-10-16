@@ -12,4 +12,8 @@ public class CodecError extends RuntimeException {
     public CodecError(String message) {
         super(message);
     }
+
+    public CodecError(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

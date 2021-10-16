@@ -38,8 +38,8 @@ public class JTAdasMsg_9208_AlmAttUploadReq extends JT808Msg {
 
     @Override
     public String toString() {
-        return "JTSiChuanMsg_9208_AlarmAddtUploadReq{" +
+        return "JTAdasMsg_9208_AlmAttUploadReq{" +
                 "params=" + params +
-                "} " + super.toString();
+                '}';
     }
 }

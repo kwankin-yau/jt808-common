@@ -23,11 +23,13 @@ object MBDecoderAdas_9208_AlmAttUploadReq extends JT808MsgBodyDecoder2019Support
     cp.setUdpPort(body.readUnsignedShort())
 
 
-    val almNoLen = if (protoVer > 1) 40 else 16
+    val almNoLen = if (protoVer > 0) 40 else 16
     cp.setAlmNo(body.readBytesHex(almNoLen))
-    cp.setAlmId(body.readBytesHex(32))
+    cp.setAlmId(body.readCStr(32))
 
     body.skipBytes(16)
+
+    m.setParams(cp)
   }
 
 }

@@ -7,6 +7,10 @@
  *******************************************************************************/
 package info.gratour.jt808common.protocol.msg.types.trk;
 
+import info.gratour.jt808common.codec.CodecError;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
+
 public class AdasDriverBehavAlmAddt implements Cloneable {
 
     public static final byte FLAG__NOT_AVAILABLE = 0;
@@ -143,6 +147,14 @@ public class AdasDriverBehavAlmAddt implements Cloneable {
 
     public void setAlmNo(String almNo) {
         this.almNo = almNo;
+    }
+
+    public byte[] almNoBytes() {
+        try {
+            return Hex.decodeHex(almNo);
+        } catch (DecoderException e) {
+            throw new CodecError("Can not decode almNo: " + almNo, e);
+        }
     }
 
     @Override

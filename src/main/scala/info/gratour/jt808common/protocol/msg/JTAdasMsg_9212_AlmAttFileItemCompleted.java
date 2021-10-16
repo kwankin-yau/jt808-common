@@ -40,8 +40,8 @@ public class JTAdasMsg_9212_AlmAttFileItemCompleted extends JT808Msg {
 
     @Override
     public String toString() {
-        return "JTSiChuanMsg_9212_AlmAttFileItemCompleted{" +
+        return "JTAdasMsg_9212_AlmAttFileItemCompleted{" +
                 "params=" + params +
-                "} " + super.toString();
+                '}';
     }
 }
