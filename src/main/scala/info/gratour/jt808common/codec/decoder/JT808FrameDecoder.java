@@ -1,5 +1,6 @@
 package info.gratour.jt808common.codec.decoder;
 
+import info.gratour.jt808common.codec.CrcError;
 import info.gratour.jt808common.protocol.FrameSplitInfo;
 import info.gratour.jt808common.protocol.JT808Frame;
 import info.gratour.jt808common.protocol.JT808FrameHeader;
@@ -138,8 +139,8 @@ public class JT808FrameDecoder implements AutoCloseable {
         }
 
         if (!verifyCrc(buf)) {
-            LOGGER.debug("crc verification failed.");
-            return null;
+            LOGGER.debug("CRC verification failed.");
+            throw new CrcError("CRC verification failed.");
         }
 
 
@@ -189,4 +190,6 @@ public class JT808FrameDecoder implements AutoCloseable {
 
         return r;
     }
+
+
 }
