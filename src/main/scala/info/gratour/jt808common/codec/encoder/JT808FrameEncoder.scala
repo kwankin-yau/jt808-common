@@ -20,6 +20,40 @@ object JT808FrameEncoder {
     }
   }
 
+//  class EscapedWriter(out: ByteBuf) {
+//    var crc = 0
+//    var writerIndex = 0
+//
+//    def beginWrite(): Unit = {
+//      crc = 0
+//      out.writeByte(0x7E)
+//    }
+//
+//    def writeByte(b: Int): Unit = {
+//      crc ^= b
+//      escapeByte(b.toByte, out)
+//    }
+//
+//    def writeBytes(bytes: Array[Byte]): Unit = {
+//      bytes.foreach(writeByte(_))
+//    }
+//
+//    def writeShort(v: Int): Unit = {
+//      var b = (v & 0xFF00)>>>8
+//      crc ^= b
+//      escapeByte(b.toByte, out)
+//
+//      b = v & 0xFF
+//      crc ^= b
+//      escapeByte(b.toByte, out)
+//    }
+//
+//    def endWrite(): Unit = {
+//      escapeByte(crc.toByte, out)
+//      out.writeByte(0x7E)
+//    }
+//  }
+
   /**
    * Encode message to frames. The encoded frame are crc-calculated and escaped.
    *
@@ -63,7 +97,6 @@ object JT808FrameEncoder {
         20
       } else
         12
-
 
 
     val canonicalSimNum =
