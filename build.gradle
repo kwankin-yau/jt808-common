@@ -27,9 +27,6 @@ dependencies {
     api('com.google.code.gson:gson:2.8.6')
     implementation('commons-validator:commons-validator:1.6')
     implementation('dnsjava:dnsjava:3.3.1')
-
-//    testCompile 'org.scalatest:scalatest_2.13:3.2.0'
-//    testRuntime 'com.vladsch.flexmark:flexmark-all:0.35.10'
 }
 
 task sourceJar(type: Jar) {
