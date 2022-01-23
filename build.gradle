@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'info.gratour.gnss'
-version '1.0.2'
+version '1.0.3'
 
 compileJava.options.encoding = 'UTF-8'
 compileScala.options.encoding = 'UTF-8'
@@ -20,13 +20,13 @@ dependencies {
     api('org.scala-lang:scala-library:2.13.6')
     api group: 'com.typesafe.scala-logging', name: 'scala-logging_2.13', version: '3.9.2'
 
-    api('io.netty:netty-all:4.1.65.Final')
+    api('io.netty:netty-all:4.1.72.Final')
 
-    implementation('commons-codec:commons-codec:1.13')
-    implementation('org.apache.commons:commons-lang3:3.8.1')
-    api('com.google.code.gson:gson:2.8.6')
+    implementation('commons-codec:commons-codec:1.15')
+    implementation('org.apache.commons:commons-lang3:3.11')
+    api('com.google.code.gson:gson:2.8.9')
     implementation('commons-validator:commons-validator:1.6')
-    implementation('dnsjava:dnsjava:3.3.1')
+    implementation('dnsjava:dnsjava:3.4.2')
 }
 
 task sourceJar(type: Jar) {
