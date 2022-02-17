@@ -10,7 +10,7 @@ package info.gratour.jt808common.codec.encoder.impl
 import info.gratour.jt808common.codec.CodecError
 import info.gratour.jt808common.codec.encoder.{AbstractJT808MsgBodyEncoder, AbstractJT808MsgBodyEncoder2019Support}
 import info.gratour.jt808common.protocol.msg.JT808Msg_8103_SetParam
-import info.gratour.jt808common.protocol.msg.types.termparams.{TP_0064_TimedCaptureCtrlParams, TP_0065_DistancedCaptureCtrlParams, TP_0075_AVParams, TP_0076_AVChannelSettings, TP_0077_SpecialChannelVideoParams, TP_0079_SpecialAlarmVideoParams, TP_007B_VideoAnalysisParams, TP_007C_SleepWakeupSettings, TP_0110_CANIdSettings, TP_F364_DrivingAssistParams, TP_F365_DriverBehaviorMonitorParams, TP_F366_TyrePressureMonitorParams, TP_F367_BlindMonitorParams, TP_F370_IntenseDrivingMonitorParams}
+import info.gratour.jt808common.protocol.msg.types.termparams.{TP_0064_TimedCaptureCtrlParams, TP_0065_DistancedCaptureCtrlParams, TP_0075_AvParams, TP_0076_AvChannelSettings, TP_0077_SpecialChannelVideoParams, TP_0079_SpecialAlarmVideoParams, TP_007B_VideoAnalysisParams, TP_007C_SleepWakeupSettings, TP_0110_CanIdSettings, TP_F364_DrivingAssistParams, TP_F365_DriverBehaviorMonitorParams, TP_F366_TyrePressureMonitorParams, TP_F367_BlindMonitorParams, TP_F370_IntenseDrivingMonitorParams}
 import info.gratour.jtcommon.{ByteBufHelper, JTConsts, JTUtils}
 import io.netty.buffer.ByteBuf
 
@@ -202,7 +202,7 @@ object MBEncoder808_8103_SetParam extends AbstractJT808MsgBodyEncoder2019Support
               out.writeInt(bits)
 
             case x if 0x0110 to 0x01FF contains x =>
-              val p = checkObject[TP_0110_CANIdSettings]
+              val p = checkObject[TP_0110_CanIdSettings]
               var l: Long = p.getSamplingInterval
               l <<= 32
               var i: Int = p.getCanId
@@ -217,7 +217,7 @@ object MBEncoder808_8103_SetParam extends AbstractJT808MsgBodyEncoder2019Support
 
             // 1078
             case 0x0075 =>
-              val p = checkObject[TP_0075_AVParams]
+              val p = checkObject[TP_0075_AvParams]
               out.writeByte(p.getLiveStreamMode)
               out.writeByte(p.getLiveStreamResolution)
               out.writeShort(p.getLiveStreamKFrameInterval)
@@ -234,7 +234,7 @@ object MBEncoder808_8103_SetParam extends AbstractJT808MsgBodyEncoder2019Support
               out.writeByte(if (p.getAudioOutEnabled) 1 else 0)
 
             case 0x0076 =>
-              val p = checkObject[TP_0076_AVChannelSettings]
+              val p = checkObject[TP_0076_AvChannelSettings]
               if (p.getChannelSettings == null)
                 throw new CodecError("channelSettings == null")
 

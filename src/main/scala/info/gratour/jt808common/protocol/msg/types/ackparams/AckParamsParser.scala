@@ -9,7 +9,7 @@ package info.gratour.jt808common.protocol.msg.types.ackparams
 
 import com.google.gson.Gson
 import info.gratour.jt808common.protocol.msg.types.addt.MQEventAddt_0702_DriverIdentity
-import info.gratour.jt808common.protocol.msg.{JT1078Msg_1003_QryAVAttrsAck, JT1078Msg_1205_QryAVResAck, JT1078Msg_9003_QryAVAttrs, JT1078Msg_9205_QryAVRes, JT808Msg_0104_QryParamsAck, JT808Msg_0107_QryAttrsAck, JT808Msg_0201_QryLocationAck, JT808Msg_0302_InquestAnswer, JT808Msg_0500_VehCtrlAck, JT808Msg_0700_VTDRData, JT808Msg_0702_DriverIdentity, JT808Msg_0802_StoredMediaSearchAck, JT808Msg_0805_TakePhotoAck, JT808Msg_8104_QryAllParams, JT808Msg_8106_QrySpecialParams, JT808Msg_8107_QryAttrs, JT808Msg_8201_QryLocation, JT808Msg_8302_Inquest, JT808Msg_8500_VehCtrl, JT808Msg_8700_VTDRDataCollectReq, JT808Msg_8702_DriverIdentityReq, JT808Msg_8801_TakePhoto, JT808Msg_8802_StoredMediaSearch}
+import info.gratour.jt808common.protocol.msg.{JT1078Msg_1003_QryAvAttrsAck, JT1078Msg_1205_QryAvResAck, JT1078Msg_9003_QryAvAttrs, JT1078Msg_9205_QryAvRes, JT808Msg_0104_QryParamsAck, JT808Msg_0107_QryAttrsAck, JT808Msg_0201_QryLocationAck, JT808Msg_0302_InquestAnswer, JT808Msg_0500_VehCtrlAck, JT808Msg_0700_VtdrData, JT808Msg_0702_DriverIdentity, JT808Msg_0802_StoredMediaSearchAck, JT808Msg_0805_TakePhotoAck, JT808Msg_8104_QryAllParams, JT808Msg_8106_QrySpecialParams, JT808Msg_8107_QryAttrs, JT808Msg_8201_QryLocation, JT808Msg_8302_Inquest, JT808Msg_8500_VehCtrl, JT808Msg_8700_VtdrDataCollectReq, JT808Msg_8702_DriverIdentityReq, JT808Msg_8801_TakePhoto, JT808Msg_8802_StoredMediaSearch}
 import info.gratour.jtcommon.{JTConsts, JTUtils}
 
 object AckParamsParser {
@@ -21,11 +21,11 @@ object AckParamsParser {
     classOf[JT808AckParams_0201_QryLocationAck],
     classOf[JT808AckParams_0302_InquestAnswer],
     classOf[JT808AckParams_0500_VehCtrlAck],
-    classOf[JT808AckParams_0700_VTDRData],
+    classOf[JT808AckParams_0700_VtdrData],
     classOf[JT808AckParams_0802_StoredMediaSearchAck],
     classOf[JT808AckParams_0805_TakePhotoAck],
-    classOf[JT1078AckParams_1003_QryAVAttrsAck],
-    classOf[JT1078AckParams_1205_QryAVResAck],
+    classOf[JT1078AckParams_1003_QryAvAttrsAck],
+    classOf[JT1078AckParams_1205_QryAvResAck],
     classOf[MQEventAddt_0702_DriverIdentity]
 
   ).map(c => {
@@ -56,8 +56,8 @@ object AckParamsParser {
         case JT808Msg_8500_VehCtrl.MSG_ID =>
           JT808Msg_0500_VehCtrlAck.MSG_ID
 
-        case JT808Msg_8700_VTDRDataCollectReq.MSG_ID =>
-          JT808Msg_0700_VTDRData.MSG_ID
+        case JT808Msg_8700_VtdrDataCollectReq.MSG_ID =>
+          JT808Msg_0700_VtdrData.MSG_ID
 
         case JT808Msg_8702_DriverIdentityReq.MSG_ID =>
           JT808Msg_0702_DriverIdentity.MSG_ID
@@ -68,11 +68,11 @@ object AckParamsParser {
         case JT808Msg_8801_TakePhoto.MSG_ID =>
           JT808Msg_0805_TakePhotoAck.MSG_ID
 
-        case JT1078Msg_9003_QryAVAttrs.MSG_ID =>
-          JT1078Msg_1003_QryAVAttrsAck.MSG_ID
+        case JT1078Msg_9003_QryAvAttrs.MSG_ID =>
+          JT1078Msg_1003_QryAvAttrsAck.MSG_ID
 
-        case JT1078Msg_9205_QryAVRes.MSG_ID =>
-          JT1078Msg_1205_QryAVResAck.MSG_ID
+        case JT1078Msg_9205_QryAvRes.MSG_ID =>
+          JT1078Msg_1205_QryAvResAck.MSG_ID
 
         case _ =>
           0
@@ -88,9 +88,14 @@ object AckParamsParser {
     gson.fromJson(json, clzz)
   }
 
+  def fromJsonBySrcMsgId(srcMsgIdHex: String, json: String, gson: Gson): JT808AckParams =
+    fromJsonBySrcMsgId(JTUtils.hexToMsgId(srcMsgIdHex), json, gson)
+
   def fromJsonBySrcMsgId(srcMsgId: Int, json: String): JT808AckParams =
     fromJsonBySrcMsgId(srcMsgId, json, JTConsts.GSON)
 
+  def fromJsonBySrcMsgId(srcMsgIdHex: String, json: String): JT808AckParams =
+    fromJsonBySrcMsgId(JTUtils.hexToMsgId(srcMsgIdHex), json)
 
   def fromJson(ackMsgId: Int, json: String, gson: Gson): JT808AckParams = {
     if (json == null)
@@ -103,8 +108,14 @@ object AckParamsParser {
     gson.fromJson(json, clzz)
   }
 
+  def fromJson(ackMsgIdHex: String, json: String, gson: Gson): JT808AckParams =
+    fromJson(JTUtils.hexToMsgId(ackMsgIdHex), json, gson)
+
   def fromJson(ackMsgId: Int, json: String): JT808AckParams =
     fromJson(ackMsgId, json, JTConsts.GSON)
+
+  def fromJson(ackMsgIdHex: String, json: String): JT808AckParams =
+    fromJson(JTUtils.hexToMsgId(ackMsgIdHex), json)
 
 
 }

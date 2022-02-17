@@ -21,10 +21,10 @@ object MQEventAddtParser {
     JT808MsgConsts.INFO_DEMAND_0303 -> classOf[MQEventAddt_0303_InfoDemand],
     JT808MsgConsts.WAYBILL_0701 -> classOf[MQEventAddt_0701_WayBill],
     JT808MsgConsts.DRIVER_IDENTITY_0702 -> classOf[MQEventAddt_0702_DriverIdentity],
-    JT808MsgConsts.CAN_DATA_0705 -> classOf[MQEventAddt_0705_CANData],
+    JT808MsgConsts.CAN_DATA_0705 -> classOf[MQEventAddt_0705_CanData],
     JT808MsgConsts.MULTI_MEDIA_EVENT_0800 -> classOf[MQEventAddt_0800_MultiMediaEvent],
     JT808MsgConsts.MULTI_MEDIA_DATA_0801 -> classOf[MQEventAddt_0801_MultiMediaData],
-    JT808MsgConsts.PASS_THROUGH_DATA_UL_0900 -> classOf[MQEventAddt_0900_PassThroughUL],
+    JT808MsgConsts.PASS_THROUGH_DATA_UL_0900 -> classOf[MQEventAddt_0900_PassThroughUl],
     JT1078MsgConsts.PASSENGER_TRAFFIC_1005 -> classOf[MQEventAddt_1005_PassengerTraffic]
   ).map((t) => {
     JTUtils.msgIdToHex(t._1) -> t._2

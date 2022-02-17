@@ -12,26 +12,29 @@ import info.gratour.jt808common.protocol.msg.types.cmdparams.JT808CmdParams;
 import info.gratour.jtcommon.JTConsts;
 import info.gratour.jtcommon.JTUtils;
 
+import java.time.Instant;
+import java.time.OffsetDateTime;
+
 public class TermCmd implements Cloneable {
 
     public static final int CMD_STATUS__INIT = 0;
     public static final int CMD_STATUS__SENT = 1;
-    public static final int CMD_STATUS__SUCCESS = 2;
-    public static final int CMD_STATUS__UPLOADED = 3;
-    public static final int CMD_STATUS__FAILED = -1;
+    public static final int CMD_STATUS__ACK = 2;
+    public static final int CMD_STATUS__EXCEPTION = -1;
     public static final int CMD_STATUS__BAD_CMD = -2;
     public static final int CMD_STATUS__NOT_SUPPORTED = -3;
     public static final int CMD_STATUS__CANCELED = -4;
     public static final int CMD_STATUS__NO_CONNECTION = -5;
+    public static final int CMD_STATUS__TIMEOUT = -6;
 
-    public static boolean isCompletedStatus(int status) {
+    public static boolean isAckOrCompletedStatus(int status) {
         switch (status) {
-            case CMD_STATUS__SUCCESS:
-            case CMD_STATUS__FAILED:
+            case CMD_STATUS__ACK:
             case CMD_STATUS__BAD_CMD:
             case CMD_STATUS__NOT_SUPPORTED:
             case CMD_STATUS__CANCELED:
             case CMD_STATUS__NO_CONNECTION:
+            case CMD_STATUS__TIMEOUT:
                 return true;
 
             default:
@@ -74,33 +77,83 @@ public class TermCmd implements Cloneable {
         return reqTm;
     }
 
+    private static OffsetDateTime toOffsetDateTime(Long tm) {
+        if (tm != null)
+            return OffsetDateTime.ofInstant(Instant.ofEpochMilli(tm), JTConsts.ZONE_OFFSET_BEIJING());
+        else
+            return null;
+    }
+
+    private static Long toEpochMilli(OffsetDateTime odt) {
+        if (odt != null)
+            return odt.toInstant().toEpochMilli();
+        else
+            return null;
+    }
+
+    public OffsetDateTime getReqTmOdt() {
+        return toOffsetDateTime(reqTm);
+    }
+
     public void setReqTm(long reqTm) {
         this.reqTm = reqTm;
+    }
+
+    public void setReqTm(OffsetDateTime odt) {
+        if (odt == null)
+            throw new NullPointerException();
+
+        this.reqTm = toEpochMilli(odt);
     }
 
     public Long getSentTm() {
         return sentTm;
     }
 
+    public OffsetDateTime getSentTmOdt() {
+        return toOffsetDateTime(sentTm);
+    }
+
     public void setSentTm(Long sentTm) {
         this.sentTm = sentTm;
+    }
+
+    public void setSentTm(OffsetDateTime odt) {
+        this.sentTm = toEpochMilli(odt);
     }
 
     public Long getAckTm() {
         return ackTm;
     }
 
+    public OffsetDateTime getAckTmOdt() {
+        return toOffsetDateTime(ackTm);
+    }
+
+    public void setAckTm(Long ackTm) {
+        this.ackTm = ackTm;
+    }
+
+    public void setAckTm(OffsetDateTime odt) {
+        this.ackTm = toEpochMilli(odt);
+    }
+
     public Long getEndTm() {
         return endTm;
+    }
+
+    public OffsetDateTime getEndTmOdt() {
+        return toOffsetDateTime(endTm);
     }
 
     public void setEndTm(Long endTm) {
         this.endTm = endTm;
     }
 
-    public void setAckTm(Long ackTm) {
-        this.ackTm = ackTm;
+    public void setEndTm(OffsetDateTime odt) {
+        this.endTm = toEpochMilli(odt);
     }
+
 
     public String getSimNo() {
         return simNo;
@@ -197,6 +250,14 @@ public class TermCmd implements Cloneable {
         this.status = status;
     }
 
+    public boolean acknowledged() {
+        return status == TermCmd.CMD_STATUS__ACK;
+    }
+
+    public boolean completed() {
+        return TermCmd.isAckOrCompletedStatus(status);
+    }
+
     public Integer getAckCode() {
         return ackCode;
     }
@@ -247,6 +308,8 @@ public class TermCmd implements Cloneable {
         this.ackParams = source.ackParams != null ? source.ackParams.clone() : null;
         this.timeout = source.timeout;
     }
+
+
 
     @Override
     public TermCmd clone() {

@@ -3,10 +3,9 @@ package info.gratour.jtcommon
 import java.nio.charset.Charset
 import java.time.format.DateTimeFormatter
 import java.time.{ZoneId, ZoneOffset}
-
 import com.google.gson.{Gson, GsonBuilder}
-import info.gratour.jt808common.mat.TermCmdMaterializer
-import info.gratour.jt808common.spi.model.TermCmd
+import info.gratour.jt808common.mat.{TermCmdMaterializer, TermCmdStateChangedMaterializer}
+import info.gratour.jt808common.spi.model.{TermCmd, TermCmdStateChanged}
 //import info.gratour.adaptor.mq.dto.gateway.{GatewayReq, GatewayResp}
 //import info.gratour.adaptor.mq.dto.{CmdAck, Event, RtRgnChange}
 //import info.gratour.adaptor.mq.materializer.{CPTerminalCtrlMaterializer, CmdAckMaterializer, EventMaterializer, GatewayReqMaterializer, GatewayRespMaterializer, GovIssueAckMaterializer, GovIssueMaterializer, GovSubmitMaterializer, RtRgnChangeMaterializer, TermCmdMaterializer, WrappedAlmRptCloseSerializer, WrappedAlmRptCreateSerializer}
@@ -45,6 +44,7 @@ object JTConsts {
   def GSON_BUILDER: GsonBuilder = new GsonBuilder()
 //    .registerTypeAdapter(classOf[EpochMillis], new EpochMillisMaterializer)
     .registerTypeAdapter(classOf[TermCmd], new TermCmdMaterializer)
+    .registerTypeAdapter(classOf[TermCmdStateChanged], new TermCmdStateChangedMaterializer)
 //    .registerTypeAdapter(classOf[CP_8105_TerminalCtrl], new CPTerminalCtrlMaterializer)
 //    .registerTypeAdapter(classOf[CmdAck], new CmdAckMaterializer)
 //    .registerTypeAdapter(classOf[Event], new EventMaterializer)

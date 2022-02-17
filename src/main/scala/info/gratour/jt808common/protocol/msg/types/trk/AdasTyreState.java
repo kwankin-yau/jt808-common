@@ -8,6 +8,7 @@
 package info.gratour.jt808common.protocol.msg.types.trk;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 public class AdasTyreState implements Cloneable {
 
@@ -24,7 +25,7 @@ public class AdasTyreState implements Cloneable {
     private long tm;
     private short vehSt;
     private String almNo;
-    private List<PressureAlarmInfo> pressureAlarmInfoList;
+    private List<PressureAlarmInfo> alms;
 
     public int getAlmId() {
         return almId;
@@ -103,12 +104,12 @@ public class AdasTyreState implements Cloneable {
         this.almNo = almNo;
     }
 
-    public List<PressureAlarmInfo> getPressureAlarmInfoList() {
-        return pressureAlarmInfoList;
+    public List<PressureAlarmInfo> getAlms() {
+        return alms;
     }
 
-    public void setPressureAlarmInfoList(List<PressureAlarmInfo> pressureAlarmInfoList) {
-        this.pressureAlarmInfoList = pressureAlarmInfoList;
+    public void setAlms(List<PressureAlarmInfo> alms) {
+        this.alms = alms;
     }
 
     @Override
@@ -122,17 +123,17 @@ public class AdasTyreState implements Cloneable {
 
     @Override
     public String toString() {
-        return "AdasTyreState{" +
-                "almId=" + almId +
-                ", flag=" + flag +
-                ", spd=" + spd +
-                ", alt=" + alt +
-                ", lat=" + lat +
-                ", lng=" + lng +
-                ", tm=" + tm +
-                ", vehSt=" + vehSt +
-                ", almNo=" + almNo +
-                ", pressureAlarmInfoList=" + pressureAlarmInfoList +
-                '}';
+        return new StringJoiner(", ", AdasTyreState.class.getSimpleName() + "[", "]")
+                .add("almId=" + almId)
+                .add("flag=" + flag)
+                .add("spd=" + spd)
+                .add("alt=" + alt)
+                .add("lat=" + lat)
+                .add("lng=" + lng)
+                .add("tm=" + tm)
+                .add("vehSt=" + vehSt)
+                .add("almNo='" + almNo + "'")
+                .add("alms=" + alms)
+                .toString();
     }
 }

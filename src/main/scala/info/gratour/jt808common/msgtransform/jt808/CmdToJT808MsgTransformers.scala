@@ -319,16 +319,16 @@ object CTMT_8607_DelRoute extends CmdToJT808MsgTransformers[JT808Msg_8607_DelRou
   }
 }
 
-object CTMT_8700_VTDRDataCollectReq extends CmdToJT808MsgTransformers[JT808Msg_8700_VTDRDataCollectReq] {
-  override protected def setParams(m: JT808Msg_8700_VTDRDataCollectReq, cmd: TermCmd): Unit = {
-    val cp = cmd.getParams.asInstanceOf[CP_8700_VTDRDataCollectReq]
+object CTMT_8700_VTDRDataCollectReq extends CmdToJT808MsgTransformers[JT808Msg_8700_VtdrDataCollectReq] {
+  override protected def setParams(m: JT808Msg_8700_VtdrDataCollectReq, cmd: TermCmd): Unit = {
+    val cp = cmd.getParams.asInstanceOf[CP_8700_VtdrDataCollectReq]
     m.setParams(cp)
   }
 }
 
-object CTMT_8701_VTDRSetParams extends CmdToJT808MsgTransformers[JT808Msg_8701_VTDRSetParams] {
-  override protected def setParams(m: JT808Msg_8701_VTDRSetParams, cmd: TermCmd): Unit = {
-    val cp = cmd.getParams.asInstanceOf[CP_8701_VTDRSetParams]
+object CTMT_8701_VTDRSetParams extends CmdToJT808MsgTransformers[JT808Msg_8701_VtdrSetParams] {
+  override protected def setParams(m: JT808Msg_8701_VtdrSetParams, cmd: TermCmd): Unit = {
+    val cp = cmd.getParams.asInstanceOf[CP_8701_VtdrSetParams]
     m.setParams(cp)
   }
 }
@@ -375,106 +375,106 @@ object CTMT_8805_SingleStoredMediaReq extends CmdToJT808MsgTransformers[JT808Msg
 }
 
 
-object CTMT_9003_QryAVAttrs extends CmdToJT808MsgTransformers[JT1078Msg_9003_QryAVAttrs] {
-  override protected def setParams(m: JT1078Msg_9003_QryAVAttrs, cmd: TermCmd): Unit = {
+object CTMT_9003_QryAVAttrs extends CmdToJT808MsgTransformers[JT1078Msg_9003_QryAvAttrs] {
+  override protected def setParams(m: JT1078Msg_9003_QryAvAttrs, cmd: TermCmd): Unit = {
     // nop
   }
 }
 
-object CTMT_9101_LiveAVReq extends CmdToJT808MsgTransformers[JT1078Msg_9101_LiveAVReq] {
-  override protected def setParams(m: JT1078Msg_9101_LiveAVReq, cmd: TermCmd): Unit = {
-    val cp = cmd.getParams.asInstanceOf[CP_9101_LiveAVReq]
+object CTMT_9101_LiveAVReq extends CmdToJT808MsgTransformers[JT1078Msg_9101_LiveAvReq] {
+  override protected def setParams(m: JT1078Msg_9101_LiveAvReq, cmd: TermCmd): Unit = {
+    val cp = cmd.getParams.asInstanceOf[CP_9101_LiveAvReq]
     m.setParams(cp)
   }
 }
 
-object CTMT_9102_LiveAVCtrl extends CmdToJT808MsgTransformers[JT1078Msg_9102_LiveAVCtrl] {
-  override protected def setParams(m: JT1078Msg_9102_LiveAVCtrl, cmd: TermCmd): Unit = {
-    val cp = cmd.getParams.asInstanceOf[CP_9102_LiveAVCtrl]
+object CTMT_9102_LiveAVCtrl extends CmdToJT808MsgTransformers[JT1078Msg_9102_LiveAvCtrl] {
+  override protected def setParams(m: JT1078Msg_9102_LiveAvCtrl, cmd: TermCmd): Unit = {
+    val cp = cmd.getParams.asInstanceOf[CP_9102_LiveAvCtrl]
     m.setParams(cp)
   }
 }
 
-object CTMT_9105_LiveAVStatus extends CmdToJT808MsgTransformers[JT1078Msg_9105_LiveAVStatus] {
-  override protected def setParams(m: JT1078Msg_9105_LiveAVStatus, cmd: TermCmd): Unit = {
-    val cp = cmd.getParams.asInstanceOf[CP_9105_LiveAVStatus]
+object CTMT_9105_LiveAVStatus extends CmdToJT808MsgTransformers[JT1078Msg_9105_LiveAvStatus] {
+  override protected def setParams(m: JT1078Msg_9105_LiveAvStatus, cmd: TermCmd): Unit = {
+    val cp = cmd.getParams.asInstanceOf[CP_9105_LiveAvStatus]
     m.setParams(cp)
   }
 }
 
-object CTMT_9205_QryAVRes extends CmdToJT808MsgTransformers[JT1078Msg_9205_QryAVRes] {
-  override protected def setParams(m: JT1078Msg_9205_QryAVRes, cmd: TermCmd): Unit = {
-    val cp = cmd.getParams.asInstanceOf[CP_9205_QryAVRes]
+object CTMT_9205_QryAVRes extends CmdToJT808MsgTransformers[JT1078Msg_9205_QryAvRes] {
+  override protected def setParams(m: JT1078Msg_9205_QryAvRes, cmd: TermCmd): Unit = {
+    val cp = cmd.getParams.asInstanceOf[CP_9205_QryAvRes]
     m.setParams(cp)
   }
 }
 
-object CTMT_9201_ReplayAV extends CmdToJT808MsgTransformers[JT1078Msg_9201_ReplayAVReq] {
-  override protected def setParams(m: JT1078Msg_9201_ReplayAVReq, cmd: TermCmd): Unit = {
-    val cp = cmd.getParams.asInstanceOf[CP_9201_ReplayAVReq]
+object CTMT_9201_ReplayAV extends CmdToJT808MsgTransformers[JT1078Msg_9201_ReplayAvReq] {
+  override protected def setParams(m: JT1078Msg_9201_ReplayAvReq, cmd: TermCmd): Unit = {
+    val cp = cmd.getParams.asInstanceOf[CP_9201_ReplayAvReq]
     m.setParams(cp)
   }
 }
 
-object CTMT_9202_ReplayAVCtrl extends CmdToJT808MsgTransformers[JT1078Msg_9202_ReplayAVCtrl] {
-  override protected def setParams(m: JT1078Msg_9202_ReplayAVCtrl, cmd: TermCmd): Unit = {
-    val cp = cmd.getParams.asInstanceOf[CP_9202_ReplayAVCtrl]
+object CTMT_9202_ReplayAVCtrl extends CmdToJT808MsgTransformers[JT1078Msg_9202_ReplayAvCtrl] {
+  override protected def setParams(m: JT1078Msg_9202_ReplayAvCtrl, cmd: TermCmd): Unit = {
+    val cp = cmd.getParams.asInstanceOf[CP_9202_ReplayAvCtrl]
     m.setParams(cp)
   }
 }
 
-object CTMT_9206_AVUploadReq extends CmdToJT808MsgTransformers[JT1078Msg_9206_AVUploadReq] {
-  override protected def setParams(m: JT1078Msg_9206_AVUploadReq, cmd: TermCmd): Unit = {
-    val cp = cmd.getParams.asInstanceOf[CP_9206_AVUploadReq]
+object CTMT_9206_AVUploadReq extends CmdToJT808MsgTransformers[JT1078Msg_9206_AvUploadReq] {
+  override protected def setParams(m: JT1078Msg_9206_AvUploadReq, cmd: TermCmd): Unit = {
+    val cp = cmd.getParams.asInstanceOf[CP_9206_AvUploadReq]
     m.setParams(cp)
   }
 }
 
-object CTMT_9207_AVUploadCtrl extends CmdToJT808MsgTransformers[JT1078Msg_9207_AVUploadCtrl] {
-  override protected def setParams(m: JT1078Msg_9207_AVUploadCtrl, cmd: TermCmd): Unit = {
-    val cp = cmd.getParams.asInstanceOf[CP_9207_AVUploadCtrl]
+object CTMT_9207_AVUploadCtrl extends CmdToJT808MsgTransformers[JT1078Msg_9207_AvUploadCtrl] {
+  override protected def setParams(m: JT1078Msg_9207_AvUploadCtrl, cmd: TermCmd): Unit = {
+    val cp = cmd.getParams.asInstanceOf[CP_9207_AvUploadCtrl]
     m.setParams(cp)
   }
 }
 
-object CTMT_9301_PTZTurn extends CmdToJT808MsgTransformers[JT1078Msg_9301_PTZTurn] {
-  override protected def setParams(m: JT1078Msg_9301_PTZTurn, cmd: TermCmd): Unit = {
-    val cp = cmd.getParams.asInstanceOf[CP_9301_PTZTurn]
+object CTMT_9301_PTZTurn extends CmdToJT808MsgTransformers[JT1078Msg_9301_PtzTurn] {
+  override protected def setParams(m: JT1078Msg_9301_PtzTurn, cmd: TermCmd): Unit = {
+    val cp = cmd.getParams.asInstanceOf[CP_9301_PtzTurn]
     m.setParams(cp)
   }
 }
 
-object CTMT_9302_PTZFocusing extends CmdToJT808MsgTransformers[JT1078Msg_9302_PTZFocusing] {
-  override protected def setParams(m: JT1078Msg_9302_PTZFocusing, cmd: TermCmd): Unit = {
-    val cp = cmd.getParams.asInstanceOf[CP_9302_PTZFocusing]
+object CTMT_9302_PTZFocusing extends CmdToJT808MsgTransformers[JT1078Msg_9302_PtzFocusing] {
+  override protected def setParams(m: JT1078Msg_9302_PtzFocusing, cmd: TermCmd): Unit = {
+    val cp = cmd.getParams.asInstanceOf[CP_9302_PtzFocusing]
     m.setParams(cp)
   }
 }
 
-object CTMT_9303_PTZIrisCtrl extends CmdToJT808MsgTransformers[JT1078Msg_9303_PTZIrisCtrl] {
-  override protected def setParams(m: JT1078Msg_9303_PTZIrisCtrl, cmd: TermCmd): Unit = {
-    val cp = cmd.getParams.asInstanceOf[CP_9303_PTZIrisCtrl]
+object CTMT_9303_PTZIrisCtrl extends CmdToJT808MsgTransformers[JT1078Msg_9303_PtzIrisCtrl] {
+  override protected def setParams(m: JT1078Msg_9303_PtzIrisCtrl, cmd: TermCmd): Unit = {
+    val cp = cmd.getParams.asInstanceOf[CP_9303_PtzIrisCtrl]
     m.setParams(cp)
   }
 }
 
-object CTMT_9304_PTZWiperCtrl extends CmdToJT808MsgTransformers[JT1078Msg_9304_PTZWiperCtrl] {
-  override protected def setParams(m: JT1078Msg_9304_PTZWiperCtrl, cmd: TermCmd): Unit = {
-    val cp = cmd.getParams.asInstanceOf[CP_9304_PTZWiperCtrl]
+object CTMT_9304_PTZWiperCtrl extends CmdToJT808MsgTransformers[JT1078Msg_9304_PtzWiperCtrl] {
+  override protected def setParams(m: JT1078Msg_9304_PtzWiperCtrl, cmd: TermCmd): Unit = {
+    val cp = cmd.getParams.asInstanceOf[CP_9304_PtzWiperCtrl]
     m.setParams(cp)
   }
 }
 
-object CTMT_9305_PTZFillLightCtrl extends CmdToJT808MsgTransformers[JT1078Msg_9305_PTZFillLightCtrl] {
-  override protected def setParams(m: JT1078Msg_9305_PTZFillLightCtrl, cmd: TermCmd): Unit = {
-    val cp = cmd.getParams.asInstanceOf[CP_9305_PTZFillLightCtrl]
+object CTMT_9305_PTZFillLightCtrl extends CmdToJT808MsgTransformers[JT1078Msg_9305_PtzFillLightCtrl] {
+  override protected def setParams(m: JT1078Msg_9305_PtzFillLightCtrl, cmd: TermCmd): Unit = {
+    val cp = cmd.getParams.asInstanceOf[CP_9305_PtzFillLightCtrl]
     m.setParams(cp)
   }
 }
 
-object CTMT_9306_PTZZoomCtrl extends CmdToJT808MsgTransformers[JT1078Msg_9306_PTZZoomCtrl] {
-  override protected def setParams(m: JT1078Msg_9306_PTZZoomCtrl, cmd: TermCmd): Unit = {
-    val cp = cmd.getParams.asInstanceOf[CP_9306_PTZZoomCtrl]
+object CTMT_9306_PTZZoomCtrl extends CmdToJT808MsgTransformers[JT1078Msg_9306_PtzZoomCtrl] {
+  override protected def setParams(m: JT1078Msg_9306_PtzZoomCtrl, cmd: TermCmd): Unit = {
+    val cp = cmd.getParams.asInstanceOf[CP_9306_PtzZoomCtrl]
     m.setParams(cp)
   }
 }

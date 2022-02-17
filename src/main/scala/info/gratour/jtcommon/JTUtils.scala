@@ -325,6 +325,7 @@ object JTUtils {
   def doubleAxisToInt(axis: Double): Int = (axis * 1000000).toInt
 
   def msgIdToHex(msgId: Int): String = intToHex(msgId, 4, prepend0x = false)
+  def hexToMsgId(hex: String): Int = Integer.parseInt(hex, 16)
 
   def bitTest(value: Int, bitIndex: Int): Boolean = (value & (1 << bitIndex)) != 0
 
@@ -337,7 +338,7 @@ object JTUtils {
       return false
 
     val l = simNo.length
-    if (l < 11 || l > 12)
+    if (l < 1 || l > 20)
       return false
 
     (0 until l).foreach(i => {

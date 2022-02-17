@@ -11,11 +11,19 @@ public class JT808Msg_8001_PlatformGeneralAck extends JT808Msg {
 
     public static final int MSG_ID = JT808MsgConsts.SERVER_GENERIC_ACK_8001;
 
-    public static final int RESULT_SUCCESS = 0;
-    public static final int RESULT_FAILED = 1;
-    public static final int RESULT_INVALID_MESSAGE = 2;
-    public static final int RESULT_NOT_SUPPORT = 3;
-    public static final int RESULT_ALARM_CONFIRM = 4;
+    public static final int RESULT__SUCCESS = 0;
+    public static final int RESULT__FAILED = 1;
+    public static final int RESULT__INVALID_MESSAGE = 2;
+    public static final int RESULT__NOT_SUPPORT = 3;
+    public static final int RESULT__ALARM_CONFIRM = 4;
+
+    public static byte resultCodeOf(boolean success) {
+        if (success)
+            return RESULT__SUCCESS;
+        else
+            return RESULT__FAILED;
+    }
+
 
     public JT808Msg_8001_PlatformGeneralAck() {
         setMsgId(MSG_ID);

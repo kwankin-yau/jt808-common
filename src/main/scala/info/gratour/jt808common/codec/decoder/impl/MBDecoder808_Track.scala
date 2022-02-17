@@ -40,7 +40,7 @@ object MBDecoder808_Track extends JTCodecHelper {
     //    t.setMsgSeqNo(m.getSeqNo)
     t.setRecvTm(recvTime)
     if (retransmit)
-      t.setRetrans(true)
+      t.setReTrans(true)
 
     t.setAlm(buf.readInt())
     t.setSt(buf.readInt())
@@ -233,7 +233,7 @@ object MBDecoder808_Track extends JTCodecHelper {
             alarm.setVehSt(buf.readShort())
             alarm.setAlmNo(readAdasAlarmIdentity(protoVer, buf, tempBuf))
             val list = new util.ArrayList[PressureAlarmInfo]()
-            alarm.setPressureAlarmInfoList(list)
+            alarm.setAlms(list)
             val cnt = buf.readUnsignedByte()
             for (_ <- 1 to cnt) {
               val info = new PressureAlarmInfo
@@ -245,7 +245,7 @@ object MBDecoder808_Track extends JTCodecHelper {
 
               list.add(info)
             }
-            alarm.setPressureAlarmInfoList(list)
+            alarm.setAlms(list)
 
             alarm
           }

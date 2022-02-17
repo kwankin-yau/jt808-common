@@ -16,6 +16,13 @@ public class JT808Msg_0001_TerminalGeneralAck extends JT808Msg {
     public static final byte RESULT__BAD_FORMAT = 2;
     public static final byte RESULT__NOT_SUPPORTED = 3;
 
+    public static byte resultCodeOf(boolean success) {
+        if (success)
+            return RESULT__SUCCESS;
+        else
+            return RESULT__FAILED;
+    }
+
     public JT808Msg_0001_TerminalGeneralAck() {
         setMsgId(MSG_ID);
     }
@@ -55,6 +62,7 @@ public class JT808Msg_0001_TerminalGeneralAck extends JT808Msg {
     public void setResult(byte result) {
         this.result = result;
     }
+
 
     @Override
     public String toString() {

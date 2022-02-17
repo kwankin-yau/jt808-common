@@ -1,9 +1,18 @@
 # 1.0.3 - [2022-01-22]
 ## Improvement
 - `CmdAck` add `reqTm` property
-- Introduce `TermCmdCompleted` message
+- Introduce `TermCmdStateChanged` message and `TermCmdStateChangeMaterializer`
+- Added `TermCmd.CMD_STATUS__TIMEOUT`, `TermCmd.CMD_STATUS__FAILED` rename to `TermCmd.CMD_STATUS__EXCEPTION`
+- Added `JTUtils.hexToMsgId`
+- Added `CmdAsyncCompletedMsg.ackSeqNo`
+
+## Fixed
+- `NullPointerException` threw when encode 9205_QryAvRes which `startTm` is null or `endTm` is null
+- `JTUtils.isValidSimNo` does not compatible with 2019 revision of `JT/T 808` protocol
 
 ## Changed
+- Shorten property names of CP_XXX serial class
+- `TermAsyncCompletedMsg` rename to `CmdAsyncCompletedMsg`
 - Bump `netty-all` from `4.1.65` to `4.1.72`
 - Bump `commons-codec` from `1.13` to `1.15`
 - Bump `commons-lang3` from `3.8.1` to `3.11`

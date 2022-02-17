@@ -39,8 +39,8 @@ object CmdParamsParser {
     classOf[CP_8606_SetRoute],
     classOf[CP_8607_DelRoute],
 
-    classOf[CP_8700_VTDRDataCollectReq],
-    classOf[CP_8701_VTDRSetParams],
+    classOf[CP_8700_VtdrDataCollectReq],
+    classOf[CP_8701_VtdrSetParams],
 
     classOf[CP_8801_TakePhoto],
     classOf[CP_8802_StoredMediaSearch],
@@ -48,24 +48,24 @@ object CmdParamsParser {
     classOf[CP_8804_AudioRecordCtrl],
     classOf[CP_8805_SingleStoredMediaReq],
 
-    classOf[CP_9101_LiveAVReq],
-    classOf[CP_9102_LiveAVCtrl],
-    classOf[CP_9105_LiveAVStatus],
+    classOf[CP_9101_LiveAvReq],
+    classOf[CP_9102_LiveAvCtrl],
+    classOf[CP_9105_LiveAvStatus],
 
-    classOf[CP_9201_ReplayAVReq],
-    classOf[CP_9202_ReplayAVCtrl],
-    classOf[CP_9205_QryAVRes],
-    classOf[CP_9206_AVUploadReq],
-    classOf[CP_9207_AVUploadCtrl],
-    classOf[CP_9208_AlmAddtUploadReq], // si-chuan
-    classOf[CP_9212_AlmAttFileItemCompleted], //si-chuan
+    classOf[CP_9201_ReplayAvReq],
+    classOf[CP_9202_ReplayAvCtrl],
+    classOf[CP_9205_QryAvRes],
+    classOf[CP_9206_AvUploadReq],
+    classOf[CP_9207_AvUploadCtrl],
+    classOf[CP_9208_AlmAddtUploadReq], // ADAS
+    classOf[CP_9212_AlmAttFileItemCompleted], // ADAS
 
-    classOf[CP_9301_PTZTurn],
-    classOf[CP_9302_PTZFocusing],
-    classOf[CP_9303_PTZIrisCtrl],
-    classOf[CP_9304_PTZWiperCtrl],
-    classOf[CP_9305_PTZFillLightCtrl],
-    classOf[CP_9306_PTZZoomCtrl],
+    classOf[CP_9301_PtzTurn],
+    classOf[CP_9302_PtzFocusing],
+    classOf[CP_9303_PtzIrisCtrl],
+    classOf[CP_9304_PtzWiperCtrl],
+    classOf[CP_9305_PtzFillLightCtrl],
+    classOf[CP_9306_PtzZoomCtrl],
   ).map(clzz => {
     JTUtils.jtMsgIdOf(clzz) -> clzz
   }).toMap
@@ -84,6 +84,12 @@ object CmdParamsParser {
     gson.fromJson(json, clazz)
   }
 
+  def fromJson(msgIdHex: String, json: String, gson: Gson): JT808CmdParams =
+    fromJson(JTUtils.hexToMsgId(msgIdHex), json, gson)
+
   def fromJson(msgId: Int, json: String): JT808CmdParams =
     fromJson(msgId, json, JTConsts.GSON)
+
+  def fromJson(msgIdHex: String, json: String): JT808CmdParams =
+    fromJson(JTUtils.hexToMsgId(msgIdHex), json)
 }

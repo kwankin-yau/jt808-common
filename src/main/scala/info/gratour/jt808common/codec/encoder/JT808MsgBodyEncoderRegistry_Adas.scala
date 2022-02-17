@@ -1,6 +1,6 @@
 package info.gratour.jt808common.codec.encoder
 
-import info.gratour.jt808common.codec.encoder.impl.{MBEncoderAdas_1210_FileList, MBEncoderAdas_1211_FileItem, MBEncoderAdas_1212_FileItemCompleted, MBEncoderAdas_9208_AlarmAttUploadReq, MBEncoderAdas_9212_AlarmAttFileItemCompleted}
+import info.gratour.jt808common.codec.encoder.impl.{MBEncoderAdas_1210_FileList, MBEncoderAdas_1211_FileItem, MBEncoderAdas_1212_FileItemCompleted, MBEncoderAdas_9208_AlmAttUploadReq, MBEncoderAdas_9212_AlmAttFileItemCompleted}
 
 object JT808MsgBodyEncoderRegistry_Adas extends JT808MsgBodyEncoderRegistry {
 
@@ -12,8 +12,8 @@ object JT808MsgBodyEncoderRegistry_Adas extends JT808MsgBodyEncoderRegistry {
       MBEncoderAdas_1212_FileItemCompleted,
 
       // Adas - platform
-      MBEncoderAdas_9208_AlarmAttUploadReq,
-      MBEncoderAdas_9212_AlarmAttFileItemCompleted
+      MBEncoderAdas_9208_AlmAttUploadReq,
+      MBEncoderAdas_9212_AlmAttFileItemCompleted
     )
   )
 

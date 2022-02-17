@@ -149,7 +149,7 @@ object MBDecoder808_0104_QryParamsAck extends JT808MsgBodyDecoder[JT808Msg_0104_
         case x if (0x0110 to 0x01FF) contains x =>
           val l = body.readLong()
           val bit0_28Mask = 0x1FFFFFFF
-          val settings = new TP_0110_CANIdSettings
+          val settings = new TP_0110_CanIdSettings
           settings.setCanId((l & bit0_28Mask).toInt)
           settings.setCalculated(JTUtils.test(l, 29))
           settings.setExtFrame(JTUtils.test(l, 30))
@@ -160,7 +160,7 @@ object MBDecoder808_0104_QryParamsAck extends JT808MsgBodyDecoder[JT808Msg_0104_
 
         // 1078
         case 0x0075 =>
-          val params = new TP_0075_AVParams
+          val params = new TP_0075_AvParams
           params.setLiveStreamMode(body.readByte())
           params.setLiveStreamResolution(body.readByte())
           params.setLiveStreamKFrameInterval(body.readUnsignedShort())
@@ -179,15 +179,15 @@ object MBDecoder808_0104_QryParamsAck extends JT808MsgBodyDecoder[JT808Msg_0104_
           map.put(idHex, params)
 
         case 0x0076 =>
-          val settings = new TP_0076_AVChannelSettings
+          val settings = new TP_0076_AvChannelSettings
           settings.setAvChannelCnt(body.readByte())
           settings.setAudioChannelCnt(body.readByte())
           settings.setVideoChannelCnt(body.readByte())
 
           val count = settings.getAvChannelCnt + settings.getAudioChannelCnt + settings.getVideoChannelCnt
-          val settingArr = new Array[TP_0076_AVChannelSettings.ChannelSetting](count)
+          val settingArr = new Array[TP_0076_AvChannelSettings.ChannelSetting](count)
           for (i <- 0 until count) {
-            val setting = new TP_0076_AVChannelSettings.ChannelSetting
+            val setting = new TP_0076_AvChannelSettings.ChannelSetting
             setting.setPhyChannelId(body.readByte())
             setting.setLogChannelId(body.readByte())
             setting.setTyp(body.readByte())

@@ -10,7 +10,6 @@ import info.gratour.jtcommon.JTUtils;
 
 import java.lang.reflect.Type;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 
 public class Trk implements MQEventAddt, Cloneable {
 
@@ -36,7 +35,7 @@ public class Trk implements MQEventAddt, Cloneable {
     private long recvTm;
     private long gpsTm;
 
-    private Boolean retrans;
+    private Boolean reTrans;
 
     private int alm;
     private int st;
@@ -78,14 +77,6 @@ public class Trk implements MQEventAddt, Cloneable {
         this.simNo = simNo;
     }
 
-//    public String getVehId() {
-//        return vehId;
-//    }
-
-//    public void setVehId(String vehId) {
-//        this.vehId = vehId;
-//    }
-
     public String getPlateNo() {
         return plateNo;
     }
@@ -118,16 +109,16 @@ public class Trk implements MQEventAddt, Cloneable {
         this.gpsTm = gpsTm;
     }
 
-    public boolean isRetrans() {
-        return retrans != null ? retrans : false;
+    public boolean isReTrans() {
+        return reTrans != null ? reTrans : false;
     }
 
-    public Boolean getRetrans() {
-        return retrans;
+    public Boolean getReTrans() {
+        return reTrans;
     }
 
-    public void setRetrans(Boolean retrans) {
-        this.retrans = retrans;
+    public void setReTrans(Boolean reTrans) {
+        this.reTrans = reTrans;
     }
 
     public int getAlm() {
@@ -431,7 +422,7 @@ public class Trk implements MQEventAddt, Cloneable {
         this.plateColor = source.plateColor;
         this.recvTm = source.recvTm;
         this.gpsTm = source.gpsTm;
-        this.retrans = source.retrans;
+        this.reTrans = source.reTrans;
         this.alm = source.alm;
         this.st = source.st;
         this.lng = source.lng;
@@ -511,7 +502,7 @@ public class Trk implements MQEventAddt, Cloneable {
             add("plateColor", plateColor);
             add("recvTm", recvTm);
             add("gpsTm", gpsTm);
-            add("retrans", retrans);
+            add("reTrans", reTrans);
             add("alm", alm);
             add("st", st);
             addAxis("lng", lng);
@@ -543,37 +534,5 @@ public class Trk implements MQEventAddt, Cloneable {
     public String toString() {
         Stringifier stringifier = new Stringifier();
         return stringifier.stringifier();
-
-//        private String plateNo;
-//        private Short plateColor;
-//
-//        private long recvTm;
-//        private long gpsTm;
-//
-//        private Boolean retrans;
-//
-//        private int alm;
-//        private int st;
-//        private double lng;
-//        private double lat;
-//        private int alt;
-//        private float spd;
-//        private Float recSpd;
-//        private int dir;
-//
-//        private Integer signal;
-//        private Short ioSt;
-//
-//
-//        private Integer vidAlm;
-//        private Short adasAlm;
-//
-//        private Float mile;
-//        private Float gas;
-//
-//        private String drvName;
-//        private String drvNo;
-//
-//        private TrkAddt addt;
     }
 }

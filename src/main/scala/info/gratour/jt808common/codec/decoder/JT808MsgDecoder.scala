@@ -34,7 +34,7 @@ object JT808MsgDecoder_SiChuan extends JT808MsgDecoder {
 }
 
 object JT808MsgDecoder_GDRTA2020 extends JT808MsgDecoder {
-  override def msgBodyDecoderRegistry: JT808MsgBodyDecoderRegistry = JT808MsgBodyDecoderRegistry_GDRTA2020
+  override def msgBodyDecoderRegistry: JT808MsgBodyDecoderRegistry = JT808MsgBodyDecoderRegistry_Gdrta2020
 }
 
 object JT808MsgDecoder {
