@@ -7,14 +7,14 @@
  * ******************************************************************************/
 package info.gratour.jt808common.codec.encoder.impl
 
-import info.gratour.jt808common.JT808Utils
+import info.gratour.jt808common.{AdasDialect, JT808Utils}
 import info.gratour.jt808common.codec.encoder.AbstractJT808MsgBodyEncoder
 import info.gratour.jt808common.protocol.msg.JT808Msg_8602_SetRectRegion
 import info.gratour.jtcommon.{ByteBufHelper, JTUtils}
 import io.netty.buffer.ByteBuf
 
 object MBEncoder808_8602_SetRectRegion extends AbstractJT808MsgBodyEncoder[JT808Msg_8602_SetRectRegion] {
-  override protected def encodeBody(m: JT808Msg_8602_SetRectRegion, out: ByteBuf): Unit = {
+  override protected def encodeBody(protoVer: Byte, adasDialect: AdasDialect, m: JT808Msg_8602_SetRectRegion, out: ByteBuf): Unit = {
     val params = checkNotNull(m.getParams, "params")
     val regions = checkNotEmpty(params.getRegions, "regions")
 

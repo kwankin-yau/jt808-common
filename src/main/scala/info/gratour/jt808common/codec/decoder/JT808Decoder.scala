@@ -10,7 +10,7 @@ package info.gratour.jt808common.codec.decoder
 import info.gratour.jt808common.codec.decoder.fragment.CollectedFragment
 import info.gratour.jt808common.codec.{CodecError, CrcError}
 import info.gratour.jt808common.protocol.{JT808Frame, JT808Msg}
-import info.gratour.jt808common.{JT808ProtocolVariant, TimerProvider}
+import info.gratour.jt808common.{AdasDialect, TimerProvider}
 import info.gratour.jtcommon.NettyUtils
 import io.netty.buffer.{ByteBuf, ByteBufAllocator, Unpooled, UnpooledByteBufAllocator}
 import org.apache.commons.codec.binary.Hex
@@ -22,7 +22,7 @@ trait JT808MsgReceiver {
 }
 
 class JT808Decoder(
-                    protocolVariant: JT808ProtocolVariant,
+                    adasDialect: AdasDialect,
                     alloc: ByteBufAllocator,
                     timerProvider: TimerProvider,
                     receiver: JT808MsgReceiver,
@@ -31,7 +31,7 @@ class JT808Decoder(
   private val frameDecoder = new JT808FrameDecoder(alloc)
   private val decodeTempBuf = JT808FrameDecoder.allocTempBuf()
   private val splitList = new util.ArrayList[ByteBuf]()
-  private val msgDecoder = JT808MsgDecoder(protocolVariant)
+  private val msgDecoder = new JT808MsgDecoder(adasDialect)
   private val fragmentManager = new JT808PacketFragmentManager(alloc, timerProvider)
   private var protoVer: Option[Byte] = None
   private var simNo: String = _
@@ -112,13 +112,13 @@ class JT808Decoder(
 }
 
 object JT808Decoder {
-  private val EMPTY_RESULT: java.util.List[JT808Msg] = new util.ArrayList[JT808Msg]()
+  private final val EMPTY_RESULT: java.util.List[JT808Msg] = new util.ArrayList[JT808Msg]()
 
   def decodeAndPrint(packetDataHex: String): Unit = {
     val bytes = Hex.decodeHex(packetDataHex)
     val buf = Unpooled.wrappedBuffer(bytes)
     try {
-      val decoder = new JT808Decoder(JT808ProtocolVariant.GDRTA_2020, UnpooledByteBufAllocator.DEFAULT, null, new JT808MsgReceiver {
+      val decoder = new JT808Decoder(AdasDialect.GDRTA_2020, UnpooledByteBufAllocator.DEFAULT, null, new JT808MsgReceiver {
         override def onMsgRecv(m: JT808Msg, data: AnyRef): Unit = {
           println(s"Received : ${m}")
         }

@@ -8,18 +8,18 @@
 package info.gratour.jt808common.codec.encoder.impl
 
 import info.gratour.jt808common.codec.CodecError
-import info.gratour.jt808common.codec.encoder.AbstractJT808MsgBodyEncoder2019Support
+import info.gratour.jt808common.codec.encoder.AbstractJT808MsgBodyEncoder
 import info.gratour.jt808common.protocol.msg.JT1078Msg_9201_ReplayAvReq
-import info.gratour.jt808common.{JT808Consts, JT808Utils}
+import info.gratour.jt808common.{AdasDialect, JT808Consts, JT808Utils}
 import info.gratour.jtcommon.{ByteBufHelper, JTConsts}
 import io.netty.buffer.ByteBuf
 
-object MBEncoder1078_9201_ReplayAv extends AbstractJT808MsgBodyEncoder2019Support[JT1078Msg_9201_ReplayAvReq] {
-  override protected def encodeBody(termRev: Byte, m: JT1078Msg_9201_ReplayAvReq, out: ByteBuf): Unit = {
+object MBEncoder1078_9201_ReplayAv extends AbstractJT808MsgBodyEncoder[JT1078Msg_9201_ReplayAvReq] {
+  override protected def encodeBody(protoVer: Byte, adasDialect: AdasDialect, m: JT1078Msg_9201_ReplayAvReq, out: ByteBuf): Unit = {
     val p = checkNotNull(m.getParams, "params")
 
     out.writeByteLenPrefixedStr(checkNotNull(p.getServerIp, "serverIp"))
-    if (termRev >= JT808Consts.ProtocolVersions.PROTO_VER__REV2019) {
+    if (protoVer >= JT808Consts.ProtocolVersions.PROTO_VER__REV2019) {
       out.writeShort(p.getTcpPort2019)
       out.writeShort(p.getUdpPort2019)
     } else {

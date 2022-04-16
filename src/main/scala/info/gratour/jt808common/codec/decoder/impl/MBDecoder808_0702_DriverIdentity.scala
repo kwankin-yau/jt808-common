@@ -7,17 +7,17 @@
  * ***************************************************************************** */
 package info.gratour.jt808common.codec.decoder.impl
 
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-
-import info.gratour.jt808common.JT808Utils
-import info.gratour.jt808common.codec.decoder.{JT808MsgBodyDecoder, JT808MsgBodyDecoder2019Support}
+import info.gratour.jt808common.{AdasDialect, JT808Utils}
+import info.gratour.jt808common.codec.decoder.JT808MsgBodyDecoder
 import info.gratour.jt808common.protocol.msg.JT808Msg_0702_DriverIdentity
 import info.gratour.jt808common.protocol.msg.types.addt.MQEventAddt_0702_DriverIdentity
 import info.gratour.jtcommon.ByteBufHelper
 import io.netty.buffer.ByteBuf
 
-object MBDecoder808_0702_DriverIdentity extends JT808MsgBodyDecoder2019Support[JT808Msg_0702_DriverIdentity] {
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
+object MBDecoder808_0702_DriverIdentity extends JT808MsgBodyDecoder[JT808Msg_0702_DriverIdentity] {
 
   private def parseMsgBodyOldFormat(m: JT808Msg_0702_DriverIdentity, body: ByteBuf): Unit = {
     val p = new MQEventAddt_0702_DriverIdentity
@@ -33,7 +33,7 @@ object MBDecoder808_0702_DriverIdentity extends JT808MsgBodyDecoder2019Support[J
     m.setInfo(p)
   }
 
-  override def decodeMsgBodyNew(protoVer: Byte, m: JT808Msg_0702_DriverIdentity, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
+  override def decodeMsgBody(protoVer: Byte, adasDialect: AdasDialect, m: JT808Msg_0702_DriverIdentity, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
     val pos = body.readerIndex()
     try {
       val p = new MQEventAddt_0702_DriverIdentity

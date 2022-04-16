@@ -1,5 +1,6 @@
 package info.gratour.jt808common.codec.encoder
 
+import info.gratour.jt808common.AdasDialect
 import info.gratour.jt808common.protocol.JT808Msg
 import info.gratour.jtcommon.{BcdUtils, JTConsts, JTUtils}
 import io.netty.buffer.ByteBuf
@@ -20,44 +21,45 @@ object JT808FrameEncoder {
     }
   }
 
-//  class EscapedWriter(out: ByteBuf) {
-//    var crc = 0
-//    var writerIndex = 0
-//
-//    def beginWrite(): Unit = {
-//      crc = 0
-//      out.writeByte(0x7E)
-//    }
-//
-//    def writeByte(b: Int): Unit = {
-//      crc ^= b
-//      escapeByte(b.toByte, out)
-//    }
-//
-//    def writeBytes(bytes: Array[Byte]): Unit = {
-//      bytes.foreach(writeByte(_))
-//    }
-//
-//    def writeShort(v: Int): Unit = {
-//      var b = (v & 0xFF00)>>>8
-//      crc ^= b
-//      escapeByte(b.toByte, out)
-//
-//      b = v & 0xFF
-//      crc ^= b
-//      escapeByte(b.toByte, out)
-//    }
-//
-//    def endWrite(): Unit = {
-//      escapeByte(crc.toByte, out)
-//      out.writeByte(0x7E)
-//    }
-//  }
+  //  class EscapedWriter(out: ByteBuf) {
+  //    var crc = 0
+  //    var writerIndex = 0
+  //
+  //    def beginWrite(): Unit = {
+  //      crc = 0
+  //      out.writeByte(0x7E)
+  //    }
+  //
+  //    def writeByte(b: Int): Unit = {
+  //      crc ^= b
+  //      escapeByte(b.toByte, out)
+  //    }
+  //
+  //    def writeBytes(bytes: Array[Byte]): Unit = {
+  //      bytes.foreach(writeByte(_))
+  //    }
+  //
+  //    def writeShort(v: Int): Unit = {
+  //      var b = (v & 0xFF00)>>>8
+  //      crc ^= b
+  //      escapeByte(b.toByte, out)
+  //
+  //      b = v & 0xFF
+  //      crc ^= b
+  //      escapeByte(b.toByte, out)
+  //    }
+  //
+  //    def endWrite(): Unit = {
+  //      escapeByte(crc.toByte, out)
+  //      out.writeByte(0x7E)
+  //    }
+  //  }
 
   /**
    * Encode message to frames. The encoded frame are crc-calculated and escaped.
    *
    * @param protoVer        protocol version, 0 for REV_2013, 1 for REV_2019, see also `PROTO_VER` serial constant defined in [[JTConsts]]
+   * @param adasDialect     ADAS Dialect
    * @param seqNumAllocator message sequence number allocator.
    * @param m               message to encode
    * @param bodyEncoder     message body encoder
@@ -65,8 +67,7 @@ object JT808FrameEncoder {
    * @param out             output buffer
    * @return packet/fragment count. One message may produce 1 or more packets, 1 packet may produce 1 or more fragments. This count is count in fragment.
    */
-  def encode(protoVer: Byte, seqNumAllocator: SeqNumAllocator, m: JT808Msg, bodyEncoder: JT808MsgBodyEncoder, tempBuf: ByteBuf, out: ByteBuf): Int = {
-
+  def encode(protoVer: Byte, adasDialect: AdasDialect, seqNumAllocator: SeqNumAllocator, m: JT808Msg, bodyEncoder: JT808MsgBodyEncoder, tempBuf: ByteBuf, out: ByteBuf): Int = {
 
     def calcCrcAndEscape(buf: ByteBuf): Unit = {
       out.writeByte(0x7E)
@@ -110,7 +111,7 @@ object JT808FrameEncoder {
     tempBuf.writeShort(seqNo) // seqNo
 
     val index = tempBuf.writerIndex
-    bodyEncoder.encBody(protoVer, m, tempBuf) // body
+    bodyEncoder.encBody(protoVer, adasDialect, m, tempBuf) // body
     val index2 = tempBuf.writerIndex
     val bodySize = index2 - index
     if (bodySize > 1023) {

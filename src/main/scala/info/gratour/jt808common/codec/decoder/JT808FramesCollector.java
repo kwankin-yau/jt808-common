@@ -11,7 +11,7 @@ import java.io.Closeable;
 public class JT808FramesCollector implements Closeable, CollectedFragment {
 
 
-    private int msgId;
+    private final int msgId;
     private JT808Frame[] frames;
     private int totalCount;
     private int recvCount;

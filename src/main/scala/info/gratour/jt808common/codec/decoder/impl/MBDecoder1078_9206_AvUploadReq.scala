@@ -7,6 +7,7 @@
  * ***************************************************************************** */
 package info.gratour.jt808common.codec.decoder.impl
 
+import info.gratour.jt808common.AdasDialect
 import info.gratour.jt808common.codec.decoder.JT808MsgBodyDecoder
 import info.gratour.jt808common.protocol.msg.JT1078Msg_9206_AvUploadReq
 import info.gratour.jt808common.protocol.msg.types.cmdparams.CP_9206_AvUploadReq
@@ -14,7 +15,7 @@ import io.netty.buffer.ByteBuf
 
 object MBDecoder1078_9206_AvUploadReq extends JT808MsgBodyDecoder[JT1078Msg_9206_AvUploadReq] {
 
-  override def decodeMsgBody(m: JT1078Msg_9206_AvUploadReq, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
+  override def decodeMsgBody(protoVer: Byte, adasDialect: AdasDialect, m: JT1078Msg_9206_AvUploadReq, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
     import info.gratour.jtcommon.ByteBufHelper
 
     val cp = new CP_9206_AvUploadReq

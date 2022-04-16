@@ -7,7 +7,7 @@
  * ***************************************************************************** */
 package info.gratour.jt808common.codec.encoder.impl
 
-import info.gratour.jt808common.JT808Utils
+import info.gratour.jt808common.{AdasDialect, JT808Utils}
 import info.gratour.jt808common.codec.CodecError
 import info.gratour.jt808common.protocol.msg.types.AdasAlmNo
 import info.gratour.jt808common.protocol.msg.types.trk.{AdasDriverBehavAlmAddt, Trk}
@@ -17,7 +17,7 @@ import org.apache.commons.codec.binary.Hex
 
 object MBEncoder808_Track extends JTCodecHelper {
 
-  def encodeTrack(protoVer: Byte, t: Trk, out: ByteBuf): Unit = {
+  def encodeTrack(protoVer: Byte, adasDialect: AdasDialect, t: Trk, out: ByteBuf): Unit = {
     out.writeInt(t.getAlm)
     out.writeInt(t.getSt)
     out.writeAxis(t.getLat)

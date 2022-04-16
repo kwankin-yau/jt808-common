@@ -1,3 +1,12 @@
+# 2.0.0 - [2022-03-15]
+## Changed
+- Introduce `AdasDialect`
+- Removed `JT808ProtocolVariant`, use protoVer and AdasDialect instead.
+- Dependencies:
+  - Bump `scala-library` FROM `2.13.6` to `2.13.8`
+  - Bump `netty-all` FROM `4.1.72` to `4.1.74`
+
+
 # 1.0.3 - [2022-01-22]
 ## Improvement
 - `CmdAck` add `reqTm` property

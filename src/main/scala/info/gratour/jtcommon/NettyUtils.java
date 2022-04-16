@@ -12,7 +12,7 @@ import org.apache.commons.codec.binary.Hex;
 
 public class NettyUtils {
 
-    public static String decodeLenPrefixedString(ByteBuf buf) {
+    public static String decodeLenPrefixedString(ByteBuf buf, boolean trimTrailingNullChar) {
         int l = buf.readUnsignedByte();
         byte[] bytes = new byte[l];
         buf.readBytes(bytes);
