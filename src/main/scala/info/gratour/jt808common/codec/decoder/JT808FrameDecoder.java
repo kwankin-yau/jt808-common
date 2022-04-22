@@ -1,5 +1,6 @@
 package info.gratour.jt808common.codec.decoder;
 
+import info.gratour.jt808common.codec.CodecError;
 import info.gratour.jt808common.codec.CrcError;
 import info.gratour.jt808common.protocol.FrameSplitInfo;
 import info.gratour.jt808common.protocol.JT808Frame;
@@ -9,8 +10,6 @@ import info.gratour.jtcommon.JTUtils;
 import info.gratour.jtcommon.NettyUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
-import io.netty.buffer.Unpooled;
-import io.netty.buffer.UnpooledByteBufAllocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JT808FrameDecoder implements AutoCloseable {
+
+    public static final int MIN_FRAME_LENGTH_REV_2013 = 1 + 12 + 1 + 1; // REV-2013
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JT808FrameDecoder.class);
 
@@ -119,17 +120,21 @@ public class JT808FrameDecoder implements AutoCloseable {
     }
 
     public static boolean verifyCrc(ByteBuf wholeFrame) {
-        ByteBuf buf = wholeFrame.slice(1, wholeFrame.readableBytes() - 3);
-        int crcCalc = calcCrc(buf);
-        int crcActual = wholeFrame.getByte(wholeFrame.readableBytes()- 2);
+        int readableBytes = wholeFrame.readableBytes();
+        if (readableBytes >= MIN_FRAME_LENGTH_REV_2013) {
+            ByteBuf buf = wholeFrame.slice(1, readableBytes - 3);
+            int crcCalc = calcCrc(buf);
+            int crcActual = wholeFrame.getByte(readableBytes - 2);
 
-        return crcCalc == crcActual;
+            return crcCalc == crcActual;
+        } else
+            return false;
     }
 
     /**
      * Decode a frame object from ByteBuf.
      *
-     * @param buf the frame ByteBuffer
+     * @param buf     the frame ByteBuffer
      * @param tempBuf a temporary byte buffer used in decode procedure, should allocated by {@link JT808FrameDecoder#allocTempBuf()}
      * @return null if crc verification failed or other format violation
      */
@@ -138,11 +143,15 @@ public class JT808FrameDecoder implements AutoCloseable {
             LOGGER.debug("BEFORE-decodeFrame: " + NettyUtils.bufToHex(buf));
         }
 
+        if (buf.readableBytes() < MIN_FRAME_LENGTH_REV_2013) {
+            LOGGER.debug("Invalid JT/T 808 frame.");
+            throw new CodecError("Invalid JT/T 808 frame.");
+        }
+
         if (!verifyCrc(buf)) {
             LOGGER.debug("CRC verification failed.");
             throw new CrcError("CRC verification failed.");
         }
-
 
         buf.skipBytes(1); // start-tag
 
@@ -182,7 +191,7 @@ public class JT808FrameDecoder implements AutoCloseable {
         JT808Frame r = new JT808Frame();
         r.setHeader(header);
         buf.retain();
-        r.setBody(buf.slice(buf.readerIndex(), buf.readableBytes()-2)); // exclude crc and end-tag
+        r.setBody(buf.slice(buf.readerIndex(), buf.readableBytes() - 2)); // exclude crc and end-tag
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Frame decoded (" + r.getClass().getSimpleName() + "):" + r.toString());

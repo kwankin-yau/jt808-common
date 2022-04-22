@@ -10,6 +10,8 @@ object JT808MsgBodyEncoderRegistry_Rev2013 extends JT808MsgBodyEncoderRegistry {
       // 808 - terminal
       MBEncoder808_0001_TerminalGeneralAck,
       MBEncoder808_0002_Heartbeat,
+      MBEncoder808_0100_TerminalRegister,
+      MBEncoder808_0102_TerminalAuth,
       MBEncoder808_0200_Location,
       MBEncoder808_0201_QryLocationAck,
 

@@ -1,3 +1,9 @@
+# 1.0.4 - [2022-04-16]
+## Improvement
+- `NettyUtils.decodeLenPrefixedString(ByteBuf buf, boolean trimTrailingNullChar)` added
+- `info.gratour.jt808common.codec.decoder.JT808FrameDecoder.decodeFrame` add whole frame length check
+- `0100`, `0102` message encoder added
+
 # 1.0.3 - [2022-01-22]
 ## Improvement
 - `CmdAck` add `reqTm` property

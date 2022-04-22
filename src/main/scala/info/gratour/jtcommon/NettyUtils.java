@@ -12,11 +12,19 @@ import org.apache.commons.codec.binary.Hex;
 
 public class NettyUtils {
 
-    public static String decodeLenPrefixedString(ByteBuf buf) {
+    public static String decodeLenPrefixedString(ByteBuf buf, boolean trimTrailingNullChar) {
         int l = buf.readUnsignedByte();
         byte[] bytes = new byte[l];
         buf.readBytes(bytes);
-        return new String(bytes, JTConsts$.MODULE$.DEFAULT_CHARSET());
+
+        if (trimTrailingNullChar)
+            return JTUtils.stringMaxLen(bytes, 0, l);
+        else
+            return new String(bytes, JTConsts$.MODULE$.DEFAULT_CHARSET());
+    }
+
+    public static String decodeLenPrefixedString(ByteBuf buf) {
+        return decodeLenPrefixedString(buf, false);
     }
 
     public static void encodeLenPrefixedString(String s, ByteBuf out) {
