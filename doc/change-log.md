@@ -1,4 +1,7 @@
 # 2.0.0 - [2022-03-15]
+## Improvement
+- `0100`, `0102` message encoder added
+
 ## Changed
 - Introduce `AdasDialect`
 - Removed `JT808ProtocolVariant`, use protoVer and AdasDialect instead.
