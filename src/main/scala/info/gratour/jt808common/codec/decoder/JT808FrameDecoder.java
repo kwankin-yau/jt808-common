@@ -1,5 +1,6 @@
 package info.gratour.jt808common.codec.decoder;
 
+import info.gratour.jt808common.codec.CodecError;
 import info.gratour.jt808common.codec.CrcError;
 import info.gratour.jt808common.protocol.FrameSplitInfo;
 import info.gratour.jt808common.protocol.JT808Frame;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JT808FrameDecoder implements AutoCloseable {
+
+    public static final int MIN_FRAME_LENGTH_REV_2013 = 1 + 12 + 1 + 1; // REV-2013
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JT808FrameDecoder.class);
 
@@ -136,6 +139,11 @@ public class JT808FrameDecoder implements AutoCloseable {
     public static JT808Frame decodeFrame(ByteBuf buf, byte[] tempBuf) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("BEFORE-decodeFrame: " + NettyUtils.bufToHex(buf));
+        }
+
+        if (buf.readableBytes() < MIN_FRAME_LENGTH_REV_2013) {
+            LOGGER.debug("Invalid JT/T 808 frame.");
+            throw new CodecError("Invalid JT/T 808 frame.");
         }
 
         if (!verifyCrc(buf)) {
