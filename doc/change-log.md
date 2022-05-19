@@ -10,7 +10,12 @@
 - Dependencies:
   - Bump `scala-library` FROM `2.13.6` to `2.13.8`
   - Bump `netty-all` FROM `4.1.72` to `4.1.74`
-  
+
+# 1.0.4 - [2022-04-16]
+## Improvement
+- `NettyUtils.decodeLenPrefixedString(ByteBuf buf, boolean trimTrailingNullChar)` added
+- `info.gratour.jt808common.codec.decoder.JT808FrameDecoder.decodeFrame` add whole frame length check
+- `0100`, `0102` message encoder added  
 
 # 1.0.3 - [2022-01-22]
 ## Improvement

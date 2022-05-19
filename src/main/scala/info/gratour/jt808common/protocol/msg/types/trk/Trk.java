@@ -421,7 +421,7 @@ public class Trk implements MQEventAddt, Cloneable {
             throw new NullPointerException();
 
         prepareAddt().setAiRecogAlm(alm);
-        if (alm.getFlag() == 1)
+        if (alm.getFlag() != 2)
             adasAlmSet(AdasAlarmBits.ADAS_AI_RECOG_ALARM);
     }
 
