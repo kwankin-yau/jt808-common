@@ -14,7 +14,8 @@ import java.lang.reflect.Type;
 
 public class TrkAddt implements Cloneable {
 
-    public static final Type TYPE = new TypeToken<TrkAddt>(){}.getType();
+    public static final Type TYPE = new TypeToken<TrkAddt>() {
+    }.getType();
 
     private String id;
 
@@ -47,6 +48,7 @@ public class TrkAddt implements Cloneable {
     private AdasBlindAreaAlmAddt blindArea;
     private AdasIntenseDrivingAlmAddt intenseDrivingAlm;
     private AdasOverSpdAlmAddt adasOverSpd;
+    private AdasAiRecogAlmAddt aiRecogAlm;
 
     public String getId() {
         return id;
@@ -192,6 +194,14 @@ public class TrkAddt implements Cloneable {
         this.adasOverSpd = adasOverSpd;
     }
 
+    public AdasAiRecogAlmAddt getAiRecogAlm() {
+        return aiRecogAlm;
+    }
+
+    public void setAiRecogAlm(AdasAiRecogAlmAddt aiRecogAlm) {
+        this.aiRecogAlm = aiRecogAlm;
+    }
+
     public void assignFrom(TrkAddt source) {
         this.id = source.id;
         this.sat = source.sat;
@@ -211,15 +221,14 @@ public class TrkAddt implements Cloneable {
         this.blindArea = source.blindArea != null ? source.blindArea.clone() : null;
         this.intenseDrivingAlm = source.intenseDrivingAlm != null ? source.intenseDrivingAlm.clone() : null;
         this.adasOverSpd = source.adasOverSpd != null ? source.adasOverSpd.clone() : null;
+        this.aiRecogAlm = source.aiRecogAlm != null ? source.aiRecogAlm.clone() : null;
     }
 
     @Override
     public TrkAddt clone() {
-        try {
-            return (TrkAddt) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
-        }
+        TrkAddt r = new TrkAddt();
+        r.assignFrom(this);
+        return r;
     }
 
     @Override

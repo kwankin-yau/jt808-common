@@ -23,6 +23,7 @@ public class Trk implements MQEventAddt, Cloneable {
         public static final int ADAS_BLIND_AREA = 3;
         public static final int ADAS_INTENSE_DRIVING_ALARM = 4;
         public static final int ADAS_OVER_SPEED_ALARM = 5;
+        public static final int ADAS_AI_RECOG_ALARM = 6;
     }
 
     private String id;
@@ -413,6 +414,15 @@ public class Trk implements MQEventAddt, Cloneable {
         prepareAddt().setAdasOverSpd(alm);
         if (alm.getFlag() != 2)
             adasAlmSet(AdasAlarmBits.ADAS_OVER_SPEED_ALARM);
+    }
+
+    public void setAdasAiRecogAlm(AdasAiRecogAlmAddt alm) {
+        if (alm == null)
+            throw new NullPointerException();
+
+        prepareAddt().setAiRecogAlm(alm);
+        if (alm.getFlag() == 1)
+            adasAlmSet(AdasAlarmBits.ADAS_AI_RECOG_ALARM);
     }
 
     public void assignFrom(Trk source) {

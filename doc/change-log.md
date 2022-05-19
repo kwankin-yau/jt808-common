@@ -1,6 +1,8 @@
 # 2.0.0 - [2022-03-15]
 ## Improvement
 - `0100`, `0102` message encoder added
+- Added AdasAiRecogAlmAddt (db43)
+
 
 ## Changed
 - Introduce `AdasDialect`
@@ -8,7 +10,7 @@
 - Dependencies:
   - Bump `scala-library` FROM `2.13.6` to `2.13.8`
   - Bump `netty-all` FROM `4.1.72` to `4.1.74`
-
+  
 
 # 1.0.3 - [2022-01-22]
 ## Improvement

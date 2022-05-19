@@ -19,7 +19,7 @@ object MBEncoderAdas_9212_AlmAttFileItemCompleted extends AbstractJT808MsgBodyEn
     val params = m.getParams
     out.writeByteLenPrefixedStr(params.getFileItem.getFileName)
 
-    out.writeByte(params.getFileItem.getFileType) // result
+    out.writeByte(params.getFileItem.getFileType) // file type
 
     if (params.getReTransFileBlocks == null || params.getReTransFileBlocks.isEmpty) {
       out.writeShort(0)

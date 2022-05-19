@@ -8,11 +8,10 @@
 package info.gratour.jt808common.codec.decoder.impl
 
 import java.util
-
 import com.typesafe.scalalogging.Logger
 import info.gratour.jt808common.JT808Utils
 import info.gratour.jt808common.protocol.JT808Msg
-import info.gratour.jt808common.protocol.msg.types.trk.{AcrossAreaAddt, AdasBlindAreaAlmAddt, AdasDriverBehavAlmAddt, AdasDrivingAssistAlmAddt, AdasIntenseDrivingAlmAddt, AdasOverSpdAlmAddt, AdasTyreState, AnalogQty, OverSpdAddt, PressureAlarmInfo, RouteAlmAddt, Trk, TrkAddt, UnusualDriveBehav}
+import info.gratour.jt808common.protocol.msg.types.trk.{AcrossAreaAddt, AdasAiRecogAlmAddt, AdasBlindAreaAlmAddt, AdasDriverBehavAlmAddt, AdasDrivingAssistAlmAddt, AdasIntenseDrivingAlmAddt, AdasOverSpdAlmAddt, AdasTyreState, AnalogQty, OverSpdAddt, PressureAlarmInfo, RouteAlmAddt, Trk, TrkAddt, UnusualDriveBehav}
 import info.gratour.jtcommon.{ByteBufHelper, JTCodecHelper, JTConsts, JTUtils}
 import io.netty.buffer.ByteBuf
 
@@ -20,7 +19,7 @@ private class MBDecoder808_Track
 
 object MBDecoder808_Track extends JTCodecHelper {
 
-  private val logger = Logger[MBDecoder808_Track]
+  private final val LOGGER = Logger[MBDecoder808_Track]
 
   private def readAdasAlarmIdentity(protoVer: Byte, buf: ByteBuf, tempBuf: Array[Byte]): String = {
     val sz =
@@ -290,6 +289,36 @@ object MBDecoder808_Track extends JTCodecHelper {
           alarm.setAlmNo(almNo)
 
           t.setAdasBlindAreaAlarm(alarm)
+
+        case 0x68 =>
+          // db44
+          val alm = new AdasAiRecogAlmAddt
+          val p = buf.readerIndex()
+          alm.setAlmId(buf.readInt())
+          alm.setFlag(buf.readByte())
+          alm.setTyp(buf.readByte())
+          alm.setLvl(buf.readByte())
+          buf.skipBytes(5)
+          alm.setSpd(buf.readUnsignedByte())
+          alm.setAlt(buf.readShort())
+          alm.setLat(buf.readAxis())
+          alm.setLng(buf.readAxis())
+          buf.readBytes(tempBuf, 0, 6)
+          alm.setTm(JT808Utils.bcd6ToTimestamp(tempBuf, 0))
+          alm.setVehSt(buf.readShort())
+          val almNo =
+            if (protoVer > 0) {
+              val read = buf.readerIndex() - p
+              val remains = len - read
+              if (remains < 40)
+                readAdasAlarmIdentity(0, buf, tempBuf)
+              else
+                readAdasAlarmIdentity(protoVer, buf, tempBuf)
+            } else
+              readAdasAlarmIdentity(protoVer, buf, tempBuf)
+          alm.setAlmNo(almNo)
+
+          t.setAdasAiRecogAlm(alm)
 
         case 0x70 =>
           val alarm = new AdasIntenseDrivingAlmAddt
