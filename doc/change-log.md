@@ -1,3 +1,18 @@
+# 2.0.1 - [2022-10-19]
+## Fixed
+- Memory leak in JT808FrameDecoder.close()
+
+## Changed
+Bump some library for known vulnerable:
+- Bump `scala-library` from `2.13.8` to `2.13.10` for: 
+  - CVE-2022-36944 9.8 Deserialization of Untrusted Data vulnerability with high severity found
+- Bump `netty-all` from `4.1.74-Final` to `4.1.77-Final` for:
+  - CVE-2022-24823 5.5 Exposure of Resource to Wrong Sphere vulnerability pending CVSS allocation
+- Bump `commons-valiator` from `1.6` to `1.7` for:
+  - CVE-2019-10086 7.3 Deserialization of Untrusted Data vulnerability pending CVSS allocation
+  - CVE-2014-0114 7.5 Improper Input Validation vulnerability pending CVSS allocation
+
+
 # 2.0.0 - [2022-03-15]
 ## Improvement
 - `0100`, `0102` message encoder added

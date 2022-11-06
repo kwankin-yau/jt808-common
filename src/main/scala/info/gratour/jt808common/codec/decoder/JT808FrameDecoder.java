@@ -12,6 +12,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.buffer.Unpooled;
 import io.netty.buffer.UnpooledByteBufAllocator;
+import io.netty.util.ReferenceCounted;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +30,7 @@ public class JT808FrameDecoder implements AutoCloseable {
 
     private ParseState parseState = ParseState.START_7E;
 
-    private List<ByteBuf> buffers = new ArrayList<>();
+    private final List<ByteBuf> buffers = new ArrayList<>();
 
     public JT808FrameDecoder(ByteBufAllocator allocator) {
         alloc = allocator;
@@ -108,6 +109,10 @@ public class JT808FrameDecoder implements AutoCloseable {
     @Override
     public void close() {
         workBuf.release();
+        if (!buffers.isEmpty()) {
+            buffers.forEach(ReferenceCounted::release);
+            buffers.clear();
+        }
     }
 
     public static int calcCrc(ByteBuf buf) {
@@ -124,7 +129,7 @@ public class JT808FrameDecoder implements AutoCloseable {
     public static boolean verifyCrc(ByteBuf wholeFrame) {
         ByteBuf buf = wholeFrame.slice(1, wholeFrame.readableBytes() - 3);
         int crcCalc = calcCrc(buf);
-        int crcActual = wholeFrame.getByte(wholeFrame.readableBytes()- 2);
+        int crcActual = wholeFrame.getByte(wholeFrame.readableBytes() - 2);
 
         return crcCalc == crcActual;
     }
