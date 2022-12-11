@@ -4,6 +4,7 @@ import com.google.gson.reflect.TypeToken;
 import info.gratour.jt808common.JT1078VidAlarmBit;
 import info.gratour.jt808common.JT808AlarmBit;
 import info.gratour.jt808common.JT808StateBit;
+import info.gratour.jt808common.protocol.msg.types.Coordinate;
 import info.gratour.jt808common.protocol.msg.types.addt.MQEventAddt;
 import info.gratour.jtcommon.JTConsts;
 import info.gratour.jtcommon.JTUtils;
@@ -168,6 +169,10 @@ public class Trk implements MQEventAddt, Cloneable {
 
     public void setLat(double lat) {
         this.lat = lat;
+    }
+
+    public Coordinate toCoordinate() {
+        return new Coordinate(lng, lat);
     }
 
     public int getAlt() {

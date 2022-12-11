@@ -30,6 +30,7 @@ public class TermCmd implements Cloneable {
     public static boolean isAckOrCompletedStatus(int status) {
         switch (status) {
             case CMD_STATUS__ACK:
+            case CMD_STATUS__EXCEPTION:
             case CMD_STATUS__BAD_CMD:
             case CMD_STATUS__NOT_SUPPORTED:
             case CMD_STATUS__CANCELED:

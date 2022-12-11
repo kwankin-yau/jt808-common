@@ -1,6 +1,8 @@
 # 2.0.1 - [2022-10-19]
 ## Fixed
 - Memory leak in JT808FrameDecoder.close()
+- info.gratour.jt808common.spi.model.TermCmd.isAckOrCompletedStatus() add `CMD_STATUS__EXCEPTION` case handling
+- `info.gratour.jt808common.protocol.msg.types.trk.Trk.toCoordinate` method introduced.
 
 ## Changed
 Bump some library for known vulnerable:
