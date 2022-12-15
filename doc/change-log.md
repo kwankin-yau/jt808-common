@@ -1,4 +1,7 @@
 # 2.0.1 - [2022-10-19]
+## Improvement
+- `FileRepository` is belongs `jt808-common` now, which is moved from `jt808-core`
+
 ## Fixed
 - Memory leak in JT808FrameDecoder.close()
 - info.gratour.jt808common.spi.model.TermCmd.isAckOrCompletedStatus() add `CMD_STATUS__EXCEPTION` case handling
