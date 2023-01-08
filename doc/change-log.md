@@ -1,6 +1,8 @@
 # 2.0.1 - [2022-10-19]
 ## Improvement
 - `FileRepository` is belongs `jt808-common` now, which is moved from `jt808-core`
+- Constants defined in `JTConsts` are defined as `final` now
+- `info.gratour.jt808common.JT808Consts.ProtocolVersions.isValidProtoVer` added
 
 ## Fixed
 - Memory leak in JT808FrameDecoder.close()
