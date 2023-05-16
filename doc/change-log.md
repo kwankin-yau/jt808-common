@@ -1,3 +1,9 @@
+# 2.0.2 - [2023-05-16]
+## Fixed
+- Memory leak in `info.gratour.jt808common.codec.decoder.JT808FramesCollector.collect` when the total count or index of
+split info is invalid.
+- Memory leak in `info.gratour.jt808common.codec.decoder.JT808Decoder.frameRecv`
+
 # 2.0.1 - [2022-10-19]
 ## Improvement
 - `FileRepository` is belongs `jt808-common` now, which is moved from `jt808-core`

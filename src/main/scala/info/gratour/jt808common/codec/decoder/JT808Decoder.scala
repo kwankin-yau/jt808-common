@@ -49,13 +49,17 @@ class JT808Decoder(
   }
 
   private def frameRecv(frame: JT808Frame, data: AnyRef): Unit = {
-    if (simNo == null) {
-      simNo = frame.getHeader.getSimNo
-      protoVer = Some(frame.getHeader.getProtoVer)
-    }
+    try {
+      if (simNo == null) {
+        simNo = frame.getHeader.getSimNo
+        protoVer = Some(frame.getHeader.getProtoVer)
+      }
 
-    val m = msgDecoder.decode(frame, decodeTempBuf)
-    receiver.onMsgRecv(m, data)
+      val m = msgDecoder.decode(frame, decodeTempBuf)
+      receiver.onMsgRecv(m, data)
+    } finally {
+      frame.release()
+    }
   }
 
   /**

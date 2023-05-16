@@ -1,11 +1,10 @@
 package info.gratour.jt808common.codec.decoder
 
 import info.gratour.jt808common.AdasDialect
+import info.gratour.jt808common.codec.decoder.JT808MsgDecoder.MsgBodyDecoderRegistry
 import info.gratour.jt808common.protocol.{JT808Frame, JT808Msg}
 
 class JT808MsgDecoder(adasDialect: AdasDialect) {
-
-  final val MsgBodyDecoderRegistry: JT808MsgBodyDecoderRegistry = DefaultMsgBodyDecoderRegistry
 
   /**
    *
@@ -23,5 +22,6 @@ class JT808MsgDecoder(adasDialect: AdasDialect) {
 }
 
 object JT808MsgDecoder {
+  private final val MsgBodyDecoderRegistry: JT808MsgBodyDecoderRegistry = DefaultMsgBodyDecoderRegistry
   def allocDecodeTempBuf: Array[Byte] = JT808FrameDecoder.allocTempBuf()
 }

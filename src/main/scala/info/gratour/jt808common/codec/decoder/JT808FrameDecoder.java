@@ -38,7 +38,9 @@ public class JT808FrameDecoder implements AutoCloseable {
     }
 
     /**
-     * Allocate a temporary byte buffer used in {@link JT808FrameDecoder#decodeFrame(ByteBuf, byte[])}
+     * Allocate a temporary byte buffer used in {@link JT808FrameDecoder#decodeFrame(ByteBuf, byte[])}. The buffer size
+     * allocated by this method will keep the same size assumption in
+     * {@link JT808FrameDecoder#decodeFrame(ByteBuf, byte[])} method internal.
      *
      * @return new allocated temporary byte buffer.
      */

@@ -38,17 +38,19 @@ public class JT808FramesCollector implements Closeable, CollectedFragment {
 
         if (frames == null) {
             totalCount = splitInfo.getTotalPacket();
-            if (totalCount == 0)
+            if (totalCount == 0) {
+                frame.release();
                 throw new RuntimeException("Invalid total packet count.");
+            }
 
             frames = new JT808Frame[totalCount];
         }
 
         int index = splitInfo.getPacketSeqNo() - 1;
-        if (index >= totalCount)
+        if (index >= totalCount) {
+            frame.release();
             throw new RuntimeException("Invalid packet index.");
-
-
+        }
 
         if (frames[index] == null) {
             recvCount++;
