@@ -139,11 +139,12 @@ public class JT808FrameDecoder implements AutoCloseable {
     /**
      * Decode a frame object from ByteBuf.
      *
-     * @param buf the frame ByteBuffer
-     * @param tempBuf a temporary byte buffer used in decode procedure, should allocated by {@link JT808FrameDecoder#allocTempBuf()}
+     * @param buf       the frame ByteBuffer
+     * @param tempBuf   a temporary byte buffer used in decode procedure, should be allocated by {@link JT808FrameDecoder#allocTempBuf()}
+     * @param verifyCrc whether to do CRC verification
      * @return null if crc verification failed or other format violation
      */
-    public static JT808Frame decodeFrame(ByteBuf buf, byte[] tempBuf) {
+    public static JT808Frame decodeFrame(ByteBuf buf, byte[] tempBuf, boolean verifyCrc) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("BEFORE-decodeFrame: " + NettyUtils.bufToHex(buf));
         }
@@ -197,7 +198,7 @@ public class JT808FrameDecoder implements AutoCloseable {
         JT808Frame r = new JT808Frame();
         r.setHeader(header);
         buf.retain();
-        r.setBody(buf.slice(buf.readerIndex(), buf.readableBytes()-2)); // exclude crc and end-tag
+        r.setBody(buf.slice(buf.readerIndex(), buf.readableBytes() - 2)); // exclude crc and end-tag
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Frame decoded (" + r.getClass().getSimpleName() + "):" + r.toString());
@@ -206,5 +207,7 @@ public class JT808FrameDecoder implements AutoCloseable {
         return r;
     }
 
-
+    public static JT808Frame decodeFrame(ByteBuf buf, byte[] tempBuf) {
+        return decodeFrame(buf, tempBuf, true);
+    }
 }

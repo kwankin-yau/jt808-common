@@ -4,6 +4,9 @@
 split info is invalid.
 - Memory leak in `info.gratour.jt808common.codec.decoder.JT808Decoder.frameRecv`
 
+## Improvement
+- `info.gratour.jt808common.codec.decoder.JT808FrameDecoder.decodeFrame` introduce an optional parameter: `verifyCrc`.
+
 # 2.0.1 - [2022-10-19]
 ## Improvement
 - `FileRepository` is belongs `jt808-common` now, which is moved from `jt808-core`
