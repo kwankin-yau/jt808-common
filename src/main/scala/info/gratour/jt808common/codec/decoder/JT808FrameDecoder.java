@@ -139,12 +139,12 @@ public class JT808FrameDecoder implements AutoCloseable {
     /**
      * Decode a frame object from ByteBuf.
      *
-     * @param buf       the frame ByteBuffer
-     * @param tempBuf   a temporary byte buffer used in decode procedure, should be allocated by {@link JT808FrameDecoder#allocTempBuf()}
-     * @param verifyCrc whether to do CRC verification
+     * @param buf         the frame ByteBuffer
+     * @param tempBuf     a temporary byte buffer used in decode procedure, should be allocated by {@link JT808FrameDecoder#allocTempBuf()}
+     * @param doVerifyCrc whether to do CRC verification
      * @return null if crc verification failed or other format violation
      */
-    public static JT808Frame decodeFrame(ByteBuf buf, byte[] tempBuf, boolean verifyCrc) {
+    public static JT808Frame decodeFrame(ByteBuf buf, byte[] tempBuf, boolean doVerifyCrc) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("BEFORE-decodeFrame: " + NettyUtils.bufToHex(buf));
         }
@@ -154,7 +154,7 @@ public class JT808FrameDecoder implements AutoCloseable {
             throw new CodecError("Invalid JT/T 808 frame.");
         }
 
-        if (!verifyCrc(buf)) {
+        if (doVerifyCrc && !verifyCrc(buf)) {
             LOGGER.debug("CRC verification failed.");
             throw new CrcError("CRC verification failed.");
         }
