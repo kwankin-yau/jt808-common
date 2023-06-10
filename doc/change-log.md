@@ -6,6 +6,7 @@ split info is invalid.
 
 ## Improvement
 - `info.gratour.jt808common.codec.decoder.JT808FrameDecoder.decodeFrame` introduce an optional parameter: `verifyCrc`.
+- `info.gratour.jt808common.codec.decoder.JT808FrameDecoder.verifyCrc` check frame size before verify CRC
 
 # 2.0.1 - [2022-10-19]
 ## Improvement

@@ -129,13 +129,16 @@ public class JT808FrameDecoder implements AutoCloseable {
     }
 
     public static boolean verifyCrc(ByteBuf wholeFrame) {
-        ByteBuf buf = wholeFrame.slice(1, wholeFrame.readableBytes() - 3);
-        int crcCalc = calcCrc(buf);
-        int crcActual = wholeFrame.getByte(wholeFrame.readableBytes() - 2);
+        int readableBytes = wholeFrame.readableBytes();
+        if (readableBytes >= MIN_FRAME_LENGTH_REV_2013) {
+            ByteBuf buf = wholeFrame.slice(1, readableBytes - 3);
+            int crcCalc = calcCrc(buf);
+            int crcActual = wholeFrame.getByte(readableBytes - 2);
 
-        return crcCalc == crcActual;
+            return crcCalc == crcActual;
+        } else
+            return false;
     }
-
     /**
      * Decode a frame object from ByteBuf.
      *
