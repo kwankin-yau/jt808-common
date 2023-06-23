@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils
 
 object JT808FrameEncoder {
 
-  private def escapeByte(b: Byte, out: ByteBuf): Unit = {
+  @inline private def escapeByte(b: Byte, out: ByteBuf): Unit = {
     b match {
       case 0x7e =>
         out.writeShort(0x7d02)
@@ -20,40 +20,6 @@ object JT808FrameEncoder {
         out.writeByte(b)
     }
   }
-
-  //  class EscapedWriter(out: ByteBuf) {
-  //    var crc = 0
-  //    var writerIndex = 0
-  //
-  //    def beginWrite(): Unit = {
-  //      crc = 0
-  //      out.writeByte(0x7E)
-  //    }
-  //
-  //    def writeByte(b: Int): Unit = {
-  //      crc ^= b
-  //      escapeByte(b.toByte, out)
-  //    }
-  //
-  //    def writeBytes(bytes: Array[Byte]): Unit = {
-  //      bytes.foreach(writeByte(_))
-  //    }
-  //
-  //    def writeShort(v: Int): Unit = {
-  //      var b = (v & 0xFF00)>>>8
-  //      crc ^= b
-  //      escapeByte(b.toByte, out)
-  //
-  //      b = v & 0xFF
-  //      crc ^= b
-  //      escapeByte(b.toByte, out)
-  //    }
-  //
-  //    def endWrite(): Unit = {
-  //      escapeByte(crc.toByte, out)
-  //      out.writeByte(0x7E)
-  //    }
-  //  }
 
   /**
    * Encode message to frames. The encoded frame are crc-calculated and escaped.
@@ -71,16 +37,31 @@ object JT808FrameEncoder {
 
     def calcCrcAndEscape(buf: ByteBuf): Unit = {
       out.writeByte(0x7E)
-      var count = buf.readableBytes
+      val count = buf.readableBytes
+
+      val bytes = new Array[Byte](count)
+      buf.readBytes(bytes)
+
       var crc = 0
 
-      while (count > 0) {
-        val b = buf.readByte
+      for (idx <- 0 until count) {
+        val b = bytes(idx)
         crc ^= b
-        escapeByte(b, out)
-        count -= 1
+        if (b == 0x7e)
+          out.writeShort(0x7d02)
+        else if (b == 0x7d)
+               out.writeShort(0x7d01)
+             else
+               out.writeByte(b)
       }
-      escapeByte(crc.toByte, out)
+
+      if (crc == 0x7e)
+        out.writeShort(0x7d02)
+      else if (crc == 0x7d)
+             out.writeShort(0x7d01)
+           else
+             out.writeByte(crc)
+
       out.writeByte(0x7E)
     }
 

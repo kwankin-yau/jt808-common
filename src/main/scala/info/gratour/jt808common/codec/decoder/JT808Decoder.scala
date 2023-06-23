@@ -26,12 +26,15 @@ class JT808Decoder(
                     alloc: ByteBufAllocator,
                     timerProvider: TimerProvider,
                     receiver: JT808MsgReceiver,
-                    ignoreDecodeFrameError: Boolean) extends AutoCloseable {
+                    ignoreDecodeFrameError: Boolean,
+                    simplified: Boolean,
+                    verifyCrc: Boolean
+                  ) extends AutoCloseable {
 
   private val frameDecoder = new JT808FrameDecoder(alloc)
   private val decodeTempBuf = JT808FrameDecoder.allocTempBuf()
   private val splitList = new util.ArrayList[ByteBuf]()
-  private val msgDecoder = new JT808MsgDecoder(adasDialect)
+  private val msgDecoder = new JT808MsgDecoder(adasDialect, simplified)
   private val fragmentManager = new JT808PacketFragmentManager(alloc, timerProvider)
   private var protoVer: Option[Byte] = None
   private var simNo: String = _
@@ -83,7 +86,7 @@ class JT808Decoder(
         try {
           splitList.forEach(f => {
             val readerIndex = f.readerIndex()
-            val frame = JT808FrameDecoder.decodeFrame(f, decodeTempBuf)
+            val frame = JT808FrameDecoder.decodeFrame(f, decodeTempBuf, verifyCrc)
             if (frame == null) {
               if (!ignoreDecodeFrameError) {
                 f.readerIndex(readerIndex)
@@ -118,7 +121,7 @@ class JT808Decoder(
 object JT808Decoder {
   private final val EMPTY_RESULT: java.util.List[JT808Msg] = new util.ArrayList[JT808Msg]()
 
-  def decodeAndPrint(packetDataHex: String): Unit = {
+  private def decodeAndPrint(packetDataHex: String): Unit = {
     val bytes = Hex.decodeHex(packetDataHex)
     val buf = Unpooled.wrappedBuffer(bytes)
     try {
@@ -126,7 +129,7 @@ object JT808Decoder {
         override def onMsgRecv(m: JT808Msg, data: AnyRef): Unit = {
           println(s"Received : ${m}")
         }
-      }, false)
+      }, false, false, true)
 
       decoder.decode(buf, null)
     } catch {

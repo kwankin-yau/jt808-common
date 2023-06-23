@@ -1,10 +1,15 @@
 package info.gratour.jt808common.codec.decoder
 
 import info.gratour.jt808common.AdasDialect
-import info.gratour.jt808common.codec.decoder.JT808MsgDecoder.MsgBodyDecoderRegistry
 import info.gratour.jt808common.protocol.{JT808Frame, JT808Msg}
 
-class JT808MsgDecoder(adasDialect: AdasDialect) {
+class JT808MsgDecoder(adasDialect: AdasDialect, simplified: Boolean) {
+
+  private val registry: JT808MsgBodyDecoderRegistry =
+    if (simplified)
+      SimplifiedMsgBodyDecoderRegistry
+    else
+      DefaultMsgBodyDecoderRegistry
 
   /**
    *
@@ -13,7 +18,7 @@ class JT808MsgDecoder(adasDialect: AdasDialect) {
    * @return null if decode failed
    */
   def decode(frame: JT808Frame, tempBuf: Array[Byte]): JT808Msg = {
-    val bodyDecoder = MsgBodyDecoderRegistry.get(frame.getHeader.getMsgId)
+    val bodyDecoder = registry.get(frame.getHeader.getMsgId)
     if (bodyDecoder != null)
       bodyDecoder.decodeMsgBody(adasDialect, frame.getHeader, frame.getBody, tempBuf).asInstanceOf[JT808Msg]
     else
@@ -22,6 +27,5 @@ class JT808MsgDecoder(adasDialect: AdasDialect) {
 }
 
 object JT808MsgDecoder {
-  private final val MsgBodyDecoderRegistry: JT808MsgBodyDecoderRegistry = DefaultMsgBodyDecoderRegistry
   def allocDecodeTempBuf: Array[Byte] = JT808FrameDecoder.allocTempBuf()
 }
