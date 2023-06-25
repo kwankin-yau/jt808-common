@@ -3,6 +3,7 @@
 - Memory leak in `info.gratour.jt808common.codec.decoder.JT808FramesCollector.collect` when the total count or index of
 split info is invalid.
 - Memory leak in `info.gratour.jt808common.codec.decoder.JT808Decoder.frameRecv`
+- `NettyTimerProvider` should use shared HashedWheelTimer
 
 ## Improvement
 - `info.gratour.jt808common.codec.decoder.JT808FrameDecoder.decodeFrame` introduce an optional parameter: `verifyCrc`.
