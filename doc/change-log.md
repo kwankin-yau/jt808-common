@@ -1,3 +1,8 @@
+# 2.0.3 - [2023-07-01]
+## Improvement
+- `JT1078MediaPacketPayloadType` add enumName
+- `info.gratour.jt808common.JT1078MediaPacketPayloadTypes.typeOfEnumName` added
+
 # 2.0.2 - [2023-05-16]
 ## Fixed
 - Memory leak in `info.gratour.jt808common.codec.decoder.JT808FramesCollector.collect` when the total count or index of
