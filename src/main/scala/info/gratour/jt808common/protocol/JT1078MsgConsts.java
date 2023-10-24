@@ -7,12 +7,12 @@
  *******************************************************************************/
 package info.gratour.jt808common.protocol;
 
-import javax.swing.plaf.PanelUI;
-
 public class JT1078MsgConsts {
 
     public static final int QRY_AV_ATTRS_9003 = 0x9003;
+    public static final String HEX_MSG_ID__QRY_AV_ATTRS_9003 = "9003";
     public static final int QRY_AV_ATTRS_ACK_1003 = 0x1003;
+    public static final String HEX_MSG_ID__QRY_AV_ATTRS_ACK_1003 = "1003";
     public static final int PASSENGER_TRAFFIC_1005 = 0x1005;
     public static final String HEX_MSG_ID__PASSENGER_TRAFFIC_1005 = "1005";
 

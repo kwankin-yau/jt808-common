@@ -5,10 +5,13 @@ plugins {
 }
 
 group 'info.gratour.gnss'
-version '1.0.4'
+version '2.0.4-SNAPSHOT'
 
 compileJava.options.encoding = 'UTF-8'
 compileScala.options.encoding = 'UTF-8'
+
+sourceCompatibility = '8'
+targetCompatibility = '8'
 
 repositories {
     mavenLocal()
@@ -16,30 +19,45 @@ repositories {
 }
 
 dependencies {
-    api('org.scala-lang:scala-library:2.13.6')
+    api('org.scala-lang:scala-library:2.13.10')
     api group: 'com.typesafe.scala-logging', name: 'scala-logging_2.13', version: '3.9.2'
 
-    api('io.netty:netty-all:4.1.72.Final')
+    api('io.netty:netty-all:4.1.86.Final')
 
     implementation('commons-codec:commons-codec:1.15')
     implementation('org.apache.commons:commons-lang3:3.11')
-    api('com.google.code.gson:gson:2.8.9')
+    api('com.google.code.gson:gson:2.10.1')
     implementation('commons-validator:commons-validator:1.6')
     implementation('dnsjava:dnsjava:3.4.2')
 }
 
 task sourceJar(type: Jar) {
     from sourceSets.main.allSource
-    archiveClassifier = "sources"
+    archiveClassifier = 'sources'
 }
 
 publishing {
+    repositories {
+        maven {
+            if (project.version.toString().endsWith("-SNAPSHOT")) {
+                name = "snapshotsRepo"
+                url = "https://wx.gratour.info:7999/repository/maven-snapshots/"
+            } else {
+                name = "releasesRepo"
+                url = "https://wx.gratour.info:7999/repository/my-nexus/"
+            }
+
+            credentials {
+                username = "${ossUser}"
+                password = "${ossPwd}"
+            }
+        }
+    }
+
     publications {
         maven(MavenPublication) {
             from components.java
-
             artifact sourceJar
         }
     }
 }
-

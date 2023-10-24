@@ -356,4 +356,16 @@ public class JT808MsgConsts {
     public static final int TERMINAL_RSA_KEY_0x0A00 = 0x0A00;
 
 
+    public static boolean isPlatformAck(int msgId) {
+        switch (msgId) {
+            case SERVER_GENERIC_ACK_8001:
+            case QRY_SERVER_TIME_ACK_8004:
+            case TERMINAL_REGISTER_ACK_8100:
+            case MULTI_MEDIA_DATA_ACK_8800:
+                return true;
+
+            default:
+                return false;
+        }
+    }
 }

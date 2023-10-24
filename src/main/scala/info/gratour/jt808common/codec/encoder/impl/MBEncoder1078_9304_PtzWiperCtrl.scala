@@ -7,12 +7,13 @@
  * ******************************************************************************/
 package info.gratour.jt808common.codec.encoder.impl
 
+import info.gratour.jt808common.AdasDialect
 import info.gratour.jt808common.codec.encoder.AbstractJT808MsgBodyEncoder
 import info.gratour.jt808common.protocol.msg.JT1078Msg_9304_PtzWiperCtrl
 import io.netty.buffer.ByteBuf
 
 object MBEncoder1078_9304_PtzWiperCtrl extends AbstractJT808MsgBodyEncoder[JT1078Msg_9304_PtzWiperCtrl] {
-  override protected def encodeBody(m: JT1078Msg_9304_PtzWiperCtrl, out: ByteBuf): Unit = {
+  override protected def encodeBody(protoVer: Byte, adasDialect: AdasDialect, m: JT1078Msg_9304_PtzWiperCtrl, out: ByteBuf): Unit = {
     val p = checkNotNull(m.getParams, "params")
 
     out.writeByte(p.getChan)

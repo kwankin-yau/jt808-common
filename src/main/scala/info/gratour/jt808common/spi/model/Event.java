@@ -1,7 +1,7 @@
 package info.gratour.jt808common.spi.model;
 
 import com.google.gson.reflect.TypeToken;
-import info.gratour.jt808common.JT808ProtocolVariant;
+import info.gratour.jt808common.AdasDialect;
 import info.gratour.jt808common.protocol.msg.types.addt.MQEventAddt;
 
 import java.lang.reflect.Type;
@@ -16,7 +16,7 @@ public class Event {
     private String msgId;
     private String simNo;
     private long recvTm;
-    private String protocol;
+    private String adasDialect;
     private byte protoVer;
     private MQEventAddt addt;
 
@@ -50,21 +50,21 @@ public class Event {
     }
 
     /**
-     * String value of {@link info.gratour.jt808common.JT808ProtocolVariant}. Indicates the event is received from
-     * the jt808 endpoint with the protocolVariant.
+     * String value of {@link info.gratour.jt808common.AdasDialect}. Indicates the event is received from
+     * the `JT/T 808` end point with the adasDialect.
      *
-     * @return
+     * @return adasDialect using by the `JT/T 808` end point.
      */
-    public String getProtocol() {
-        return protocol;
+    public String getAdasDialect() {
+        return adasDialect;
     }
 
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
+    public void setAdasDialect(String adasDialect) {
+        this.adasDialect = adasDialect;
     }
 
-    public JT808ProtocolVariant protocolVariant() {
-        return JT808ProtocolVariant.valueOf(protocol);
+    public AdasDialect adasDialect() {
+        return AdasDialect.valueOf(adasDialect);
     }
 
     /**
@@ -94,7 +94,7 @@ public class Event {
                 "msgId='" + msgId + '\'' +
                 ", simNo='" + simNo + '\'' +
                 ", recvTm=" + recvTm +
-                ", protocol='" + protocol + '\'' +
+                ", protocol='" + adasDialect + '\'' +
                 ", protoVer=" + protoVer +
                 ", addt=" + addt +
                 '}';

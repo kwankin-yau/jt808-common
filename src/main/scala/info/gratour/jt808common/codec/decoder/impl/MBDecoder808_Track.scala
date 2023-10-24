@@ -8,11 +8,11 @@
 package info.gratour.jt808common.codec.decoder.impl
 
 import java.util
-
 import com.typesafe.scalalogging.Logger
-import info.gratour.jt808common.JT808Utils
+import info.gratour.jt808common.adas.AdasHandlers
+import info.gratour.jt808common.{AdasDialect, JT808Utils}
 import info.gratour.jt808common.protocol.JT808Msg
-import info.gratour.jt808common.protocol.msg.types.trk.{AcrossAreaAddt, AdasBlindAreaAlmAddt, AdasDriverBehavAlmAddt, AdasDrivingAssistAlmAddt, AdasIntenseDrivingAlmAddt, AdasOverSpdAlmAddt, AdasTyreState, AnalogQty, OverSpdAddt, PressureAlarmInfo, RouteAlmAddt, Trk, TrkAddt, UnusualDriveBehav}
+import info.gratour.jt808common.protocol.msg.types.trk.{AcrossAreaAddt, AdasAiRecogAlmAddt, AdasBlindAreaAlmAddt, AdasDriverBehavAlmAddt, AdasDrivingAssistAlmAddt, AdasIntenseDrivingAlmAddt, AdasOverSpdAlmAddt, AdasTyreState, AnalogQty, OverSpdAddt, PressureAlarmInfo, RouteAlmAddt, Trk, TrkAddt, UnusualDriveBehav}
 import info.gratour.jtcommon.{ByteBufHelper, JTCodecHelper, JTConsts, JTUtils}
 import io.netty.buffer.ByteBuf
 
@@ -20,21 +20,43 @@ private class MBDecoder808_Track
 
 object MBDecoder808_Track extends JTCodecHelper {
 
-  private val logger = Logger[MBDecoder808_Track]
+  private final val LOGGER = Logger[MBDecoder808_Track]
 
-  private def readAdasAlarmIdentity(protoVer: Byte, buf: ByteBuf, tempBuf: Array[Byte]): String = {
-    val sz =
-      if (protoVer >= JTConsts.PROTO_VER__REV2019)
-        40
-      else
-        16
+//  private def readAdasAlarmIdentity(
+//                                     protoVer: Byte,
+//                                     adasDialect: AdasDialect,
+//                                     buf: ByteBuf,
+//                                     tempBuf: Array[Byte]
+//                                   ): String = {
+//    val sz =
+//      adasDialect match {
+//        case AdasDialect.SI_CHUAN =>
+//          if (protoVer >= JTConsts.PROTO_VER__REV2019)
+//            39
+//          else
+//            16
+//
+//        case AdasDialect.GDRTA_2020 =>
+//          40
+//
+//        case _ =>
+//          16
+//      }
+//
+//    buf.readBytes(tempBuf, 0, sz)
+//    JTUtils.hex(tempBuf, 0, sz)
+//  }
 
-    buf.readBytes(tempBuf, 0, sz)
-    JTUtils.hex(tempBuf, 0, sz)
-  }
 
-
-  def decodeTrack(protoVer: Byte, m: JT808Msg, buf: ByteBuf, tempBuf: Array[Byte], recvTime: Long, retransmit: Boolean): Trk = {
+  def decodeTrack(
+                   protoVer   : Byte,
+                   adasDialect: AdasDialect,
+                   m          : JT808Msg,
+                   buf        : ByteBuf,
+                   tempBuf    : Array[Byte],
+                   recvTime   : Long,
+                   retransmit : Boolean
+                 ): Trk = {
     val t = new Trk
     t.setSimNo(m.getSimNo)
     //    t.setMsgSeqNo(m.getSeqNo)
@@ -154,11 +176,14 @@ object MBDecoder808_Track extends JTCodecHelper {
 
         // ADAS
         case 0x64 =>
+          val adasHandler = AdasHandlers.get(adasDialect)
+
           val alarm = new AdasDrivingAssistAlmAddt
           val p = buf.readerIndex()
           alarm.setAlmId(buf.readInt())
           alarm.setFlag(buf.readByte())
-          alarm.setTyp(buf.readByte())
+          alarm.setTyp(buf.readUnsignedByte())
+          alarm.setTyp2(adasHandler.mapDrivingAssistAlmTyp(alarm.getTyp))
           alarm.setLvl(buf.readByte())
           alarm.setFrontCarSpd(buf.readUnsignedByte())
           alarm.setFrontCarDist(buf.readUnsignedByte() * 0.1f)
@@ -177,21 +202,24 @@ object MBDecoder808_Track extends JTCodecHelper {
               val read = buf.readerIndex() - p
               val remains = len - read
               if (remains < 40)
-                readAdasAlarmIdentity(0, buf, tempBuf)
+                adasHandler.readAdasAlmIdAsHex(0, buf, tempBuf)
               else
-                readAdasAlarmIdentity(protoVer, buf, tempBuf)
+                adasHandler.readAdasAlmIdAsHex(protoVer, buf, tempBuf)
             } else
-              readAdasAlarmIdentity(protoVer, buf, tempBuf)
+              adasHandler.readAdasAlmIdAsHex(protoVer, buf, tempBuf)
           alarm.setAlmNo(almNo)
 
           t.setDrivingAssistAlm(alarm)
 
         case 0x65 =>
+          val adasHandler = AdasHandlers.get(adasDialect)
+
           val alarm = new AdasDriverBehavAlmAddt
           val p = buf.readerIndex()
           alarm.setAlmId(buf.readInt())
           alarm.setFlag(buf.readByte())
-          alarm.setTyp(buf.readByte())
+          alarm.setTyp(buf.readUnsignedByte())
+          alarm.setTyp2(adasHandler.mapDriverBehavAlmTyp(alarm.getTyp))
           alarm.setLvl(buf.readByte())
           alarm.setFatigue(buf.readByte())
           buf.skipBytes(4)
@@ -207,17 +235,17 @@ object MBDecoder808_Track extends JTCodecHelper {
               val read = buf.readerIndex() - p
               val remains = len - read
               if (remains < 40)
-                readAdasAlarmIdentity(0, buf, tempBuf)
+                adasHandler.readAdasAlmIdAsHex(0, buf, tempBuf)
               else
-                readAdasAlarmIdentity(protoVer, buf, tempBuf)
+                adasHandler.readAdasAlmIdAsHex(protoVer, buf, tempBuf)
             } else
-              readAdasAlarmIdentity(protoVer, buf, tempBuf)
+              adasHandler.readAdasAlmIdAsHex(protoVer, buf, tempBuf)
           alarm.setAlmNo(almNo)
 
           t.setDriverBehavAlm(alarm)
 
         case 0x66 =>
-          val p = buf.readerIndex()
+          val adasHandler = AdasHandlers.get(adasDialect)
 
           def parseTyreState(protoVer: Byte): AdasTyreState = {
             val alarm = new AdasTyreState
@@ -231,7 +259,7 @@ object MBDecoder808_Track extends JTCodecHelper {
             buf.readBytes(tempBuf, 0, 6)
             alarm.setTm(JT808Utils.bcd6ToTimestamp(tempBuf, 0))
             alarm.setVehSt(buf.readShort())
-            alarm.setAlmNo(readAdasAlarmIdentity(protoVer, buf, tempBuf))
+            alarm.setAlmNo(adasHandler.readAdasAlmIdAsHex(protoVer, buf, tempBuf))
             val list = new util.ArrayList[PressureAlarmInfo]()
             alarm.setAlms(list)
             val cnt = buf.readUnsignedByte()
@@ -265,11 +293,13 @@ object MBDecoder808_Track extends JTCodecHelper {
           t.setAdasTyreState(alarm)
 
         case 0x67 =>
+          val adasHandler = AdasHandlers.get(adasDialect)
+
           val alarm = new AdasBlindAreaAlmAddt
           val p = buf.readerIndex()
           alarm.setAlmId(buf.readInt())
           alarm.setFlag(buf.readByte())
-          alarm.setTyp(buf.readByte())
+          alarm.setTyp(buf.readUnsignedByte())
           alarm.setSpd(buf.readUnsignedByte())
           alarm.setAlt(buf.readShort())
           alarm.setLat(buf.readAxis())
@@ -282,21 +312,55 @@ object MBDecoder808_Track extends JTCodecHelper {
               val read = buf.readerIndex() - p
               val remains = len - read
               if (remains < 40)
-                readAdasAlarmIdentity(0, buf, tempBuf)
+                adasHandler.readAdasAlmIdAsHex(0, buf, tempBuf)
               else
-                readAdasAlarmIdentity(protoVer, buf, tempBuf)
+                adasHandler.readAdasAlmIdAsHex(protoVer, buf, tempBuf)
             } else
-              readAdasAlarmIdentity(protoVer, buf, tempBuf)
+              adasHandler.readAdasAlmIdAsHex(protoVer, buf, tempBuf)
           alarm.setAlmNo(almNo)
 
           t.setAdasBlindAreaAlarm(alarm)
 
+        case 0x68 =>
+          // db43
+          val adasHandler = AdasHandlers.get(adasDialect)
+
+          val alm = new AdasAiRecogAlmAddt
+          val p = buf.readerIndex()
+          alm.setAlmId(buf.readInt())
+          alm.setFlag(buf.readByte())
+          alm.setTyp(buf.readUnsignedByte())
+          alm.setLvl(buf.readByte())
+          buf.skipBytes(5)
+          alm.setSpd(buf.readUnsignedByte())
+          alm.setAlt(buf.readShort())
+          alm.setLat(buf.readAxis())
+          alm.setLng(buf.readAxis())
+          buf.readBytes(tempBuf, 0, 6)
+          alm.setTm(JT808Utils.bcd6ToTimestamp(tempBuf, 0))
+          alm.setVehSt(buf.readShort())
+          val almNo =
+            if (protoVer > 0) {
+              val read = buf.readerIndex() - p
+              val remains = len - read
+              if (remains < 40)
+                adasHandler.readAdasAlmIdAsHex(0, buf, tempBuf)
+              else
+                adasHandler.readAdasAlmIdAsHex(protoVer, buf, tempBuf)
+            } else
+              adasHandler.readAdasAlmIdAsHex(protoVer, buf, tempBuf)
+          alm.setAlmNo(almNo)
+
+          t.setAdasAiRecogAlm(alm)
+
         case 0x70 =>
+          val adasHandler = AdasHandlers.get(adasDialect)
+
           val alarm = new AdasIntenseDrivingAlmAddt
           val p = buf.readerIndex()
           alarm.setAlmId(buf.readInt())
           alarm.setFlag(buf.readByte())
-          alarm.setTyp(buf.readByte())
+          alarm.setTyp(buf.readUnsignedByte())
           alarm.setDur(buf.readShort())
           alarm.setThold1(buf.readShort())
           alarm.setThold2(buf.readShort())
@@ -313,22 +377,24 @@ object MBDecoder808_Track extends JTCodecHelper {
               val read = buf.readerIndex() - p
               val remains = len - read
               if (remains < 40)
-                readAdasAlarmIdentity(0, buf, tempBuf)
+                adasHandler.readAdasAlmIdAsHex(0, buf, tempBuf)
               else
-                readAdasAlarmIdentity(protoVer, buf, tempBuf)
+                adasHandler.readAdasAlmIdAsHex(protoVer, buf, tempBuf)
             } else
-              readAdasAlarmIdentity(protoVer, buf, tempBuf)
+              adasHandler.readAdasAlmIdAsHex(protoVer, buf, tempBuf)
           alarm.setAlmNo(almNo)
 
           t.setAdasIntenseDrivingAlarm(alarm)
 
         case 0x71 =>
           if (len >= 44) {
+            val adasHandler = AdasHandlers.get(adasDialect)
+
             val alarm = new AdasOverSpdAlmAddt
             val p = buf.readerIndex()
             alarm.setAlmId(buf.readInt()) // 4
             alarm.setFlag(buf.readByte()) // 1
-            alarm.setTyp(buf.readByte()) // 1
+            alarm.setTyp(buf.readUnsignedByte()) // 1
             alarm.setOverSpdAlmTyp(buf.readByte()) // 1
             alarm.setTermSpdThold(buf.readUnsignedByte()) // 1
             alarm.setRdSpdThold(buf.readUnsignedByte()) // 1
@@ -345,11 +411,11 @@ object MBDecoder808_Track extends JTCodecHelper {
                 val read = buf.readerIndex() - p
                 val remains = len - read
                 if (remains < 40)
-                  readAdasAlarmIdentity(0, buf, tempBuf)
+                  adasHandler.readAdasAlmIdAsHex(0, buf, tempBuf)
                 else
-                  readAdasAlarmIdentity(protoVer, buf, tempBuf)
+                  adasHandler.readAdasAlmIdAsHex(protoVer, buf, tempBuf)
               } else
-                readAdasAlarmIdentity(protoVer, buf, tempBuf)
+                adasHandler.readAdasAlmIdAsHex(protoVer, buf, tempBuf)
             alarm.setAlmNo(almNo) // 16 or 40
 
             t.setAdasOverSpdAlarm(alarm)

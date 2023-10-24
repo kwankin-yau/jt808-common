@@ -7,12 +7,13 @@
  * ******************************************************************************/
 package info.gratour.jt808common.codec.encoder.impl
 
+import info.gratour.jt808common.AdasDialect
 import info.gratour.jt808common.codec.encoder.AbstractJT808MsgBodyEncoder
 import info.gratour.jt808common.protocol.msg.JT1078Msg_9302_PtzFocusing
 import io.netty.buffer.ByteBuf
 
 object MBEncoder1078_9302_PtzFocusing extends AbstractJT808MsgBodyEncoder[JT1078Msg_9302_PtzFocusing] {
-  override protected def encodeBody(m: JT1078Msg_9302_PtzFocusing, out: ByteBuf): Unit = {
+  override protected def encodeBody(protoVer: Byte, adasDialect: AdasDialect, m: JT1078Msg_9302_PtzFocusing, out: ByteBuf): Unit = {
     val p = checkNotNull(m.getParams, "params")
 
     out.writeByte(p.getChan)

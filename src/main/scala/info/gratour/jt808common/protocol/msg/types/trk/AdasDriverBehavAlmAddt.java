@@ -11,34 +11,106 @@ import info.gratour.jt808common.codec.CodecError;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 
+import java.util.StringJoiner;
+
 public class AdasDriverBehavAlmAddt implements Cloneable {
 
     public static final byte FLAG__NOT_AVAILABLE = 0;
     public static final byte FLAG__START = 1;
     public static final byte FLAG__END = 2;
 
+    /**
+     * 疲劳驾驶报警
+     */
     public static final byte TYP__FATIGUED = 1;
+
+    /**
+     * 接打手持电话报警
+     */
     public static final byte TYP__PHONE_CALL = 2;
+
+    /**
+     * 抽烟报警报警
+     */
     public static final byte TYP__SMOKE = 3;
+
+    /**
+     * 长时间不目视前方报警
+     */
     public static final byte TYP__NO_LOOK_AHEAD = 4;
+
+    /**
+     * 未检测到驾驶员报警
+     */
     public static final byte TYP__DRIVER_NOT_DETECTED = 5;
-    public static final byte TYP__STEERING_WHEEL_NOT_HOLDING__SI_CHUAN = 6;
-    public static final byte TYP__CAMERA_COVERED__GDRTA = 6;
+
+    /**
+     * 双手同时脱离方向盘报警
+     */
+    public static final byte TYP__STEERING_WHEEL_NOT_HOLDING = 6;
+
+    /**
+     * 探头遮挡报警（粤标）
+     */
+    public static final byte TYP__CAMERA_COVERED = 6;
+
+    /**
+     * 驾驶员行为监测功能失效报警
+     */
     public static final byte TYP__DRIVER_BEHAV_ALM_FUNC_FAILURE = 7;
-    public static final byte TYP__NOT_BELTING__SI_CHUAN = 8;
-    public static final byte TYP__ONE_TIME_DRIVE_OVERTIME__GDRTA = 8;
-    public static final byte TYP__NOT_BELTING__GDRTA = 0x0A;
-    public static final byte TYP__ANTI_FACE_RECOG_DETECT_FUNC_FAILURE__GDRTA = 0x0B;
-    public static final byte TYP__STEERING_WHEEL_NOT_HOLDING__GDRTA = 0x0C;
+
+    /**
+     * 未系安全带报警
+     */
+    public static final byte TYP__NOT_BELTING = 8;
+
+    /**
+     * 红外阻断型墨镜失效报警
+     */
+    public static final byte TYP__ANTI_FACE_RECOG_DETECT_FUNC_FAILURE = 0x0B;
+
+    /**
+     * 玩手机报警
+     */
     public static final byte TYP__PLAY_SMART_PHONE = 0x0D;
+
+    /**
+     * 夜间禁行报警
+     */
+    public static final byte TYP__NIGHT_DRIVE_PROHIBITED = 0x0E;
+
+    /**
+     * 超时驾驶报警
+     */
+    public static final byte TYP__DRIVE_OVERTIME = 0x0F;
+
+    /**
+     * 自动抓拍事件
+     */
     public static final byte TYP__AUTO_CAPTURE = 0x10;
+
+    /**
+     * 驾驶员变更事件
+     */
     public static final byte TYP__DRIVER_CHANGED_EVENT = 0x11;
+
+    /**
+     * 驾驶员身份异常
+     */
     public static final byte TYP__INVALID_DRIVER_ID = 0x12;
+
+    /**
+     * 点火抓拍事件
+     */
+    public static final byte TYP__IGNITED_CAPTURE = 0x14;
+
+    public static final byte TYP__CUSTOM = (byte) 0xFF;
 
 
     private int almId;
     private byte flag;
-    private byte typ;
+    private short typ;
+    private short typ2;
     private byte lvl;
     private byte fatigue;
     private short spd;
@@ -69,12 +141,20 @@ public class AdasDriverBehavAlmAddt implements Cloneable {
         return flag == FLAG__NOT_AVAILABLE || flag == FLAG__START;
     }
 
-    public byte getTyp() {
+    public short getTyp() {
         return typ;
     }
 
-    public void setTyp(byte typ) {
+    public void setTyp(short typ) {
         this.typ = typ;
+    }
+
+    public short getTyp2() {
+        return typ2;
+    }
+
+    public void setTyp2(short typ2) {
+        this.typ2 = typ2;
     }
 
     public byte getLvl() {
@@ -168,19 +248,20 @@ public class AdasDriverBehavAlmAddt implements Cloneable {
 
     @Override
     public String toString() {
-        return "AdasDriverBehavAlmAddt{" +
-                "almId=" + almId +
-                ", flag=" + flag +
-                ", typ=" + typ +
-                ", lvl=" + lvl +
-                ", fatigue=" + fatigue +
-                ", spd=" + spd +
-                ", alt=" + alt +
-                ", lat=" + lat +
-                ", lng=" + lng +
-                ", tm=" + tm +
-                ", vehSt=" + vehSt +
-                ", almNo='" + almNo + '\'' +
-                '}';
+        return new StringJoiner(", ", AdasDriverBehavAlmAddt.class.getSimpleName() + "[", "]")
+                .add("almId=" + almId)
+                .add("flag=" + flag)
+                .add("typ=" + typ)
+                .add("typ2=" + typ2)
+                .add("lvl=" + lvl)
+                .add("fatigue=" + fatigue)
+                .add("spd=" + spd)
+                .add("alt=" + alt)
+                .add("lat=" + lat)
+                .add("lng=" + lng)
+                .add("tm=" + tm)
+                .add("vehSt=" + vehSt)
+                .add("almNo='" + almNo + "'")
+                .toString();
     }
 }

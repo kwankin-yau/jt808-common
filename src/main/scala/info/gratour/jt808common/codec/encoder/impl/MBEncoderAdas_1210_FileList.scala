@@ -7,12 +7,13 @@
  * ***************************************************************************** */
 package info.gratour.jt808common.codec.encoder.impl
 
-import info.gratour.jt808common.codec.encoder.AbstractJT808MsgBodyEncoder2019Support
+import info.gratour.jt808common.AdasDialect
+import info.gratour.jt808common.codec.encoder.AbstractJT808MsgBodyEncoder
 import info.gratour.jt808common.protocol.msg.JTAdasMsg_1210_FileList
 import io.netty.buffer.ByteBuf
 
-object MBEncoderAdas_1210_FileList extends AbstractJT808MsgBodyEncoder2019Support[JTAdasMsg_1210_FileList] {
-  override protected def encodeBody(protoVer: Byte, m: JTAdasMsg_1210_FileList, out: ByteBuf): Unit = {
+object MBEncoderAdas_1210_FileList extends AbstractJT808MsgBodyEncoder[JTAdasMsg_1210_FileList] {
+  override protected def encodeBody(protoVer: Byte, adasDialect: AdasDialect, m: JTAdasMsg_1210_FileList, out: ByteBuf): Unit = {
     import info.gratour.jtcommon.ByteBufHelper
 
     val (termIdLen, almNoLen) = if (protoVer > 0) (30, 40) else (7, 16)

@@ -13,17 +13,44 @@ public class AdasIntenseDrivingAlmAddt implements Cloneable {
     public static final byte FLAG__START = 1;
     public static final byte FLAG__END = 2;
 
+    /**
+     * 急加速报警
+     */
     public static final byte TYP__RAPID_ACCELERATE = 0;
+
+    /**
+     * 急减速报警
+     */
     public static final byte TYP__RAPID_DECELERATE = 1;
+
+    /**
+     * 急转弯报警
+     */
     public static final byte TYP__RAPID_TURN = 2;
+
+    /**
+     * 怠速报警
+     */
     public static final byte TYP__IDLING = 3;
+
+    /**
+     * 异常熄火报警
+     */
     public static final byte TYP__UNEXPECTED_FLAME_OUT = 4;
+
+    /**
+     * 空挡滑行报警
+     */
     public static final byte TYP__SLIDING_ON_N = 5;
+
+    /**
+     * 发动机超转报警
+     */
     public static final byte TYP__ENGINE_RPM_TOO_HIGH = 6;
 
     private int almId;
     private byte flag;
-    private byte typ;
+    private short typ;
     private short dur;
     private short thold1;
     private short thold2;
@@ -56,11 +83,11 @@ public class AdasIntenseDrivingAlmAddt implements Cloneable {
     }
 
 
-    public byte getTyp() {
+    public short getTyp() {
         return typ;
     }
 
-    public void setTyp(byte typ) {
+    public void setTyp(short typ) {
         this.typ = typ;
     }
 

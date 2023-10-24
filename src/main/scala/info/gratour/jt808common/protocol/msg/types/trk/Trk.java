@@ -4,6 +4,7 @@ import com.google.gson.reflect.TypeToken;
 import info.gratour.jt808common.JT1078VidAlarmBit;
 import info.gratour.jt808common.JT808AlarmBit;
 import info.gratour.jt808common.JT808StateBit;
+import info.gratour.jt808common.protocol.msg.types.Coordinate;
 import info.gratour.jt808common.protocol.msg.types.addt.MQEventAddt;
 import info.gratour.jtcommon.JTConsts;
 import info.gratour.jtcommon.JTUtils;
@@ -23,6 +24,9 @@ public class Trk implements MQEventAddt, Cloneable {
         public static final int ADAS_BLIND_AREA = 3;
         public static final int ADAS_INTENSE_DRIVING_ALARM = 4;
         public static final int ADAS_OVER_SPEED_ALARM = 5;
+        public static final int ADAS_AI_RECOG_ALARM = 6;
+        public static final int ADAS_OVERLOAD_ALARM = 7;
+        public static final int ADAS_OVER_HEIGHT_ALARM = 8;
     }
 
     private String id;
@@ -167,6 +171,10 @@ public class Trk implements MQEventAddt, Cloneable {
 
     public void setLat(double lat) {
         this.lat = lat;
+    }
+
+    public Coordinate toCoordinate() {
+        return new Coordinate(lng, lat);
     }
 
     public int getAlt() {
@@ -413,6 +421,33 @@ public class Trk implements MQEventAddt, Cloneable {
         prepareAddt().setAdasOverSpd(alm);
         if (alm.getFlag() != 2)
             adasAlmSet(AdasAlarmBits.ADAS_OVER_SPEED_ALARM);
+    }
+
+    public void setAdasAiRecogAlm(AdasAiRecogAlmAddt alm) {
+        if (alm == null)
+            throw new NullPointerException();
+
+        prepareAddt().setAiRecogAlm(alm);
+        if (alm.getFlag() != 2)
+            adasAlmSet(AdasAlarmBits.ADAS_AI_RECOG_ALARM);
+    }
+
+    public void setAdasOverloadAlm(AdasOverloadAlmAddt alm) {
+        if (alm == null)
+            throw new NullPointerException();
+
+        prepareAddt().setOverloadAlmAddt(alm);
+        if (alm.getFlag() == 1 || alm.getFlag() == 3)
+            adasAlmSet(AdasAlarmBits.ADAS_OVERLOAD_ALARM);
+    }
+
+    public void setAdasOverHeightAlm(AdasOverHeightAlmAddt alm) {
+        if (alm == null)
+            throw new NullPointerException();
+
+        prepareAddt().setOverHeightAlmAddt(alm);
+        if (alm.getFlag() == 1 || alm.getFlag() == 3)
+            adasAlmSet(AdasAlarmBits.ADAS_OVER_HEIGHT_ALARM);
     }
 
     public void assignFrom(Trk source) {

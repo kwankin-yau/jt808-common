@@ -7,6 +7,7 @@
  * ******************************************************************************/
 package info.gratour.jt808common.codec.decoder.impl
 
+import info.gratour.jt808common.AdasDialect
 import info.gratour.jt808common.codec.decoder.JT808MsgBodyDecoder
 import info.gratour.jt808common.protocol.msg.JT808Msg_0700_VtdrData
 import info.gratour.jt808common.protocol.msg.types.ackparams.JT808AckParams_0700_VtdrData
@@ -15,7 +16,7 @@ import io.netty.buffer.ByteBuf
 import org.apache.commons.codec.binary.Hex
 
 object MBDecoder808_0700_VtdrData extends JT808MsgBodyDecoder[JT808Msg_0700_VtdrData] with Vtdr_DecodeHelper {
-  override def decodeMsgBody(m: JT808Msg_0700_VtdrData, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
+  override def decodeMsgBody(protoVer: Byte, adasDialect: AdasDialect, m: JT808Msg_0700_VtdrData, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
     m.setAckSeqNo(body.readUnsignedShort())
     val ackParams = new JT808AckParams_0700_VtdrData
     val cmd = body.readByte()

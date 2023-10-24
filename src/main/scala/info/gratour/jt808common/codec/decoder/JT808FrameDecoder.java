@@ -10,6 +10,9 @@ import info.gratour.jtcommon.JTUtils;
 import info.gratour.jtcommon.NettyUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
+import io.netty.buffer.Unpooled;
+import io.netty.buffer.UnpooledByteBufAllocator;
+import io.netty.util.ReferenceCounted;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +30,7 @@ public class JT808FrameDecoder implements AutoCloseable {
 
     private ParseState parseState = ParseState.START_7E;
 
-    private List<ByteBuf> buffers = new ArrayList<>();
+    private final List<ByteBuf> buffers = new ArrayList<>();
 
     public JT808FrameDecoder(ByteBufAllocator allocator) {
         alloc = allocator;
@@ -35,7 +38,9 @@ public class JT808FrameDecoder implements AutoCloseable {
     }
 
     /**
-     * Allocate a temporary byte buffer used in {@link JT808FrameDecoder#decodeFrame(ByteBuf, byte[])}
+     * Allocate a temporary byte buffer used in {@link JT808FrameDecoder#decodeFrame(ByteBuf, byte[])}. The buffer size
+     * allocated by this method will keep the same size assumption in
+     * {@link JT808FrameDecoder#decodeFrame(ByteBuf, byte[])} method internal.
      *
      * @return new allocated temporary byte buffer.
      */
@@ -90,7 +95,7 @@ public class JT808FrameDecoder implements AutoCloseable {
             }
         }
 
-        if (buffers.size() > 0)
+        if (!buffers.isEmpty())
             return DecodeState.DECODED;
         else if (parseState != ParseState.START_7E)
             return DecodeState.RECOGNIZED;
@@ -106,6 +111,10 @@ public class JT808FrameDecoder implements AutoCloseable {
     @Override
     public void close() {
         workBuf.release();
+        if (!buffers.isEmpty()) {
+            buffers.forEach(ReferenceCounted::release);
+            buffers.clear();
+        }
     }
 
     public static int calcCrc(ByteBuf buf) {
@@ -130,15 +139,15 @@ public class JT808FrameDecoder implements AutoCloseable {
         } else
             return false;
     }
-
     /**
      * Decode a frame object from ByteBuf.
      *
-     * @param buf     the frame ByteBuffer
-     * @param tempBuf a temporary byte buffer used in decode procedure, should allocated by {@link JT808FrameDecoder#allocTempBuf()}
+     * @param buf         the frame ByteBuffer
+     * @param tempBuf     a temporary byte buffer used in decode procedure, should be allocated by {@link JT808FrameDecoder#allocTempBuf()}
+     * @param doVerifyCrc whether to do CRC verification
      * @return null if crc verification failed or other format violation
      */
-    public static JT808Frame decodeFrame(ByteBuf buf, byte[] tempBuf) {
+    public static JT808Frame decodeFrame(ByteBuf buf, byte[] tempBuf, boolean doVerifyCrc) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("BEFORE-decodeFrame: " + NettyUtils.bufToHex(buf));
         }
@@ -148,10 +157,11 @@ public class JT808FrameDecoder implements AutoCloseable {
             throw new CodecError("Invalid JT/T 808 frame.");
         }
 
-        if (!verifyCrc(buf)) {
+        if (doVerifyCrc && !verifyCrc(buf)) {
             LOGGER.debug("CRC verification failed.");
             throw new CrcError("CRC verification failed.");
         }
+
 
         buf.skipBytes(1); // start-tag
 
@@ -200,5 +210,7 @@ public class JT808FrameDecoder implements AutoCloseable {
         return r;
     }
 
-
+    public static JT808Frame decodeFrame(ByteBuf buf, byte[] tempBuf) {
+        return decodeFrame(buf, tempBuf, true);
+    }
 }

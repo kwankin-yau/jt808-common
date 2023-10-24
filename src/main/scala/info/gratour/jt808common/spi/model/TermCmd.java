@@ -30,6 +30,7 @@ public class TermCmd implements Cloneable {
     public static boolean isAckOrCompletedStatus(int status) {
         switch (status) {
             case CMD_STATUS__ACK:
+            case CMD_STATUS__EXCEPTION:
             case CMD_STATUS__BAD_CMD:
             case CMD_STATUS__NOT_SUPPORTED:
             case CMD_STATUS__CANCELED:
@@ -42,8 +43,20 @@ public class TermCmd implements Cloneable {
         }
     }
 
+    private String appId = "";
 
+    /**
+     * TermCmd record ID
+     */
     private String id;
+
+    /**
+     * The ID of request, that issued by user, initiated this terminal command. May be null. This property used for
+     * associate the terminal command with the initial request. If this property is null, that means this command has
+     * no initial request or the initial request is unknown.
+     */
+    private String reqId;
+
     private long reqTm;
     private Long sentTm;
     private Long ackTm;
@@ -60,12 +73,28 @@ public class TermCmd implements Cloneable {
     private JT808AckParams ackParams;
     private Integer timeout;
 
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getReqId() {
+        return reqId;
+    }
+
+    public void setReqId(String reqId) {
+        this.reqId = reqId;
     }
 
     /**
@@ -291,6 +320,7 @@ public class TermCmd implements Cloneable {
     }
 
     public void assignFrom(TermCmd source) {
+        this.appId = source.appId;
         this.id = source.id;
         this.reqTm = source.reqTm;
         this.sentTm = source.sentTm;
@@ -321,7 +351,8 @@ public class TermCmd implements Cloneable {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append("id=").append(id);
+        str.append("appId=").append(appId);
+        str.append(", id=").append(id);
         str.append(", simNo=").append(simNo);
         str.append(", msgId=").append(msgId);
         if (msgSn != null)

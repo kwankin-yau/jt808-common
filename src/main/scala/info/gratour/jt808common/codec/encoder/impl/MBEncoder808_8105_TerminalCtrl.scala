@@ -7,6 +7,7 @@
  * ***************************************************************************** */
 package info.gratour.jt808common.codec.encoder.impl
 
+import info.gratour.jt808common.AdasDialect
 import info.gratour.jt808common.codec.CodecError
 import info.gratour.jt808common.codec.encoder.AbstractJT808MsgBodyEncoder
 import info.gratour.jt808common.protocol.msg.JT808Msg_8105_TerminalCtrl
@@ -16,7 +17,7 @@ import info.gratour.jtcommon.ByteBufHelper
 import io.netty.buffer.ByteBuf
 
 object MBEncoder808_8105_TerminalCtrl extends AbstractJT808MsgBodyEncoder[JT808Msg_8105_TerminalCtrl] {
-  override def encodeBody(m: JT808Msg_8105_TerminalCtrl, out: ByteBuf): Unit = {
+  override def encodeBody(protoVer: Byte, adasDialect: AdasDialect, m: JT808Msg_8105_TerminalCtrl, out: ByteBuf): Unit = {
     val params = m.getParams
     if (params == null)
       throw new CodecError("params == null")

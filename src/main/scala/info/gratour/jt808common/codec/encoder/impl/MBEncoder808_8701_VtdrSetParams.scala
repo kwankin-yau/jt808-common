@@ -7,6 +7,7 @@
  * ******************************************************************************/
 package info.gratour.jt808common.codec.encoder.impl
 
+import info.gratour.jt808common.AdasDialect
 import info.gratour.jt808common.codec.encoder.AbstractJT808MsgBodyEncoder
 import info.gratour.jt808common.protocol.msg.JT808Msg_8701_VtdrSetParams
 import info.gratour.jt808common.protocol.msg.types.vtdr.{JT808Vtdr_Mileage_03, JT808Vtdr_PulseFactor_04, JT808Vtdr_Time_02, JT808Vtdr_VehInfo_05, Vtdr_StatusSignalNames}
@@ -17,7 +18,7 @@ import org.apache.commons.lang3.StringUtils
 
 object MBEncoder808_8701_VtdrSetParams extends AbstractJT808MsgBodyEncoder[JT808Msg_8701_VtdrSetParams] {
 
-  override protected def encodeBody(m: JT808Msg_8701_VtdrSetParams, out: ByteBuf): Unit = {
+  override protected def encodeBody(protoVer: Byte, adasDialect: AdasDialect, m: JT808Msg_8701_VtdrSetParams, out: ByteBuf): Unit = {
     val p = checkNotNull(m.getParams, "params")
 
     def writeDateTime(s: String, paramName: String): Unit = {

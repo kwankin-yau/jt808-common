@@ -8,8 +8,8 @@
 package info.gratour.jt808common.codec.decoder.impl
 
 import java.util
-
 import com.typesafe.scalalogging.Logger
+import info.gratour.jt808common.AdasDialect
 import info.gratour.jt808common.codec.decoder.JT808MsgBodyDecoder
 import info.gratour.jt808common.protocol.msg.JT808Msg_0104_QryParamsAck
 import info.gratour.jt808common.protocol.msg.types.ackparams.JT808AckParams_0104_QryParamsAck
@@ -21,7 +21,7 @@ object MBDecoder808_0104_QryParamsAck extends JT808MsgBodyDecoder[JT808Msg_0104_
 
   private val logger = Logger(MBDecoder808_0104_QryParamsAck.getClass.getName)
 
-  override def decodeMsgBody(m: JT808Msg_0104_QryParamsAck, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
+  override def decodeMsgBody(protoVer: Byte, adasDialect: AdasDialect, m: JT808Msg_0104_QryParamsAck, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
     m.setAckSeqNo(body.readUnsignedShort())
     val count = body.readUnsignedByte()
     val map = new util.HashMap[String, Object]()

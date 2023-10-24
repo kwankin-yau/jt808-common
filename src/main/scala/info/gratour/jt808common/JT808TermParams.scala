@@ -167,6 +167,7 @@ object JT808TermParams {
     "F370" -> PARAM_BINARY
   ).map(toTermParamDef).toMap ++ WithJT1078
 
+  val PARAM_HEARTBEAT_INTERVAL = "0001"
   val PARAM_PRIMARY_SERVER_HOST__REV2013 = "0013"
   val PARAM_SERVER_PORT__REV2013 = "0018"
 

@@ -19,8 +19,8 @@ public class NettyTimerProvider implements TimerProvider {
 
     private io.netty.util.Timer timer;
 
-    public NettyTimerProvider() {
-        this.timer = new HashedWheelTimer();
+    public NettyTimerProvider(HashedWheelTimer timer) {
+        this.timer = timer;
     }
 
     @Override

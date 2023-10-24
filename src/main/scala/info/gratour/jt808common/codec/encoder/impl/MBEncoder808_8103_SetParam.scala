@@ -7,17 +7,18 @@
  * ***************************************************************************** */
 package info.gratour.jt808common.codec.encoder.impl
 
+import info.gratour.jt808common.AdasDialect
 import info.gratour.jt808common.codec.CodecError
-import info.gratour.jt808common.codec.encoder.{AbstractJT808MsgBodyEncoder, AbstractJT808MsgBodyEncoder2019Support}
+import info.gratour.jt808common.codec.encoder.AbstractJT808MsgBodyEncoder
 import info.gratour.jt808common.protocol.msg.JT808Msg_8103_SetParam
 import info.gratour.jt808common.protocol.msg.types.termparams.{TP_0064_TimedCaptureCtrlParams, TP_0065_DistancedCaptureCtrlParams, TP_0075_AvParams, TP_0076_AvChannelSettings, TP_0077_SpecialChannelVideoParams, TP_0079_SpecialAlarmVideoParams, TP_007B_VideoAnalysisParams, TP_007C_SleepWakeupSettings, TP_0110_CanIdSettings, TP_F364_DrivingAssistParams, TP_F365_DriverBehaviorMonitorParams, TP_F366_TyrePressureMonitorParams, TP_F367_BlindMonitorParams, TP_F370_IntenseDrivingMonitorParams}
-import info.gratour.jtcommon.{ByteBufHelper, JTConsts, JTUtils}
+import info.gratour.jtcommon.{ByteBufHelper, JTUtils}
 import io.netty.buffer.ByteBuf
 
 import scala.collection.mutable
 import scala.reflect.ClassTag
 
-object MBEncoder808_8103_SetParam extends AbstractJT808MsgBodyEncoder2019Support[JT808Msg_8103_SetParam] {
+object MBEncoder808_8103_SetParam extends AbstractJT808MsgBodyEncoder[JT808Msg_8103_SetParam] {
 
   private sealed trait DataType
 
@@ -80,7 +81,7 @@ object MBEncoder808_8103_SetParam extends AbstractJT808MsgBodyEncoder2019Support
     m.toMap
   }
 
-  override def encodeBody(protoVer: Byte, m: JT808Msg_8103_SetParam, out: ByteBuf): Unit = {
+  override def encodeBody(protoVer: Byte, adasDialect: AdasDialect, m: JT808Msg_8103_SetParam, out: ByteBuf): Unit = {
     if (m.getParams == null || m.getParams.getParams == null || m.getParams.getParams.isEmpty)
       throw new CodecError("params or params.params is null/empty.")
 

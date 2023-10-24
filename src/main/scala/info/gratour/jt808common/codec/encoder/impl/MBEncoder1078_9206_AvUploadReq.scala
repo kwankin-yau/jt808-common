@@ -7,14 +7,14 @@
  * ******************************************************************************/
 package info.gratour.jt808common.codec.encoder.impl
 
-import info.gratour.jt808common.JT808Utils
+import info.gratour.jt808common.{AdasDialect, JT808Utils}
 import info.gratour.jt808common.codec.encoder.AbstractJT808MsgBodyEncoder
 import info.gratour.jt808common.protocol.msg.JT1078Msg_9206_AvUploadReq
 import info.gratour.jtcommon.ByteBufHelper
 import io.netty.buffer.ByteBuf
 
 object MBEncoder1078_9206_AvUploadReq extends AbstractJT808MsgBodyEncoder[JT1078Msg_9206_AvUploadReq] {
-  override protected def encodeBody(m: JT1078Msg_9206_AvUploadReq, out: ByteBuf): Unit = {
+  override protected def encodeBody(protoVer: Byte, adasDialect: AdasDialect, m: JT1078Msg_9206_AvUploadReq, out: ByteBuf): Unit = {
     val p = checkNotNull(m.getParams, "params")
 
     out.writeByteLenPrefixedStr(checkNotNull(p.getFtpHost, "serverIp"))

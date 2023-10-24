@@ -7,15 +7,16 @@
  * ***************************************************************************** */
 package info.gratour.jt808common.codec.decoder.impl
 
-import info.gratour.jt808common.codec.decoder.JT808MsgBodyDecoder2019Support
+import info.gratour.jt808common.AdasDialect
+import info.gratour.jt808common.codec.decoder.JT808MsgBodyDecoder
 import info.gratour.jt808common.protocol.msg.JT1078Msg_9101_LiveAvReq
 import info.gratour.jt808common.protocol.msg.types.cmdparams.CP_9101_LiveAvReq
 import info.gratour.jtcommon.ByteBufHelper
 import io.netty.buffer.ByteBuf
 
-object MBDecoder1078_9101_LiveAvReq extends JT808MsgBodyDecoder2019Support[JT1078Msg_9101_LiveAvReq]{
+object MBDecoder1078_9101_LiveAvReq extends JT808MsgBodyDecoder[JT1078Msg_9101_LiveAvReq]{
 
-  override def decodeMsgBodyNew(protoVer: Byte, m: JT1078Msg_9101_LiveAvReq, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
+  override def decodeMsgBody(protoVer: Byte, adasDialect: AdasDialect, m: JT1078Msg_9101_LiveAvReq, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
     val cp = new CP_9101_LiveAvReq
     cp.setServerIp(body.readByteLenPrefixedStr())
     val tcpPort = body.readUnsignedShort()

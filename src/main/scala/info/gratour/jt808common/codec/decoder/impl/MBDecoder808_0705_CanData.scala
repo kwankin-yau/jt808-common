@@ -7,6 +7,8 @@
  * ******************************************************************************/
 package info.gratour.jt808common.codec.decoder.impl
 
+import info.gratour.jt808common.AdasDialect
+
 import java.time.LocalTime
 import info.gratour.jt808common.codec.decoder.JT808MsgBodyDecoder
 import info.gratour.jt808common.protocol.msg.JT808Msg_0705_CanData
@@ -17,7 +19,7 @@ import io.netty.buffer.ByteBuf
 
 object MBDecoder808_0705_CanData extends JT808MsgBodyDecoder[JT808Msg_0705_CanData]{
 
-  override def decodeMsgBody(m: JT808Msg_0705_CanData, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
+  override def decodeMsgBody(protoVer: Byte, adasDialect: AdasDialect, m: JT808Msg_0705_CanData, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
     val cnt = body.readUnsignedShort()
     body.readBytes(tempBuf, 0, 5)
     val h = BcdUtils.decodeByte(tempBuf(0))

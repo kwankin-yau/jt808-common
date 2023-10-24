@@ -7,6 +7,7 @@
  * ***************************************************************************** */
 package info.gratour.jt808common.codec.decoder.impl
 
+import info.gratour.jt808common.AdasDialect
 import info.gratour.jt808common.codec.decoder.JT808MsgBodyDecoder
 import info.gratour.jt808common.protocol.msg.JTAdasMsg_9212_AlmAttFileItemCompleted
 import info.gratour.jt808common.protocol.msg.types.almatt.{AlmAttFileItemWithType, AlmAttReTransFileBlock}
@@ -16,7 +17,7 @@ import io.netty.buffer.ByteBuf
 import java.util
 
 object MBDecoderAdas_9212_AlmAttFileItemCompleted extends JT808MsgBodyDecoder[JTAdasMsg_9212_AlmAttFileItemCompleted] {
-  override def decodeMsgBody(m: JTAdasMsg_9212_AlmAttFileItemCompleted, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
+  override def decodeMsgBody(protoVer: Byte, adasDialect: AdasDialect, m: JTAdasMsg_9212_AlmAttFileItemCompleted, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
     import info.gratour.jtcommon.ByteBufHelper
 
     val fileItem = new AlmAttFileItemWithType
@@ -27,7 +28,7 @@ object MBDecoderAdas_9212_AlmAttFileItemCompleted extends JT808MsgBodyDecoder[JT
     val cp = new CP_9212_AlmAttFileItemCompleted
     cp.setFileItem(fileItem)
 
-    body.skipBytes(1) // result
+    body.skipBytes(1) // file type
     val cnt = body.readUnsignedByte()
     if (cnt > 0) {
       val blocks = new util.ArrayList[AlmAttReTransFileBlock]()
