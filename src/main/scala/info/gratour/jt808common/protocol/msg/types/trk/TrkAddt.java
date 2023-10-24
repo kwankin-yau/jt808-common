@@ -49,6 +49,8 @@ public class TrkAddt implements Cloneable {
     private AdasIntenseDrivingAlmAddt intenseDrivingAlm;
     private AdasOverSpdAlmAddt adasOverSpd;
     private AdasAiRecogAlmAddt aiRecogAlm;
+    private AdasOverloadAlmAddt overloadAlmAddt;
+    private AdasOverHeightAlmAddt overHeightAlmAddt;
 
     public String getId() {
         return id;
@@ -202,6 +204,22 @@ public class TrkAddt implements Cloneable {
         this.aiRecogAlm = aiRecogAlm;
     }
 
+    public AdasOverloadAlmAddt getOverloadAlmAddt() {
+        return overloadAlmAddt;
+    }
+
+    public void setOverloadAlmAddt(AdasOverloadAlmAddt overloadAlmAddt) {
+        this.overloadAlmAddt = overloadAlmAddt;
+    }
+
+    public AdasOverHeightAlmAddt getOverHeightAlmAddt() {
+        return overHeightAlmAddt;
+    }
+
+    public void setOverHeightAlmAddt(AdasOverHeightAlmAddt overHeightAlmAddt) {
+        this.overHeightAlmAddt = overHeightAlmAddt;
+    }
+
     public void assignFrom(TrkAddt source) {
         this.id = source.id;
         this.sat = source.sat;
@@ -222,6 +240,8 @@ public class TrkAddt implements Cloneable {
         this.intenseDrivingAlm = source.intenseDrivingAlm != null ? source.intenseDrivingAlm.clone() : null;
         this.adasOverSpd = source.adasOverSpd != null ? source.adasOverSpd.clone() : null;
         this.aiRecogAlm = source.aiRecogAlm != null ? source.aiRecogAlm.clone() : null;
+        this.overloadAlmAddt = source.overloadAlmAddt != null ? source.overloadAlmAddt.clone() : null;
+        this.overHeightAlmAddt = source.overHeightAlmAddt != null ? source.overHeightAlmAddt.clone() : null;
     }
 
     @Override

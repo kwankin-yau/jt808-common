@@ -14,7 +14,13 @@ import info.gratour.jt808common.protocol.msg.types.trk.Trk
 import io.netty.buffer.ByteBuf
 
 object MBDecoder808_0704_BatchLocation extends JT808MsgBodyDecoder[JT808Msg_0704_BatchLocation] {
-  override def decodeMsgBody(protoVer: Byte, adasDialect: AdasDialect, m: JT808Msg_0704_BatchLocation, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
+  override def decodeMsgBody(
+                              protoVer: Byte,
+                              adasDialect: AdasDialect,
+                              m: JT808Msg_0704_BatchLocation,
+                              body: ByteBuf,
+                              tempBuf: Array[Byte]
+                            ): Unit = {
     val recvTime = System.currentTimeMillis()
 
     val cnt = body.readUnsignedShort()
@@ -27,7 +33,7 @@ object MBDecoder808_0704_BatchLocation extends JT808MsgBodyDecoder[JT808Msg_0704
       val buf = body.slice(body.readerIndex(), size)
       body.skipBytes(size)
 
-      val t = MBDecoder808_Track.decodeTrack(protoVer, m, buf, tempBuf, recvTime, retransmit)
+      val t = MBDecoder808_Track.decodeTrack(protoVer, adasDialect, m, buf, tempBuf, recvTime, retransmit)
       tracks(i) = t
     }
 

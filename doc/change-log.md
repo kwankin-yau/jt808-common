@@ -2,6 +2,11 @@
 ## Improvement
 - `JT1078MediaPacketPayloadType` add enumName
 - `info.gratour.jt808common.JT1078MediaPacketPayloadTypes.typeOfEnumName` added
+- Introduce `JT1078TermAvAttrs`, and let `JT1078AckParams_1003_QryAvAttrsAck` inherited from it.
+- Add missing `MBDecoder1078_9003_QryAvAttrs`
+- `TermCmd` add `appId` property.
+- Add `AdasOverloadAlmAddt`, `AdasOverHeightAlmAddt`
+- `AdasDriverBehavAlmAddt`, `AdasDrivingAssistAlmAddt` add `typ2` property used to store the common defined alarm type ID.
 
 # 2.0.2 - [2023-05-16]
 ## Fixed

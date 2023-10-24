@@ -1,38 +1,36 @@
-/*******************************************************************************
- *  Copyright (c) 2019, 2022 lucendar.com.
- *  All rights reserved.
- *
- *  Contributors:
- *     KwanKin Yau (alphax@vip.163.com) - initial API and implementation
- *******************************************************************************/
 package info.gratour.jt808common.protocol.msg.types.trk;
 
 import java.util.StringJoiner;
 
-public class AdasAiRecogAlmAddt implements Cloneable {
+/**
+ * 载重报警附加信息
+ */
+public class AdasOverloadAlmAddt implements Cloneable {
 
-    public static final byte FLAG__NOT_AVAILABLE = 0;
     public static final byte FLAG__START = 1;
     public static final byte FLAG__END = 2;
+    public static final byte FLAG__CONTINUOUSLY = 3;
 
     /**
-     * 超远报警
+     * 超过车辆额定载重报警
      */
-    public static final short TYP__OVERCROWDING = 1;
+    public static final byte TYP__OVER_VEH_LOADING = 1;
 
     /**
-     * 未巡检乘客安全带（事件）
+     * 超过道路额定载重报警
      */
-    public static final short TYP__SEAT_BELT_NOT_CHECKED = 0x80;
+    public static final byte TYP__OVER_ROAD_LOADING = 2;
 
     private int almId;
     private byte flag;
-    private short typ;
-    private byte lvl;
+    private byte typ;
+    private int actualLoading;
+    private int threshold;
     private short spd;
-    private short alt;
+    private int alt;
     private double lat;
     private double lng;
+
     private long tm;
     private short vehSt;
     private String almNo;
@@ -53,20 +51,28 @@ public class AdasAiRecogAlmAddt implements Cloneable {
         this.flag = flag;
     }
 
-    public short getTyp() {
+    public byte getTyp() {
         return typ;
     }
 
-    public void setTyp(short typ) {
+    public void setTyp(byte typ) {
         this.typ = typ;
     }
 
-    public byte getLvl() {
-        return lvl;
+    public int getActualLoading() {
+        return actualLoading;
     }
 
-    public void setLvl(byte lvl) {
-        this.lvl = lvl;
+    public void setActualLoading(int actualLoading) {
+        this.actualLoading = actualLoading;
+    }
+
+    public int getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(int threshold) {
+        this.threshold = threshold;
     }
 
     public short getSpd() {
@@ -77,11 +83,11 @@ public class AdasAiRecogAlmAddt implements Cloneable {
         this.spd = spd;
     }
 
-    public short getAlt() {
+    public int getAlt() {
         return alt;
     }
 
-    public void setAlt(short alt) {
+    public void setAlt(int alt) {
         this.alt = alt;
     }
 
@@ -126,21 +132,22 @@ public class AdasAiRecogAlmAddt implements Cloneable {
     }
 
     @Override
-    public AdasAiRecogAlmAddt clone() {
+    public AdasOverloadAlmAddt clone() {
         try {
-            return (AdasAiRecogAlmAddt) super.clone();
+            return (AdasOverloadAlmAddt) super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", AdasAiRecogAlmAddt.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", AdasOverloadAlmAddt.class.getSimpleName() + "[", "]")
                 .add("almId=" + almId)
                 .add("flag=" + flag)
                 .add("typ=" + typ)
-                .add("lvl=" + lvl)
+                .add("actualLoading=" + actualLoading)
+                .add("threshold=" + threshold)
                 .add("spd=" + spd)
                 .add("alt=" + alt)
                 .add("lat=" + lat)

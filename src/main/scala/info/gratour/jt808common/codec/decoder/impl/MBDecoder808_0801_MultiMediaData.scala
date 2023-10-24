@@ -15,7 +15,13 @@ import io.netty.buffer.ByteBuf
 
 object MBDecoder808_0801_MultiMediaData extends JT808MsgBodyDecoder[JT808Msg_0801_MultiMediaData] {
 
-  override def decodeMsgBody(protoVer: Byte, adasDialect: AdasDialect, m: JT808Msg_0801_MultiMediaData, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
+  override def decodeMsgBody(
+                              protoVer: Byte,
+                              adasDialect: AdasDialect,
+                              m: JT808Msg_0801_MultiMediaData,
+                              body: ByteBuf,
+                              tempBuf: Array[Byte]
+                            ): Unit = {
     val data = new MQEventAddt_0801_MultiMediaData
     data.setMediaId(body.readUnsignedInt())
     data.setTyp(body.readByte())
@@ -24,7 +30,15 @@ object MBDecoder808_0801_MultiMediaData extends JT808MsgBodyDecoder[JT808Msg_080
     data.setChan(body.readByte())
 
     val slice = body.slice(body.readerIndex(), 28)
-    val t = MBDecoder808_Track.decodeTrack(protoVer, m, slice, tempBuf, System.currentTimeMillis(), retransmit = false)
+    val t = MBDecoder808_Track.decodeTrack(
+      protoVer,
+      adasDialect,
+      m,
+      slice,
+      tempBuf,
+      System.currentTimeMillis(),
+      retransmit = false
+    )
     data.setTrk(t)
     body.skipBytes(28)
 

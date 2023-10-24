@@ -16,7 +16,13 @@ import io.netty.buffer.ByteBuf
 
 object MBDecoder808_0802_StoredMediaSearchAck extends JT808MsgBodyDecoder[JT808Msg_0802_StoredMediaSearchAck] {
 
-  override def decodeMsgBody(protoVer: Byte, adasDialect: AdasDialect, m: JT808Msg_0802_StoredMediaSearchAck, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
+  override def decodeMsgBody(
+                              protoVer: Byte,
+                              adasDialect: AdasDialect,
+                              m: JT808Msg_0802_StoredMediaSearchAck,
+                              body: ByteBuf,
+                              tempBuf: Array[Byte]
+                            ): Unit = {
     m.setAckSeqNo(body.readUnsignedShort())
     val cnt = body.readUnsignedShort()
     val ackParams = new JT808AckParams_0802_StoredMediaSearchAck
@@ -34,7 +40,15 @@ object MBDecoder808_0802_StoredMediaSearchAck extends JT808MsgBodyDecoder[JT808M
       mediaInfo.setEvtCode(body.readByte())
 
       val slice = body.slice(body.readerIndex(), 28)
-      val t = MBDecoder808_Track.decodeTrack(protoVer, m, slice, tempBuf, recvTime, retransmit = false)
+      val t = MBDecoder808_Track.decodeTrack(
+        protoVer,
+        adasDialect,
+        m,
+        slice,
+        tempBuf,
+        recvTime,
+        retransmit = false
+      )
       mediaInfo.setTrk(t)
     }
   }

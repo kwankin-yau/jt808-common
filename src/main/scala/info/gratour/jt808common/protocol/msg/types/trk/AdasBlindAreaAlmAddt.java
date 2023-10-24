@@ -19,7 +19,7 @@ public class AdasBlindAreaAlmAddt implements Cloneable {
 
     private int almId;
     private byte flag;
-    private byte typ;
+    private short typ;
     private short spd;
     private short alt;
     private double lat;
@@ -49,11 +49,11 @@ public class AdasBlindAreaAlmAddt implements Cloneable {
     }
 
 
-    public byte getTyp() {
+    public short getTyp() {
         return typ;
     }
 
-    public void setTyp(byte typ) {
+    public void setTyp(short typ) {
         this.typ = typ;
     }
 

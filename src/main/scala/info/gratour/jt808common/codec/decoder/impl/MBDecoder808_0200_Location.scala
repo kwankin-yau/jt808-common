@@ -14,7 +14,16 @@ import io.netty.buffer.ByteBuf
 
 object MBDecoder808_0200_Location extends JT808MsgBodyDecoder[JT808Msg_0200_Location] {
   override def decodeMsgBody(protoVer: Byte, adasDialect: AdasDialect, m: JT808Msg_0200_Location, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
-    val t = MBDecoder808_Track.decodeTrack(protoVer, m, body, tempBuf, System.currentTimeMillis(), retransmit = false)
+    val t = MBDecoder808_Track.decodeTrack(
+      protoVer,
+      adasDialect,
+      m,
+      body,
+      tempBuf,
+      System.currentTimeMillis(),
+      retransmit = false
+    )
+
     m.setTrk(t)
   }
 }

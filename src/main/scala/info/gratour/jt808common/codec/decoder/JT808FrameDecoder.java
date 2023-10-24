@@ -95,7 +95,7 @@ public class JT808FrameDecoder implements AutoCloseable {
             }
         }
 
-        if (buffers.size() > 0)
+        if (!buffers.isEmpty())
             return DecodeState.DECODED;
         else if (parseState != ParseState.START_7E)
             return DecodeState.RECOGNIZED;

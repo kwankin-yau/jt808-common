@@ -25,6 +25,8 @@ public class Trk implements MQEventAddt, Cloneable {
         public static final int ADAS_INTENSE_DRIVING_ALARM = 4;
         public static final int ADAS_OVER_SPEED_ALARM = 5;
         public static final int ADAS_AI_RECOG_ALARM = 6;
+        public static final int ADAS_OVERLOAD_ALARM = 7;
+        public static final int ADAS_OVER_HEIGHT_ALARM = 8;
     }
 
     private String id;
@@ -428,6 +430,24 @@ public class Trk implements MQEventAddt, Cloneable {
         prepareAddt().setAiRecogAlm(alm);
         if (alm.getFlag() != 2)
             adasAlmSet(AdasAlarmBits.ADAS_AI_RECOG_ALARM);
+    }
+
+    public void setAdasOverloadAlm(AdasOverloadAlmAddt alm) {
+        if (alm == null)
+            throw new NullPointerException();
+
+        prepareAddt().setOverloadAlmAddt(alm);
+        if (alm.getFlag() == 1 || alm.getFlag() == 3)
+            adasAlmSet(AdasAlarmBits.ADAS_OVERLOAD_ALARM);
+    }
+
+    public void setAdasOverHeightAlm(AdasOverHeightAlmAddt alm) {
+        if (alm == null)
+            throw new NullPointerException();
+
+        prepareAddt().setOverHeightAlmAddt(alm);
+        if (alm.getFlag() == 1 || alm.getFlag() == 3)
+            adasAlmSet(AdasAlarmBits.ADAS_OVER_HEIGHT_ALARM);
     }
 
     public void assignFrom(Trk source) {

@@ -17,6 +17,21 @@ public enum AdasDialect {
     /**
      * 粤标
      */
-    GDRTA_2020;
+    GDRTA_2020,
 
+    /**
+     * 湘标
+     */
+    HU_NAN,
+
+    /**
+     * 苏标
+     */
+    JIANG_SU,
+
+    /**
+     * 渝标
+     */
+    CHONG_QING,
+    ;
 }

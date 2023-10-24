@@ -14,9 +14,23 @@ import info.gratour.jt808common.protocol.msg.types.ackparams.JT808AckParams_0500
 import io.netty.buffer.ByteBuf
 
 object MBDecoder808_0500_VehCtrlAck extends JT808MsgBodyDecoder[JT808Msg_0500_VehCtrlAck]{
-  override def decodeMsgBody(protoVer: Byte, adasDialect: AdasDialect, m: JT808Msg_0500_VehCtrlAck, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
+  override def decodeMsgBody(
+                              protoVer: Byte,
+                              adasDialect: AdasDialect,
+                              m: JT808Msg_0500_VehCtrlAck,
+                              body: ByteBuf,
+                              tempBuf: Array[Byte]
+                            ): Unit = {
     m.setAckSeqNo(body.readUnsignedShort())
-    val t = MBDecoder808_Track.decodeTrack(protoVer, m, body, tempBuf, System.currentTimeMillis(), retransmit = false)
+    val t = MBDecoder808_Track.decodeTrack(
+      protoVer,
+      adasDialect,
+      m,
+      body,
+      tempBuf,
+      System.currentTimeMillis(),
+      retransmit = false
+    )
     val ackParams = new JT808AckParams_0500_VehCtrlAck
     ackParams.setTrk(t)
     m.setAckParams(ackParams)

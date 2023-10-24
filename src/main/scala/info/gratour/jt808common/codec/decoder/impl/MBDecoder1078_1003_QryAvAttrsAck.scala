@@ -16,15 +16,15 @@ import io.netty.buffer.ByteBuf
 object MBDecoder1078_1003_QryAvAttrsAck extends JT808MsgBodyDecoder[JT1078Msg_1003_QryAvAttrsAck] {
   override def decodeMsgBody(protoVer: Byte, adasDialect: AdasDialect, m: JT1078Msg_1003_QryAvAttrsAck, body: ByteBuf, tempBuf: Array[Byte]): Unit = {
     val ackParams = new JT1078AckParams_1003_QryAvAttrsAck
-    ackParams.setInputAudioEnc(body.readByte())
-    ackParams.setInputAudioChannel(body.readByte())
-    ackParams.setInputAudioFrequency(body.readByte())
-    ackParams.setInputAudioBits(body.readByte())
+    ackParams.setAudioCodec(body.readByte())
+    ackParams.setAudioChannels(body.readByte())
+    ackParams.setAudioSampleRate(body.readByte())
+    ackParams.setAudioBitsPerSample(body.readByte())
     ackParams.setAudioFrameSize(body.readUnsignedShort())
     ackParams.setSupportAudioOut(body.readByte() == 1)
-    ackParams.setVideoEnc(body.readByte())
-    ackParams.setMaxAudioChannel(body.readByte())
-    ackParams.setMaxVideoChannel(body.readByte())
+    ackParams.setVideoCodec(body.readByte())
+    ackParams.setMaxAudioChannels(body.readByte())
+    ackParams.setMaxVideoChannels(body.readByte())
 
     m.setAckParams(ackParams)
   }

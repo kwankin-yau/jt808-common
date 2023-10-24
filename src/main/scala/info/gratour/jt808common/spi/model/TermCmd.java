@@ -43,6 +43,7 @@ public class TermCmd implements Cloneable {
         }
     }
 
+    private String appId = "";
 
     private String id;
     private long reqTm;
@@ -60,6 +61,14 @@ public class TermCmd implements Cloneable {
     private Integer ackCode;
     private JT808AckParams ackParams;
     private Integer timeout;
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
 
     public String getId() {
         return id;
@@ -292,6 +301,7 @@ public class TermCmd implements Cloneable {
     }
 
     public void assignFrom(TermCmd source) {
+        this.appId = source.appId;
         this.id = source.id;
         this.reqTm = source.reqTm;
         this.sentTm = source.sentTm;
@@ -322,7 +332,8 @@ public class TermCmd implements Cloneable {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append("id=").append(id);
+        str.append("appId=").append(appId);
+        str.append(", id=").append(id);
         str.append(", simNo=").append(simNo);
         str.append(", msgId=").append(msgId);
         if (msgSn != null)

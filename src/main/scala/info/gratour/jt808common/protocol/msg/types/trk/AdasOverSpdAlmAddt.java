@@ -19,7 +19,7 @@ public class AdasOverSpdAlmAddt implements Cloneable {
 
     private int almId;
     private byte flag;
-    private byte typ;
+    private short typ;
     private byte overSpdAlmTyp;
     private short termSpdThold;
     private short rdSpdThold;
@@ -52,11 +52,11 @@ public class AdasOverSpdAlmAddt implements Cloneable {
     }
 
 
-    public byte getTyp() {
+    public short getTyp() {
         return typ;
     }
 
-    public void setTyp(byte typ) {
+    public void setTyp(short typ) {
         this.typ = typ;
     }
 
