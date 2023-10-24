@@ -1,3 +1,7 @@
+# 2.0.4 - [2023-10-24]
+## Improvement
+- `TermCmd` add `reqId` property which
+
 # 2.0.3 - [2023-07-01]
 ## Improvement
 - `JT1078MediaPacketPayloadType` add enumName

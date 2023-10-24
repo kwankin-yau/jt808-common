@@ -45,7 +45,18 @@ public class TermCmd implements Cloneable {
 
     private String appId = "";
 
+    /**
+     * TermCmd record ID
+     */
     private String id;
+
+    /**
+     * The ID of request, that issued by user, initiated this terminal command. May be null. This property used for
+     * associate the terminal command with the initial request. If this property is null, that means this command has
+     * no initial request or the initial request is unknown.
+     */
+    private String reqId;
+
     private long reqTm;
     private Long sentTm;
     private Long ackTm;
@@ -76,6 +87,14 @@ public class TermCmd implements Cloneable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getReqId() {
+        return reqId;
+    }
+
+    public void setReqId(String reqId) {
+        this.reqId = reqId;
     }
 
     /**
