@@ -14,18 +14,79 @@ import info.gratour.jtcommon.JTUtils;
 
 import java.time.Instant;
 import java.time.OffsetDateTime;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class TermCmd implements Cloneable {
+
+    public static final ResourceBundle resourceBundle(Locale locale) {
+        return ResourceBundle.getBundle(
+                "info.gratour.jt808common.spi.model.term-cmds",
+                locale != null ? locale : Locale.getDefault()
+        );
+    }
 
     public static final int CMD_STATUS__INIT = 0;
     public static final int CMD_STATUS__SENT = 1;
     public static final int CMD_STATUS__ACK = 2;
+
+    /**
+     * Use CMD_STATUS__EXECUTE_FAILED instead
+     */
+    @Deprecated
     public static final int CMD_STATUS__EXCEPTION = -1;
+    public static final int CMD_STATUS__EXECUTE_FAILED = -1;
     public static final int CMD_STATUS__BAD_CMD = -2;
     public static final int CMD_STATUS__NOT_SUPPORTED = -3;
     public static final int CMD_STATUS__CANCELED = -4;
     public static final int CMD_STATUS__NO_CONNECTION = -5;
     public static final int CMD_STATUS__TIMEOUT = -6;
+
+    protected static String getStatusStringKey(int status) {
+        switch (status) {
+            case CMD_STATUS__INIT:
+                return "term_cmd.state_init";
+
+            case CMD_STATUS__SENT:
+                return "term_cmd.state_sent";
+
+            case CMD_STATUS__ACK:
+                return "term_cmd.state_ack";
+
+            case CMD_STATUS__EXECUTE_FAILED:
+                return "term_cmd.state_execute_failed";
+
+            case CMD_STATUS__BAD_CMD:
+                return "term_cmd.state_bad_cmd";
+
+            case CMD_STATUS__NOT_SUPPORTED:
+                return "term_cmd.state_not_supported";
+
+            case CMD_STATUS__CANCELED:
+                return "term_cmd.state_canceled";
+
+            case CMD_STATUS__NO_CONNECTION:
+                return "term_cmd.state_no_connection";
+
+            case CMD_STATUS__TIMEOUT:
+                return "term_cmd.state_timeout";
+
+            default:
+                return null;
+        }
+    }
+
+    public static String getStatusString(Locale locale, int status) {
+        String key = getStatusStringKey(status);
+        if (key == null)
+            return "status(" + status + ")";
+
+        return resourceBundle(locale).getString(key);
+    }
+
+    public static String getStatusString(int status) {
+        return getStatusString(null, status);
+    }
 
     public static boolean isAckOrCompletedStatus(int status) {
         switch (status) {

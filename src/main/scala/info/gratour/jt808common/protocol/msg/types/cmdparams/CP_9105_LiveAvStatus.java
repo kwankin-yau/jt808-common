@@ -34,6 +34,22 @@ public class CP_9105_LiveAvStatus implements JT808CmdParams {
         this.lossRate = lossRate;
     }
 
+    public int chan() {
+        return channelId;
+    }
+
+    public void chan(int value) {
+        this.channelId = (byte) value;
+    }
+
+    public int lossRate() {
+        return lossRate;
+    }
+
+    public void lossRate(int value) {
+        this.lossRate = (byte) value;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", CP_9105_LiveAvStatus.class.getSimpleName() + "[", "]")

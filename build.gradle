@@ -27,7 +27,7 @@ dependencies {
     implementation('commons-codec:commons-codec:1.15')
     implementation('org.apache.commons:commons-lang3:3.11')
     api('com.google.code.gson:gson:2.10.1')
-    implementation('commons-validator:commons-validator:1.6')
+    implementation('commons-validator:commons-validator:1.7')
     implementation('dnsjava:dnsjava:3.4.2')
 }
 

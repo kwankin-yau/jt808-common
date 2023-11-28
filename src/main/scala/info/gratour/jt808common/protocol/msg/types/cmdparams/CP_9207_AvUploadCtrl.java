@@ -52,6 +52,32 @@ public class CP_9207_AvUploadCtrl implements JT808CmdParams {
         this.ctrl = ctrl;
     }
 
+
+    public String id() {
+        return id;
+    }
+
+    public void id(String value) {
+        this.id = value;
+    }
+
+    public int origSeqNo() {
+        return origSeqNo;
+    }
+
+    public void origSeqNo(int value) {
+        this.origSeqNo = value;
+    }
+
+    public int ctrl() {
+        return ctrl;
+    }
+
+    public void ctrl(int value) {
+        this.ctrl = (byte) value;
+    }
+
+
     @Override
     public String toString() {
         return new StringJoiner(", ", CP_9207_AvUploadCtrl.class.getSimpleName() + "[", "]")

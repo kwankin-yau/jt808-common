@@ -140,13 +140,6 @@ public class CP_9201_ReplayAvReq implements JT808CmdParams {
         this.factor = factor;
     }
 
-    public byte factorDef(){
-        if (factor != null)
-            return factor;
-        else
-            return 0;
-    }
-
     public long getStartTm() {
         return startTm;
     }
@@ -163,13 +156,6 @@ public class CP_9201_ReplayAvReq implements JT808CmdParams {
         this.endTm = endTm;
     }
 
-    public long endTimeDef() {
-        if (endTm != null)
-            return endTm;
-        else
-            return 0;
-    }
-
     public int getDebug() {
         return debug;
     }
@@ -184,6 +170,132 @@ public class CP_9201_ReplayAvReq implements JT808CmdParams {
 
     public void setServerId(String serverId) {
         this.serverId = serverId;
+    }
+
+    public String serverIp() {
+        return serverIp;
+    }
+
+    public void serverIp(String value) {
+        this.serverIp = value;
+    }
+
+    public int tcpPort() {
+        return tcpPort;
+    }
+
+    public void tcpPort(int value) {
+        this.tcpPort = value;
+    }
+
+    public int tcpPort2019() {
+        return tcpPort2019;
+    }
+
+    public void tcpPort2019(int value) {
+        this.tcpPort2019 = value;
+    }
+
+    public int udpPort() {
+        return udpPort;
+    }
+
+    public void udpPort(int value) {
+        this.udpPort = value;
+    }
+
+    public int udpPort2019() {
+        return udpPort2019;
+    }
+
+    public void udpPort2019(int value) {
+        this.udpPort2019 = value;
+    }
+
+    public int chan() {
+        return chan;
+    }
+
+    public void chan(int value) {
+        this.chan = (byte) value;
+    }
+
+    public int mediaTyp() {
+        return mediaTyp;
+    }
+
+    public void mediaTyp(int value) {
+        this.mediaTyp = (byte) value;
+    }
+
+    public int codeStrm() {
+        return codeStrm;
+    }
+
+    public void codeStrm(int value) {
+        this.codeStrm = (byte) value;
+    }
+
+    public int stgTyp() {
+        return stgTyp;
+    }
+
+    public void stgTyp(int value) {
+        this.stgTyp = (byte) value;
+    }
+
+    public int mode() {
+        return mode;
+    }
+
+    public void mode(int value) {
+        this.mode = (byte) value;
+    }
+
+    public int factorDef(){
+        if (factor != null)
+            return factor;
+        else
+            return 0;
+    }
+
+    public void factor(int value) {
+        this.factor = (byte) value;
+    }
+
+    public long startTm() {
+        return startTm;
+    }
+
+    public void startTm(long value) {
+        this.startTm = value;
+    }
+
+    public long endTimeDef() {
+        if (endTm != null)
+            return endTm;
+        else
+            return 0L;
+    }
+
+    public void endTime(long value) {
+        this.endTm = value;
+    }
+
+    public int debug() {
+        return debug;
+    }
+
+    public void debug(int value) {
+        this.debug = value;
+    }
+
+    public String serverId() {
+        return serverId;
+    }
+
+    public void serverId(String value) {
+        this.serverId = value;
     }
 
     @Override

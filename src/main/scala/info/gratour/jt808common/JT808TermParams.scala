@@ -27,7 +27,10 @@ object JT808TermParams {
   val pPORT = "0018"
 
   def resourceBundle(locale: Locale): ResourceBundle =
-    ResourceBundle.getBundle("info.gratour.jt808common.protocol.term-param-names", if (locale != null) locale else Locale.getDefault)
+    ResourceBundle.getBundle(
+      "info.gratour.jt808common.protocol.term-param-names",
+      if (locale != null) locale else Locale.getDefault
+    )
 
   def getOpt(locale: Locale, key: String): Option[String] = {
     val bundle = resourceBundle(locale)
@@ -37,7 +40,7 @@ object JT808TermParams {
       None
   }
 
-  def alarmNameOf(locale: Locale, alarmId: String): String = {
+  def termParamNameOf(locale: Locale, alarmId: String): String = {
     val key = "p" + alarmId
     val bundle = resourceBundle(locale)
 
@@ -57,7 +60,7 @@ object JT808TermParams {
   private def toTermParamDef(tup: Tuple2[String, JT808TermParamType]): (String, JT808TermParamDef) = {
     val id = tup._1
     val typ = tup._2
-    val name = alarmNameOf(null, id)
+    val name = termParamNameOf(null, id)
     id -> JT808TermParamDef(id, typ, name)
   }
 

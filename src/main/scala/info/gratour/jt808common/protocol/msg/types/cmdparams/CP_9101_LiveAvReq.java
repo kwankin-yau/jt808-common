@@ -130,6 +130,92 @@ public class CP_9101_LiveAvReq implements JT808CmdParams {
         this.serverId = serverId;
     }
 
+    public String serverIp() {
+        return serverIp;
+    }
+
+    public void serverIp(String value) {
+        this.serverIp = value;
+    }
+
+    public int tcpPort() {
+        return tcpPort;
+    }
+
+    public void tcpPort(int value) {
+        this.tcpPort = value;
+    }
+
+    public int tcpPort2019() {
+        return tcpPort2019;
+    }
+
+    public void tcpPort2019(int value) {
+        this.tcpPort2019 = value;
+    }
+
+    public int udpPort() {
+        return udpPort;
+    }
+
+    public void udpPort(int value) {
+        this.udpPort = value;
+    }
+
+    public int udpPort2019() {
+        return udpPort2019;
+    }
+
+    public void udpPort2019(int value) {
+        this.udpPort2019 = value;
+    }
+
+    public int chan() {
+        return chan;
+    }
+
+    public void chan(int value) {
+        this.chan = (byte) value;
+    }
+
+    public int dataTypDef() {
+        if (dataTyp != null)
+            return dataTyp;
+        else
+            return DATA_TYPE__AV;
+    }
+
+    public void dataTyp(int value) {
+        this.dataTyp = (byte) value;
+    }
+
+    public int codeStrmDef() {
+        if (codeStrm != null)
+            return codeStrm;
+        else
+            return CODE_STREAM__PRIMARY;
+    }
+
+    public void codeStrm(int value) {
+        this.codeStrm = (byte) value;
+    }
+
+    public int debug() {
+        return debug;
+    }
+
+    public void debug(int value) {
+        this.debug = debug;
+    }
+
+    public String serverId() {
+        return serverId;
+    }
+
+    public void serverId(String value) {
+        this.serverId = value;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", CP_9101_LiveAvReq.class.getSimpleName() + "[", "]")

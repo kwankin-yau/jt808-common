@@ -1,6 +1,10 @@
 # 2.0.4 - [2023-10-24]
 ## Improvement
-- `TermCmd` add `reqId` property which
+- `TermCmd` add the following properties/methods:
+    - `reqId`: the `reqId` of stream open request if the command is associated with an open stream request.
+    - `getStatusString()` static method.
+- Add many name shorten methods to JT1078 related message objects
+- Introduce `ByteBufBackOffReader`
 
 # 2.0.3 - [2023-07-01]
 ## Improvement

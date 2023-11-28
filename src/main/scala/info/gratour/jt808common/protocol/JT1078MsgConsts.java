@@ -19,14 +19,18 @@ public class JT1078MsgConsts {
     public static final int LIVE_AV_REQ_9101 = 0x9101;
     public static final String HEX_MSG_ID_LIVE_AV_REQ_9101 = "9101";
     public static final int LIVE_AV_CTRL_9102 = 0x9102;
+    public static final String HEX_MSG_ID_LIVE_AV_CTRL_9102 = "9102";
     public static final int LIVE_AV_STATUS_9105 = 0x9105;
+    public static final String HEX_MSG_ID_LIVE_AV_STATUS_9105 = "9105";
 
     public static final int QRY_AV_RES_9205 = 0x9205;
+    public static final String HEX_MSG_ID_QRY_AV_RES_9205 = "9205";
     public static final int QRY_AV_RES_ACK_1205 = 0x1205;
     public static final String HEX_MSG_ID_QRY_AV_RES_ACK_1205 = "1205";
     public static final int REPLAY_AV_REQ_9201 = 0x9201;
     public static final String HEX_MSG_ID_REPLY_AV_REQ_9201 = "9201";
     public static final int REPLAY_AV_CTRL_9202 = 0x9202;
+    public static final String HEX_MSG_ID_REPLAY_AV_CTRL_9202 = "9202";
     public static final int AV_UPLOAD_REQ_9206 = 0x9206;
     public static final String HEX_MSG_ID_AV_UPLOAD_REQ_9206 = "9206";
     public static final int AV_UPLOAD_COMPLETED_1206 = 0x1206;

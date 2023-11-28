@@ -12,6 +12,7 @@ import info.gratour.jt808common.protocol.msg.types.JT1078AvRes;
 import info.gratour.jtcommon.JTMsgId;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.StringJoiner;
 
 @JTMsgId(JT1078MsgConsts.QRY_AV_RES_ACK_1205)
@@ -25,6 +26,13 @@ public class JT1078AckParams_1205_QryAvResAck implements JT808AckParams {
 
     public void setResList(JT1078AvRes[] resList) {
         this.resList = resList;
+    }
+
+    public void setResList(List<JT1078AvRes> resList) {
+        if (resList != null)
+            this.resList = resList.toArray(new JT1078AvRes[0]);
+        else
+            this.resList = null;
     }
 
     @Override

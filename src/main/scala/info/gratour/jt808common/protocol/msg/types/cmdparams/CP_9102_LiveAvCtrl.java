@@ -72,8 +72,6 @@ public class CP_9102_LiveAvCtrl implements JT808CmdParams {
         this.codeStrm = codeStrm;
     }
 
-
-
     public String getServerId() {
         return serverId;
     }
@@ -88,6 +86,60 @@ public class CP_9102_LiveAvCtrl implements JT808CmdParams {
 
     public void setCloseReason(String closeReason) {
         this.closeReason = closeReason;
+    }
+
+    public int chan() {
+        return chan;
+    }
+
+    public void chan(int value) {
+        this.chan = (byte) value;
+    }
+
+    public int ctrl() {
+        return ctrl;
+    }
+
+    public void ctrl(int value) {
+        this.ctrl = (byte) value;
+    }
+
+    public int closeActionDef() {
+        if (closeAction != null)
+            return closeAction;
+        else
+            return CLOSE_ACTION__CLOSE_AV;
+    }
+
+    public void closeAction(int value) {
+        this.closeAction = (byte) value;
+    }
+
+    public int codeStrmDef() {
+        if (codeStrm != null)
+            return codeStrm;
+        else
+            return CODE_STREAM__PRIMARY;
+    }
+
+    public void codeStrm(int value) {
+        this.codeStrm = (byte) value;
+    }
+
+    public String serverId() {
+        return serverId;
+    }
+
+    public void serverId(String value) {
+        this.serverId = value;
+    }
+
+    public String closeReason() {
+        return closeReason;
+    }
+
+    public void closeReason(String value) {
+        this.closeReason = value;
     }
 
     @Override

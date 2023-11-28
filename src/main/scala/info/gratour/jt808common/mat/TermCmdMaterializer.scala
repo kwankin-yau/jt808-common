@@ -35,6 +35,10 @@ class TermCmdMaterializer extends JsonSerializer[TermCmd] with JsonDeserializer[
     if (s != null)
       obj.addProperty("simNo", s)
 
+    s = src.getReqId
+    if (s != null)
+      obj.addProperty("reqId", s)
+
     //    obj.addProperty("vehId", src.getVehId)
 
     s = src.getPlateNo
@@ -100,6 +104,9 @@ class TermCmdMaterializer extends JsonSerializer[TermCmd] with JsonDeserializer[
 
     if (obj.has("simNo"))
       r.setSimNo(obj.getAsJsonPrimitive("simNo").getAsString)
+
+    if (obj.has("reqId"))
+      r.setReqId(obj.getAsJsonPrimitive("reqId").getAsString)
 
 //    if (obj.has("vehId"))
 //      r.setVehId(obj.getAsJsonPrimitive("vehId").getAsLong)

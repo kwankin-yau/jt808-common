@@ -117,6 +117,7 @@ public class CP_9206_AvUploadReq implements JT808CmdParams {
         this.almFilter808 = almFilter808;
     }
 
+    @Deprecated
     public int almSt808() {
         if (almFilter808 != null)
             return almFilter808;
@@ -132,6 +133,7 @@ public class CP_9206_AvUploadReq implements JT808CmdParams {
         this.almFilter1078 = almFilter1078;
     }
 
+    @Deprecated
     public int almSt1078() {
         if (almFilter1078 != null)
             return almFilter1078;
@@ -139,6 +141,7 @@ public class CP_9206_AvUploadReq implements JT808CmdParams {
             return 0;
     }
 
+    @Deprecated
     public long almState() {
         int st808 = almSt808();
 
@@ -180,6 +183,139 @@ public class CP_9206_AvUploadReq implements JT808CmdParams {
     public void setWhen(byte when) {
         this.when = when;
     }
+
+    public String ftpHost() {
+        return ftpHost;
+    }
+
+    public void ftpHost(String value) {
+        this.ftpHost = value;
+    }
+
+    public int ftpPort() {
+        return ftpPort;
+    }
+
+    public void ftpPort(int value) {
+        this.ftpPort = value;
+    }
+
+    public String ftpUser() {
+        return ftpUser;
+    }
+
+    public void ftpUser(String value) {
+        this.ftpUser = value;
+    }
+
+    public String ftpPwd() {
+        return ftpPwd;
+    }
+
+    public void ftpPwd(String value) {
+        this.ftpPwd = value;
+    }
+
+    public String uploadPath() {
+        return uploadPath;
+    }
+
+    public void uploadPath(String value) {
+        this.uploadPath = value;
+    }
+
+    public int chan() {
+        return chan;
+    }
+
+    public void chan(int value) {
+        this.chan = (byte) value;
+    }
+
+    public long startTm() {
+        return startTm;
+    }
+
+    public void startTm(long value) {
+        this.startTm = value;
+    }
+
+    public long endTm() {
+        return endTm;
+    }
+
+    public void endTm(long value) {
+        this.endTm = value;
+    }
+
+    public int almFilter808Def() {
+        if (almFilter808 != null)
+            return almFilter808;
+        else
+            return 0;
+    }
+
+    public void almFilter808(int value) {
+        this.almFilter808 = value;
+    }
+
+    public int almFilter1078Def() {
+        if (almFilter1078 != null)
+            return almFilter1078;
+        else
+            return 0;
+    }
+
+    public void almFilter1078(int value) {
+        this.almFilter1078 = value;
+    }
+
+    public long almFilterLong() {
+        long r = almFilter1078Def();
+        r <<= 32;
+        r |= almFilter808Def();
+
+        return r;
+    }
+
+    public void almFilterLong(long value) {
+        long t = value >>> 32;
+        almFilter1078 = (int)(t);
+        almFilter808 = (int) (value & 0xFFFF_FFFFL);
+    }
+
+    public int mediaTyp() {
+        return mediaTyp;
+    }
+
+    public void mediaTyp(int value) {
+        this.mediaTyp = (byte) value;
+    }
+
+    public int codeStrm() {
+        return codeStrm;
+    }
+
+    public void codeStrm(int value) {
+        this.codeStrm = (byte) value;
+    }
+
+    public int stgTyp() {
+        return stgTyp;
+    }
+
+    public void stgTyp(int value) {
+        this.stgTyp = (byte) value;
+    }
+
+    public int when() {
+        return when;
+    }
+
+    public void when(int value) {
+        this.when = (byte) value;
+    }
+
 
     @Override
     public String toString() {

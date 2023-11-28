@@ -104,6 +104,9 @@ public class AdasDriverBehavAlmAddt implements Cloneable {
      */
     public static final byte TYP__IGNITED_CAPTURE = 0x14;
 
+    /**
+     * 不能识别或厂商自定义报警/事件类型
+     */
     public static final byte TYP__CUSTOM = (byte) 0xFF;
 
 
@@ -141,6 +144,11 @@ public class AdasDriverBehavAlmAddt implements Cloneable {
         return flag == FLAG__NOT_AVAILABLE || flag == FLAG__START;
     }
 
+    /**
+     * The original protocol uploaded alarm type.
+     *
+     * @return
+     */
     public short getTyp() {
         return typ;
     }
@@ -148,6 +156,12 @@ public class AdasDriverBehavAlmAddt implements Cloneable {
     public void setTyp(short typ) {
         this.typ = typ;
     }
+
+    /**
+     * The mapped alarm type.
+     *
+     * @return
+     */
 
     public short getTyp2() {
         return typ2;

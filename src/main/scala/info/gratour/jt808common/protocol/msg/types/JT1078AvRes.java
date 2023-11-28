@@ -36,6 +36,94 @@ public class JT1078AvRes {
     private String path;
     private String fileName;
 
+    public int chan() {
+        return chan;
+    }
+
+    public void chan(int value) {
+        this.chan = (byte) value;
+    }
+
+    public long startTm() {
+        return startTm;
+    }
+
+    public void startTm(long value) {
+        this.startTm = value;
+    }
+
+    public long endTm() {
+        return this.endTm;
+    }
+
+    public void endTm(long value) {
+        this.endTm = value;
+    }
+
+    public int almStat808() {
+        return almSt808;
+    }
+
+    public void almState808(int value) {
+        this.almSt808 = value;
+    }
+
+    public int almState1078() {
+        return almSt1078;
+    }
+
+    public void almState1078(int value) {
+        this.almSt1078 = value;
+    }
+
+    public int mediaTyp() {
+        return mediaTyp;
+    }
+
+    public void mediaTyp(int value) {
+        this.mediaTyp = (byte) value;
+    }
+
+    public int codeStrm() {
+        return this.codeStrm;
+    }
+
+    public void codeStrm(int value) {
+        this.codeStrm = (byte) value;
+    }
+
+    public int stgTyp() {
+        return this.stgTyp;
+    }
+
+    public void stgTyp(int value) {
+        this.stgTyp = (byte) value;
+    }
+
+    public long fileSz() {
+        return fileSz;
+    }
+
+    public void fileSz(long value) {
+        this.fileSz = value;
+    }
+
+    public String path() {
+        return path;
+    }
+
+    public void path(String path) {
+        this.path = path;
+    }
+
+    public String fileName() {
+        return fileName;
+    }
+
+    public void fileName(String value) {
+        this.fileName = value;
+    }
+
 
     public byte getChan() {
         return chan;

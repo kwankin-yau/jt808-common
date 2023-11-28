@@ -70,6 +70,54 @@ public class CP_9202_ReplayAvCtrl implements JT808CmdParams {
         this.serverId = serverId;
     }
 
+
+    public int chan() {
+        return chan;
+    }
+
+    public void chan(int value) {
+        this.chan = (byte) value;
+    }
+
+    public int ctrl() {
+        return ctrl;
+    }
+
+    public void ctrl(int value) {
+        this.ctrl = value;
+    }
+
+    public int factorDef() {
+        if (factor != null)
+            return factor;
+        else
+            return 0;
+    }
+
+    public void factor(int value) {
+        this.factor = (byte) value;
+    }
+
+    public long tmDef() {
+        if (tm != null)
+            return tm;
+        else
+            return 0L;
+    }
+
+    public void tm(long value) {
+        this.tm = value;
+    }
+
+    public String serverId() {
+        return serverId;
+    }
+
+    public void serverId(String value) {
+        this.serverId = value;
+    }
+
+
     @Override
     public String toString() {
         return new StringJoiner(", ", CP_9202_ReplayAvCtrl.class.getSimpleName() + "[", "]")
