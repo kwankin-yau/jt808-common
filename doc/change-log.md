@@ -1,3 +1,16 @@
+# 3.0.0 - [2023-11-28]
+## Improvement
+- `TermCmd`:
+  - add `externalId`, `senderToken`, `ackMsgId`, `ackSeqNo` properties.
+- `TermCmdStateChanged`:
+  - add `appId`, `externalId`, `reqId` properties.
+- Introduce `JT808CmdParamsParser`, `JT808AckParamsParser` interfaces.
+- Introduce `TermCmdParamsParser`
+- Introduce `MBEncoder808_0107_QryAttrsAck`
+
+## Changed
+- Maven group changed to `com.lucendar`
+
 # 2.0.4 - [2023-10-24]
 ## Improvement
 - `TermCmd` add the following properties/methods:

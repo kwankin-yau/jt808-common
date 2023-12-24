@@ -37,7 +37,7 @@ trait FileResource extends Closeable{
 trait WritableFileResource extends FileResource {
 
   /**
-   * Get OutputStream object of this resource. Note that the output stream will created in this resource object creation,
+   * Get OutputStream object of this resource. Note that the output stream will be created in this resource object creation,
    * and return the reference each time this method called. This output stream will be closed when the close() method
    * of resource called.
    *

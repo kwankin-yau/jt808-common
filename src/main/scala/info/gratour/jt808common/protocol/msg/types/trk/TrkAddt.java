@@ -12,6 +12,9 @@ import info.gratour.jtcommon.JTConsts;
 
 import java.lang.reflect.Type;
 
+/**
+ * 轨迹附加信息
+ */
 public class TrkAddt implements Cloneable {
 
     public static final Type TYPE = new TypeToken<TrkAddt>() {
@@ -34,9 +37,25 @@ public class TrkAddt implements Cloneable {
     private AcrossAreaAddt acrossArea;
     private RouteAlmAddt routeAlm;
     private AnalogQty anQty;
+
+    /**
+     * 视频丢失报警状态字
+     */
     private Integer vidLoss;
+
+    /**
+     * 视频遮挡报警状态字
+     */
     private Integer vidCover;
+
+    /**
+     * 视频存储报警状态字
+     */
     private Short vidStgAlm;
+
+    /**
+     * 异常驾驶行为报警
+     */
     private UnusualDriveBehav unusualDriveBehav;
 
     /**

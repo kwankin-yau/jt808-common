@@ -86,6 +86,79 @@ public class JT1078TermAvAttrs {
         this.maxVideoChannels = maxVideoChannels;
     }
 
+    public int audioCodec() {
+        return audioCodec;
+    }
+
+    public void audioCodec(int value) {
+        this.audioCodec = (byte) value;
+    }
+
+    public int audioChannels() {
+        return audioChannels;
+    }
+
+    public void audioChannels(int value) {
+        this.audioChannels = (byte) value;
+    }
+
+    public int audioSampleRate() {
+        return audioSampleRate;
+    }
+
+    public void audioSampleRate(int value) {
+        this.audioSampleRate = (byte) value;
+    }
+
+    public int audioBitsPerSample() {
+        return audioBitsPerSample;
+    }
+
+    public void audioBitsPerSample(int value) {
+        this.audioBitsPerSample = (byte) value;
+    }
+
+    public int audioFrameSize() {
+        return audioFrameSize;
+    }
+
+    public void audioFrameSize(int value) {
+        this.audioFrameSize = value;
+    }
+
+    public boolean supportAudioOut() {
+        return supportAudioOut;
+    }
+
+    public void supportAudioOut(boolean value) {
+        this.supportAudioOut = value;
+    }
+
+    public int videoCodec() {
+        return videoCodec;
+    }
+
+    public void videoCodec(int value) {
+        this.videoCodec = (byte) value;
+    }
+
+    public int maxAudioChannels() {
+        return maxAudioChannels;
+    }
+
+    public void maxAudioChannels(int value) {
+        this.maxAudioChannels = (byte) value;
+    }
+
+    public int maxVideoChannels() {
+        return maxVideoChannels;
+    }
+
+    public void maxVideoChannels(int value) {
+        this.maxVideoChannels = (byte) value;
+    }
+
+
     @Override
     public String toString() {
         return new StringJoiner(", ", JT1078TermAvAttrs.class.getSimpleName() + "[", "]")
@@ -95,7 +168,7 @@ public class JT1078TermAvAttrs {
                 .add("audioBitsPerSample=" + audioBitsPerSample)
                 .add("audioFrameSize=" + audioFrameSize)
                 .add("supportAudioOut=" + supportAudioOut)
-                .add("videoEnc=" + videoCodec)
+                .add("videoCodec=" + videoCodec)
                 .add("maxAudioChannels=" + maxAudioChannels)
                 .add("maxVideoChannels=" + maxVideoChannels)
                 .toString();

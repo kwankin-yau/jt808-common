@@ -8,8 +8,9 @@
 package info.gratour.jt808common.spi.model;
 
 import com.google.gson.reflect.TypeToken;
+import com.lucendar.common.utils.DateTimeUtils;
 import info.gratour.jt808common.protocol.msg.types.ackparams.JT808AckParams;
-import info.gratour.jtcommon.BeijingTime;
+import info.gratour.jtcommon.JTUtils;
 
 import java.lang.reflect.Type;
 import java.util.StringJoiner;
@@ -20,8 +21,11 @@ public class TermCmdStateChanged {
     }.getType();
 
 
+    private String appId;
 
     private String id;
+    private String externalId;
+    private String reqId;
     private String reqTm;
 
     private int status;
@@ -41,6 +45,14 @@ public class TermCmdStateChanged {
     private Integer ackCode;
     private JT808AckParams ackParams;
 
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
     public String getId() {
         return id;
     }
@@ -49,12 +61,28 @@ public class TermCmdStateChanged {
         this.id = id;
     }
 
+    public String getExternalId() {
+        return externalId;
+    }
+
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
+    }
+
+    public String getReqId() {
+        return reqId;
+    }
+
+    public void setReqId(String reqId) {
+        this.reqId = reqId;
+    }
+
     public String getReqTm() {
         return reqTm;
     }
 
     public void setReqTm(long reqTm) {
-        this.reqTm = BeijingTime.millisToString(reqTm);
+        this.reqTm = DateTimeUtils.BeijingConv.millisToString(reqTm);
     }
 
     public void setReqTm(String reqTm) {
@@ -74,7 +102,7 @@ public class TermCmdStateChanged {
     }
 
     public void setTm(long tm) {
-        this.tm = BeijingTime.millisToString(tm);
+        this.tm = DateTimeUtils.BeijingConv.millisToString(tm);
     }
 
     public void setTm(String tm) {
@@ -177,21 +205,42 @@ public class TermCmdStateChanged {
         return status < 0;
     }
 
-    public void assign(TermCmd cmd) {
+    /**
+     *
+     * @param cmd
+     * @param changeTm 状态变更的时间
+     */
+    public void assign(TermCmd cmd, long changeTm) {
+        this.appId = cmd.appIdDef();
         this.id = cmd.getId();
+        this.externalId = cmd.getExternalId();
+        this.reqId = cmd.getReqId();
+        this.reqTm = DateTimeUtils.BeijingConv.millisToString(cmd.getReqTm());
+        this.status = cmd.getStatus();
+        this.tm = DateTimeUtils.BeijingConv.millisToString(changeTm);
         this.initMsgId = cmd.getMsgId();
         this.subCmdTyp = cmd.getSubCmdTyp();
         this.msgSn = cmd.getMsgSn();
         this.simNo = cmd.getSimNo();
-        this.reqTm = BeijingTime.millisToString(cmd.getReqTm());
         this.plateNo = cmd.getPlateNo();
         this.plateColor = cmd.getPlateColor();
+
+        this.ackMsgId = cmd.getAckMsgId();
+        this.ackSeqNo = cmd.getAckSeqNo();
+        this.ackCode = cmd.getAckCode();
+        this.ackParams = cmd.getAckParams();
+    }
+
+    public int jtInitMsgId() {
+        return JTUtils.hexToMsgId(initMsgId);
     }
 
     @Override
     public String toString() {
         return new StringJoiner(", ", TermCmdStateChanged.class.getSimpleName() + "[", "]")
+                .add("appId='" + appId + "'")
                 .add("id='" + id + "'")
+                .add("externalId='" + externalId + "'")
                 .add("reqTm=" + reqTm)
                 .add("status=" + status)
                 .add("tm=" + tm)

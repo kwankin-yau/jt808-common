@@ -10,7 +10,7 @@ package info.gratour.jt808common.protocol.msg.types.cmdparams
 import com.google.gson.Gson
 import info.gratour.jtcommon.{JTConsts, JTUtils}
 
-object CmdParamsParser {
+object CmdParamsParser extends JT808CmdParamsParser {
 
   private val map: Map[Int, Class[_ <: JT808CmdParams]] = Seq(
     classOf[CP_8103_SetParams],
@@ -73,6 +73,7 @@ object CmdParamsParser {
   def clazzOf(msgId: Int): Class[_] =
     map.get(msgId).orNull
 
+  @Override
   def fromJson(msgId: Int, json: String, gson: Gson): JT808CmdParams = {
     if (json == null)
       return null
@@ -84,12 +85,4 @@ object CmdParamsParser {
     gson.fromJson(json, clazz)
   }
 
-  def fromJson(msgIdHex: String, json: String, gson: Gson): JT808CmdParams =
-    fromJson(JTUtils.hexToMsgId(msgIdHex), json, gson)
-
-  def fromJson(msgId: Int, json: String): JT808CmdParams =
-    fromJson(msgId, json, JTConsts.GSON)
-
-  def fromJson(msgIdHex: String, json: String): JT808CmdParams =
-    fromJson(JTUtils.hexToMsgId(msgIdHex), json)
 }

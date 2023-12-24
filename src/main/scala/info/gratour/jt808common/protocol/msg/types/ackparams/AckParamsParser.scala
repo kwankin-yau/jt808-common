@@ -10,9 +10,9 @@ package info.gratour.jt808common.protocol.msg.types.ackparams
 import com.google.gson.Gson
 import info.gratour.jt808common.protocol.msg.types.addt.MQEventAddt_0702_DriverIdentity
 import info.gratour.jt808common.protocol.msg.{JT1078Msg_1003_QryAvAttrsAck, JT1078Msg_1205_QryAvResAck, JT1078Msg_9003_QryAvAttrs, JT1078Msg_9205_QryAvRes, JT808Msg_0104_QryParamsAck, JT808Msg_0107_QryAttrsAck, JT808Msg_0201_QryLocationAck, JT808Msg_0302_InquestAnswer, JT808Msg_0500_VehCtrlAck, JT808Msg_0700_VtdrData, JT808Msg_0702_DriverIdentity, JT808Msg_0802_StoredMediaSearchAck, JT808Msg_0805_TakePhotoAck, JT808Msg_8104_QryAllParams, JT808Msg_8106_QrySpecialParams, JT808Msg_8107_QryAttrs, JT808Msg_8201_QryLocation, JT808Msg_8302_Inquest, JT808Msg_8500_VehCtrl, JT808Msg_8700_VtdrDataCollectReq, JT808Msg_8702_DriverIdentityReq, JT808Msg_8801_TakePhoto, JT808Msg_8802_StoredMediaSearch}
-import info.gratour.jtcommon.{JTConsts, JTUtils}
+import info.gratour.jtcommon.JTUtils
 
-object AckParamsParser {
+object AckParamsParser extends JT808AckParamsParser {
 
   private val map: Map[Int, Class[_ <: JT808AckParams]] = Seq(
 
@@ -35,6 +35,7 @@ object AckParamsParser {
   def clazzOf(msgId: Int): Class[_] =
     map.get(msgId).orNull
 
+  @Override
   def fromJsonBySrcMsgId(srcMsgId: Int, json: String, gson: Gson): JT808AckParams = {
     if (json == null)
       return null
@@ -88,15 +89,8 @@ object AckParamsParser {
     gson.fromJson(json, clzz)
   }
 
-  def fromJsonBySrcMsgId(srcMsgIdHex: String, json: String, gson: Gson): JT808AckParams =
-    fromJsonBySrcMsgId(JTUtils.hexToMsgId(srcMsgIdHex), json, gson)
 
-  def fromJsonBySrcMsgId(srcMsgId: Int, json: String): JT808AckParams =
-    fromJsonBySrcMsgId(srcMsgId, json, JTConsts.GSON)
-
-  def fromJsonBySrcMsgId(srcMsgIdHex: String, json: String): JT808AckParams =
-    fromJsonBySrcMsgId(JTUtils.hexToMsgId(srcMsgIdHex), json)
-
+  @Override
   def fromJson(ackMsgId: Int, json: String, gson: Gson): JT808AckParams = {
     if (json == null)
       return null
@@ -108,14 +102,6 @@ object AckParamsParser {
     gson.fromJson(json, clzz)
   }
 
-  def fromJson(ackMsgIdHex: String, json: String, gson: Gson): JT808AckParams =
-    fromJson(JTUtils.hexToMsgId(ackMsgIdHex), json, gson)
-
-  def fromJson(ackMsgId: Int, json: String): JT808AckParams =
-    fromJson(ackMsgId, json, JTConsts.GSON)
-
-  def fromJson(ackMsgIdHex: String, json: String): JT808AckParams =
-    fromJson(JTUtils.hexToMsgId(ackMsgIdHex), json)
 
 
 }

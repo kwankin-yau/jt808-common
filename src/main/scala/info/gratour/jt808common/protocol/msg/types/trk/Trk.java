@@ -32,7 +32,6 @@ public class Trk implements MQEventAddt, Cloneable {
     private String id;
 
     private String simNo;
-    //    private String vehId;
     private String plateNo;
     private Short plateColor;
 

@@ -1,14 +1,14 @@
 package info.gratour.jt808common.protocol.msg.types;
 
+import com.lucendar.common.utils.DateTimeUtils;
 import info.gratour.jtcommon.BcdUtils;
-import info.gratour.jtcommon.BeijingTime;
 import info.gratour.jtcommon.JTUtils;
 import io.netty.buffer.ByteBuf;
 import org.apache.commons.codec.binary.Hex;
-import scala.collection.mutable.HashEntry;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class AdasAlmNo {
 
@@ -30,11 +30,11 @@ public class AdasAlmNo {
     }
 
     public long timeAsEpochSeconds() {
-        return BeijingTime.stringToSeconds(time);
+        return DateTimeUtils.BeijingConv.stringToSeconds(time);
     }
 
     public LocalDateTime timeAsLocalDateTime() {
-        return BeijingTime.stringToLocalDateTime(time);
+        return DateTimeUtils.BeijingConv.strToLdt(time);
     }
 
     public void setTime(String time) {
@@ -42,7 +42,7 @@ public class AdasAlmNo {
     }
 
     public void setTime(long time) {
-        this.time = BeijingTime.millisToString(time);
+        this.time = DateTimeUtils.BeijingConv.millisToString(time);
     }
 
     public int getSeqNum() {

@@ -12,11 +12,13 @@ object JTConsts {
   /**
    * @deprecated using info.gratour.jt808common.JT808Consts.ProtocolVersions#PROTO_VER_\_REV2013 instead
    */
+  @Deprecated
   final val PROTO_VER__REV2013: Byte = 0
 
   /**
    * @deprecated using info.gratour.jt808common.JT808Consts.ProtocolVersions#PROTO_VER_\_REV2019 instead
    */
+  @Deprecated
   final val PROTO_VER__REV2019: Byte = 1
 
 

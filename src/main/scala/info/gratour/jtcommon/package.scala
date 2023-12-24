@@ -1,8 +1,10 @@
 package info.gratour
 
+import info.gratour.common.error.ErrorWithCode
 import info.gratour.jt808common.JT808Utils
 import io.netty.buffer.ByteBuf
 import org.apache.commons.codec.binary.Hex
+import org.apache.commons.lang3.StringUtils
 
 package object jtcommon {
 
@@ -275,6 +277,38 @@ package object jtcommon {
 
     def writeBcd(s: String): Unit = {
       val bytes = BcdUtils.encode(s)
+      byteBuf.writeBytes(bytes)
+    }
+
+    def writeBcdLeftPad(s: String, expectedStrLen: Int, ch: Char): Unit = {
+      if (expectedStrLen % 2 != 0)
+        throw ErrorWithCode.invalidParam("len")
+
+      val toWrite =
+        if (s.length > expectedStrLen)
+            s.slice(expectedStrLen - s.length, s.length)
+        else if (s.length < expectedStrLen)
+          StringUtils.leftPad(s, expectedStrLen, ch)
+        else
+          s
+
+      val bytes = BcdUtils.encode(toWrite)
+      byteBuf.writeBytes(bytes)
+    }
+
+    def writeBcdRightPad(s: String, expectedStrLen: Int, ch: Char): Unit = {
+      if (expectedStrLen % 2 != 0)
+        throw ErrorWithCode.invalidParam("len")
+
+      val toWrite =
+        if (s.length > expectedStrLen)
+          s.slice(expectedStrLen - s.length, s.length)
+        else if (s.length < expectedStrLen)
+          StringUtils.rightPad(s, expectedStrLen, ch)
+        else
+          s
+
+      val bytes = BcdUtils.encode(toWrite)
       byteBuf.writeBytes(bytes)
     }
 

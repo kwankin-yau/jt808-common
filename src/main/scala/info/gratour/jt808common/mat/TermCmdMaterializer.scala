@@ -19,9 +19,17 @@ class TermCmdMaterializer extends JsonSerializer[TermCmd] with JsonDeserializer[
   override def serialize(src: TermCmd, typeOfSrc: Type, context: JsonSerializationContext): JsonElement = {
     val obj = new JsonObject
 
-    var s = src.getId
+    var s = src.getAppId
+    if (s != null)
+      obj.addProperty("appId", s)
+
+    s = src.getId
     if (s != null)
       obj.addProperty("id", s)
+
+    s = src.getExternalId
+    if (s != null)
+      obj.addProperty("externalId", s)
 
     s = src.getMsgId
     if (s != null)
@@ -39,8 +47,6 @@ class TermCmdMaterializer extends JsonSerializer[TermCmd] with JsonDeserializer[
     if (s != null)
       obj.addProperty("reqId", s)
 
-    //    obj.addProperty("vehId", src.getVehId)
-
     s = src.getPlateNo
     if (s != null)
       obj.addProperty("plateNo", s)
@@ -49,8 +55,6 @@ class TermCmdMaterializer extends JsonSerializer[TermCmd] with JsonDeserializer[
     if (i != null)
       obj.addProperty("plateColor", i)
 
-    //    var epoch = src.getReqTm
-    //    if (epoch != null)
     obj.addProperty("reqTm", src.getReqTm)
 
     obj.addProperty("sentTm", src.getSentTm)
@@ -63,7 +67,6 @@ class TermCmdMaterializer extends JsonSerializer[TermCmd] with JsonDeserializer[
     if (l != null)
       obj.addProperty("endTm", l)
 
-//    obj.addProperty("cmdSrc", src.getCmdSrc)
     obj.addProperty("status", src.getStatus)
 
     i = src.getMsgSn
@@ -73,10 +76,6 @@ class TermCmdMaterializer extends JsonSerializer[TermCmd] with JsonDeserializer[
     i = src.getAckCode
     if (i != null)
       obj.addProperty("ackCode", i)
-
-//    val uid = src.getUserId
-//    if (uid != null)
-//      obj.addProperty("userId", uid.longValue())
 
     val params = src.getParams
     if (params != null)
@@ -93,8 +92,14 @@ class TermCmdMaterializer extends JsonSerializer[TermCmd] with JsonDeserializer[
     val r = new TermCmd
     val obj = json.asInstanceOf[JsonObject]
 
+    if (obj.has("appId"))
+      r.setAppId(obj.getAsJsonPrimitive("appId").getAsString)
+
     if (obj.has("id"))
       r.setId(obj.getAsJsonPrimitive("id").getAsString)
+
+    if (obj.has("externalId"))
+      r.setExternalId(obj.getAsJsonPrimitive("externalId").getAsString)
 
     if (obj.has("msgId"))
       r.setMsgId(obj.getAsJsonPrimitive("msgId").getAsString)
@@ -107,9 +112,6 @@ class TermCmdMaterializer extends JsonSerializer[TermCmd] with JsonDeserializer[
 
     if (obj.has("reqId"))
       r.setReqId(obj.getAsJsonPrimitive("reqId").getAsString)
-
-//    if (obj.has("vehId"))
-//      r.setVehId(obj.getAsJsonPrimitive("vehId").getAsLong)
 
     if (obj.has("plateNo"))
       r.setPlateNo(obj.getAsJsonPrimitive("plateNo").getAsString)
@@ -129,9 +131,6 @@ class TermCmdMaterializer extends JsonSerializer[TermCmd] with JsonDeserializer[
     if (obj.has("endTm"))
       r.setEndTm(obj.getAsJsonPrimitive("endTm").getAsLong)
 
-//    if (obj.has("cmdSrc"))
-//      r.setCmdSrc(obj.getAsJsonPrimitive("cmdSrc").getAsInt)
-
     if (obj.has("status"))
       r.setStatus(obj.getAsJsonPrimitive("status").getAsInt)
 
@@ -140,9 +139,6 @@ class TermCmdMaterializer extends JsonSerializer[TermCmd] with JsonDeserializer[
 
     if (obj.has("ackCode"))
       r.setAckCode(obj.getAsJsonPrimitive("ackCode").getAsInt)
-
-//    if (obj.has("userId"))
-//      r.setUserId(obj.getAsJsonPrimitive("userId").getAsLong)
 
     if (obj.has("params")) {
       val json = obj.getAsJsonObject("params")

@@ -77,19 +77,6 @@ trait CmdParams {
     getParam(name).toString
 }
 
-//trait CmdToJT808MsgTransformersMap[T <: JT808Msg] extends CmdToJT808MsgTransformers[T] {
-//  override protected def setParams(m: T, cmd: TerminalCmd): Unit = {
-//    val map = cmd.getParams.asInstanceOf[JMap[String, Object]]
-//    val params = new CmdParams {
-//      override def getMap: JMap[String, Object] = map
-//    }
-//
-//    setMapParams(m, params, cmd)
-//  }
-//
-//  protected def setMapParams(m: T, params: CmdParams, cmd: TerminalCmd)
-//}
-
 object CmdToJT808MsgTransformerRegistry extends TerminalCmdToMsgTransformerRegistry {
   private val map: Map[Int, TerminalCmdToMsgTransformer] = Seq(
     CTMT_8103_SetParam,

@@ -7,12 +7,13 @@
  * ***************************************************************************** */
 package info.gratour.jtcommon
 
+import info.gratour.jt808common.JT808Consts
 import info.gratour.jt808common.codec.CodecError
 
 trait JTCodecHelper {
 
-  val PROTO_VER__REV2013 = JTConsts.PROTO_VER__REV2013
-  val PROTO_VER__REV2019 = JTConsts.PROTO_VER__REV2019
+  val PROTO_VER__REV2013: Byte = JT808Consts.ProtocolVersions.PROTO_VER__REV2013
+  val PROTO_VER__REV2019: Byte = JT808Consts.ProtocolVersions.PROTO_VER__REV2019
 
   def notSupportedDataType(dataType: Int): CodecError = new CodecError(s"Not supported data type: $dataType.")
   def notSupportedMsgType(msgType: Class[_]): CodecError = new CodecError(s"Not supported message type: ${msgType.getName}.")

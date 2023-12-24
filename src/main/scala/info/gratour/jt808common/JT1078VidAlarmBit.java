@@ -65,7 +65,7 @@ public enum JT1078VidAlarmBit {
 
 
 
-    private int index;
+    private final int index;
 
     private JT1078VidAlarmBit(int index) {
         this.index = index;

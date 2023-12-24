@@ -90,11 +90,13 @@ public class JT808MsgConsts {
      * 查询终端属性
      */
     public static final int QRY_TERMINAL_ATTRS_8107 = 0x8107;
+    public static final String HEX_MSG_ID__QRY_TERMINAL_ATTRS_8107 = "8107";
 
     /**
      * 查询终端属性应答
      */
     public static final int QRY_TERMINAL_ATTRS_ACK_0107 = 0x0107;
+    public static final String HEX_MSG_ID__QRY_TERMINAL_ATTRS_ACK_0107 = "0107";
 
     /**
      * 下发终端升级包

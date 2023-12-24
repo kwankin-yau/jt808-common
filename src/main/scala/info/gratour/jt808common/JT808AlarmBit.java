@@ -82,7 +82,7 @@ class JT808AlarmNames {
             return null;
     }
 
-    private static final ResourceBundle resourceBundle(Locale locale) {
+    private static ResourceBundle resourceBundle(Locale locale) {
         return ResourceBundle.getBundle("info.gratour.jt808common.protocol.alarm-names", locale != null ? locale : Locale.getDefault());
     }
 

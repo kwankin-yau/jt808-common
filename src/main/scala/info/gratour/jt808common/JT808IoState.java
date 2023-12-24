@@ -28,7 +28,7 @@ class JT808IoStateNames {
             return null;
     }
 
-    private static final ResourceBundle resourceBundle(Locale locale) {
+    private static ResourceBundle resourceBundle(Locale locale) {
         return ResourceBundle.getBundle("info.gratour.jt808common.protocol.io-state-names", locale != null ? locale : Locale.getDefault());
     }
 

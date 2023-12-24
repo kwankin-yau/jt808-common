@@ -4,8 +4,8 @@ plugins {
     id 'maven-publish'
 }
 
-group 'info.gratour.gnss'
-version '2.0.4-SNAPSHOT'
+group 'com.lucendar'
+version '3.0.0-SNAPSHOT'
 
 compileJava.options.encoding = 'UTF-8'
 compileScala.options.encoding = 'UTF-8'
@@ -29,6 +29,8 @@ dependencies {
     api('com.google.code.gson:gson:2.10.1')
     implementation('commons-validator:commons-validator:1.7')
     implementation('dnsjava:dnsjava:3.4.2')
+
+    implementation('com.lucendar:lucendar-common:2.0.0-SNAPSHOT')
 }
 
 task sourceJar(type: Jar) {

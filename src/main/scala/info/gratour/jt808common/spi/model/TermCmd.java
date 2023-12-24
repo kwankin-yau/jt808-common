@@ -16,6 +16,7 @@ import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.StringJoiner;
 
 public class TermCmd implements Cloneable {
 
@@ -112,11 +113,23 @@ public class TermCmd implements Cloneable {
     private String id;
 
     /**
+     * The external system command id of this command.
+     */
+    private String externalId;
+
+    /**
      * The ID of request, that issued by user, initiated this terminal command. May be null. This property used for
      * associate the terminal command with the initial request. If this property is null, that means this command has
      * no initial request or the initial request is unknown.
      */
     private String reqId;
+
+    /**
+     * The session token of the sender of this command. The initial purpose of this property is keep trace of the
+     * command sender, so that we can send back CmdStateChanged notification to this sender when command state has been
+     * changed.
+     */
+    private transient String senderToken;
 
     private long reqTm;
     private Long sentTm;
@@ -130,7 +143,25 @@ public class TermCmd implements Cloneable {
     private Integer plateColor;
     private Integer msgSn;
     private JT808CmdParams params;
+
+    /**
+     * 终端应答自身的指令消息号
+     */
+    private String ackMsgId;
+
+    /**
+     * 终端应答自身的指令消息流水号
+     */
+    private Integer ackSeqNo;
+
+    /**
+     * 终端应答的应答码
+     */
     private Integer ackCode;
+
+    /**
+     * 终端应答的数据内容
+     */
     private JT808AckParams ackParams;
     private Integer timeout;
 
@@ -150,12 +181,28 @@ public class TermCmd implements Cloneable {
         this.id = id;
     }
 
+    public String getExternalId() {
+        return externalId;
+    }
+
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
+    }
+
     public String getReqId() {
         return reqId;
     }
 
     public void setReqId(String reqId) {
         this.reqId = reqId;
+    }
+
+    public String getSenderToken() {
+        return senderToken;
+    }
+
+    public void setSenderToken(String senderToken) {
+        this.senderToken = senderToken;
     }
 
     /**
@@ -348,6 +395,22 @@ public class TermCmd implements Cloneable {
         return TermCmd.isAckOrCompletedStatus(status);
     }
 
+    public String getAckMsgId() {
+        return ackMsgId;
+    }
+
+    public void setAckMsgId(String ackMsgId) {
+        this.ackMsgId = ackMsgId;
+    }
+
+    public Integer getAckSeqNo() {
+        return ackSeqNo;
+    }
+
+    public void setAckSeqNo(Integer ackSeqNo) {
+        this.ackSeqNo = ackSeqNo;
+    }
+
     public Integer getAckCode() {
         return ackCode;
     }
@@ -380,9 +443,19 @@ public class TermCmd implements Cloneable {
         this.timeout = timeout;
     }
 
+    public String appIdDef() {
+        if (appId != null)
+            return appId;
+        else
+            return "";
+    }
+
     public void assignFrom(TermCmd source) {
         this.appId = source.appId;
         this.id = source.id;
+        this.externalId = source.externalId;
+        this.reqId = source.reqId;
+        this.senderToken = source.senderToken;
         this.reqTm = source.reqTm;
         this.sentTm = source.sentTm;
         this.ackTm = source.ackTm;
@@ -395,6 +468,8 @@ public class TermCmd implements Cloneable {
         this.plateColor = source.plateColor;
         this.msgSn = source.msgSn;
         this.params = source.params != null ? source.params.clone() : null;
+        this.ackMsgId = source.ackMsgId;
+        this.ackSeqNo = source.ackSeqNo;
         this.ackCode = source.ackCode;
         this.ackParams = source.ackParams != null ? source.ackParams.clone() : null;
         this.timeout = source.timeout;
@@ -414,6 +489,10 @@ public class TermCmd implements Cloneable {
         StringBuilder str = new StringBuilder();
         str.append("appId=").append(appId);
         str.append(", id=").append(id);
+        str.append(", externalId=").append(externalId);
+
+        // ignore reqId, senderToken which treat as secret
+
         str.append(", simNo=").append(simNo);
         str.append(", msgId=").append(msgId);
         if (msgSn != null)
@@ -433,6 +512,10 @@ public class TermCmd implements Cloneable {
             str.append(", plateNo=").append(plateNo);
         if (plateColor != null)
             str.append(", plateColor=").append(plateColor);
+        if (ackMsgId != null)
+            str.append(", ackMsgId").append(ackMsgId);
+        if (ackSeqNo != null)
+            str.append(", ackSeqNo").append(ackSeqNo);
         if (ackCode != null)
             str.append(", ackCode=").append(ackCode);
         if (ackParams != null)

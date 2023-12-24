@@ -20,21 +20,34 @@ public class CP_9207_AvUploadCtrl implements JT808CmdParams {
     public static final byte CTRL__CANCEL = 2;
 
     /**
-     * cmd id
+     * The cmdId of the originate av upload cmd(9206). Used by application, JT1078 message codec does not use this
+     * property.
      */
-    private String id;
+    private String origCmdId;
+
+    /**
+     * The JT808 message seqNo of the originate av upload cmd(9206).
+     */
     private int origSeqNo;
     private byte ctrl;
 
-
-    public String getId() {
-        return id;
+    /**
+     * The cmdId of the originate av upload cmd(9206). Used by application, JT1078 message codec does not use this
+     * property.
+     * @return
+     */
+    public String getOrigCmdId() {
+        return origCmdId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setOrigCmdId(String origCmdId) {
+        this.origCmdId = origCmdId;
     }
 
+    /**
+     * The JT808 message seqNo of the originate av upload cmd(9206).
+     * @return
+     */
     public int getOrigSeqNo() {
         return origSeqNo;
     }
@@ -54,11 +67,11 @@ public class CP_9207_AvUploadCtrl implements JT808CmdParams {
 
 
     public String id() {
-        return id;
+        return origCmdId;
     }
 
     public void id(String value) {
-        this.id = value;
+        this.origCmdId = value;
     }
 
     public int origSeqNo() {
@@ -81,7 +94,7 @@ public class CP_9207_AvUploadCtrl implements JT808CmdParams {
     @Override
     public String toString() {
         return new StringJoiner(", ", CP_9207_AvUploadCtrl.class.getSimpleName() + "[", "]")
-                .add("id='" + id + "'")
+                .add("origCmdId='" + origCmdId + "'")
                 .add("origSeqNo=" + origSeqNo)
                 .add("ctrl=" + ctrl)
                 .toString();

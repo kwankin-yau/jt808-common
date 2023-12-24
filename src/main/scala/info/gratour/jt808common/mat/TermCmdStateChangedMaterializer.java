@@ -28,7 +28,10 @@ public class TermCmdStateChangedMaterializer implements JsonSerializer<TermCmdSt
         TermCmdStateChanged r = new TermCmdStateChanged();
         JsonObject obj = (JsonObject) json;
 
+        r.setAppId(obj.getAsJsonPrimitive("appId").getAsString());
         r.setId(obj.getAsJsonPrimitive("id").getAsString());
+        r.setExternalId(obj.getAsJsonPrimitive("externalId").getAsString());
+        r.setReqId(obj.getAsJsonPrimitive("reqId").getAsString());
         r.setReqTm(obj.getAsJsonPrimitive("reqTm").getAsString());
         r.setStatus(obj.getAsJsonPrimitive("status").getAsInt());
         r.setTm(obj.getAsJsonPrimitive("tm").getAsString());
@@ -70,7 +73,10 @@ public class TermCmdStateChangedMaterializer implements JsonSerializer<TermCmdSt
     public JsonElement serialize(TermCmdStateChanged src, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject obj = new JsonObject();
 
+        obj.addProperty("appId", src.getAppId());
         obj.addProperty("id", src.getId());
+        obj.addProperty("externalId", src.getExternalId());
+        obj.addProperty("reqId", src.getReqId());
         obj.addProperty("reqTm", src.getReqTm());
         obj.addProperty("status", src.getStatus());
         obj.addProperty("tm", src.getTm());

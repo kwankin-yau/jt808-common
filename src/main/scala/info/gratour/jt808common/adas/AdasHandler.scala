@@ -1,8 +1,8 @@
 package info.gratour.jt808common.adas
 
-import info.gratour.jt808common.AdasDialect
 import info.gratour.jt808common.protocol.msg.types.trk.{AdasDriverBehavAlmAddt, AdasDrivingAssistAlmAddt}
-import info.gratour.jtcommon.{JTConsts, JTUtils}
+import info.gratour.jt808common.{AdasDialect, JT808Consts}
+import info.gratour.jtcommon.JTUtils
 import io.netty.buffer.ByteBuf
 
 trait AdasHandler {
@@ -39,7 +39,7 @@ object AdasHandler_SiChuan extends AdasHandler {
 
 
   override def adasAlmIdLen(protoVer: Byte): Int =
-    if (protoVer >= JTConsts.PROTO_VER__REV2019)
+    if (protoVer >= JT808Consts.ProtocolVersions.PROTO_VER__REV2019)
       39
     else
       16
