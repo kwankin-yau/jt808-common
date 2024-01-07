@@ -14,7 +14,7 @@ import info.gratour.jtcommon.JTMsgId;
 import java.util.Arrays;
 
 @JTMsgId(JT808MsgConsts.STORED_MEDIA_SEARCH_ACK_0802)
-public class JT808AckParams_0802_StoredMediaSearchAck implements JT808AckParams {
+public class JT808AckParams_0802_StoredMediaSearchAck implements JT808AckParams, Cloneable {
 
     private JT808MediaInfo[] mediaInfos;
 

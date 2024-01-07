@@ -350,6 +350,19 @@ object JTUtils {
     true
   }
 
+  /**
+   * 是否有效的交通部796终端厂商ID（5位全数字）
+   *
+   * @param factoryId
+   * @return
+   */
+  def isValidFactoryId(factoryId: String): Boolean = {
+    if (factoryId != null && factoryId.length == 5) {
+      factoryId.forall(Character.isDigit)
+    } else
+       false
+  }
+
   def tryParseInt(s: String): java.lang.Integer =
     try
       s.toInt

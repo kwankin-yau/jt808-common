@@ -16,7 +16,6 @@ import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.StringJoiner;
 
 public class TermCmd implements Cloneable {
 
@@ -164,6 +163,11 @@ public class TermCmd implements Cloneable {
      */
     private JT808AckParams ackParams;
     private Integer timeout;
+
+    /**
+     * 发布此命令的实例ID。用于发布到MQ上网关区分是否自己发布的命令消息
+     */
+    private String pub;
 
     public String getAppId() {
         return appId;
@@ -443,12 +447,22 @@ public class TermCmd implements Cloneable {
         this.timeout = timeout;
     }
 
+    public String getPub() {
+        return pub;
+    }
+
+    public void setPub(String pub) {
+        this.pub = pub;
+    }
+
     public String appIdDef() {
         if (appId != null)
             return appId;
         else
             return "";
     }
+
+
 
     public void assignFrom(TermCmd source) {
         this.appId = source.appId;
@@ -473,6 +487,7 @@ public class TermCmd implements Cloneable {
         this.ackCode = source.ackCode;
         this.ackParams = source.ackParams != null ? source.ackParams.clone() : null;
         this.timeout = source.timeout;
+        this.pub = source.pub;
     }
 
 
@@ -522,6 +537,8 @@ public class TermCmd implements Cloneable {
             str.append(", ackParams=").append(ackParams);
         if (timeout != null)
             str.append(", timeout=").append(timeout);
+        if (pub != null)
+            str.append(", pub=").append(pub);
 
         return str.toString();
     }

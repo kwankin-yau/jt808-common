@@ -2,6 +2,7 @@ plugins {
     id 'java-library'
     id 'scala'
     id 'maven-publish'
+    id 'signing'
 }
 
 group 'com.lucendar'
@@ -22,8 +23,9 @@ dependencies {
     api('org.scala-lang:scala-library:2.13.10')
     api group: 'com.typesafe.scala-logging', name: 'scala-logging_2.13', version: '3.9.2'
 
-    api('io.netty:netty-all:4.1.86.Final')
+    api('io.netty:netty-all:4.1.104.Final')
 
+    implementation 'org.checkerframework:checker-qual:3.36.0'
     implementation('commons-codec:commons-codec:1.15')
     implementation('org.apache.commons:commons-lang3:3.11')
     api('com.google.code.gson:gson:2.10.1')
@@ -38,9 +40,23 @@ task sourceJar(type: Jar) {
     archiveClassifier = 'sources'
 }
 
+javadoc {
+    options.encoding = 'UTF-8'
+
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+
+signing {
+    sign configurations.archives
+}
+
+
 publishing {
     repositories {
         maven {
+            name = "my-nexus"
             if (project.version.toString().endsWith("-SNAPSHOT")) {
                 name = "snapshotsRepo"
                 url = "https://wx.gratour.info:7999/repository/maven-snapshots/"
@@ -52,6 +68,15 @@ publishing {
             credentials {
                 username = "${ossUser}"
                 password = "${ossPwd}"
+            }
+        }
+
+        maven {
+            name = "OSSRH"
+            url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+            credentials {
+                username = "${ossrhUsername}"
+                password = "${ossrhPassword}"
             }
         }
     }

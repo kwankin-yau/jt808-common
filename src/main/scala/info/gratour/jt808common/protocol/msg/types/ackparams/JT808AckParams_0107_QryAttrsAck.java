@@ -11,7 +11,7 @@ import info.gratour.jt808common.protocol.JT808MsgConsts;
 import info.gratour.jtcommon.JTMsgId;
 
 @JTMsgId(JT808MsgConsts.QRY_TERMINAL_ATTRS_ACK_0107)
-public class JT808AckParams_0107_QryAttrsAck implements JT808AckParams {
+public class JT808AckParams_0107_QryAttrsAck implements JT808AckParams, Cloneable {
 
     private short terminalType;
     private String factoryId;

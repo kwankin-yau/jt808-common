@@ -13,7 +13,7 @@ import info.gratour.jtcommon.JTMsgId;
 
 
 @JTMsgId(JT808MsgConsts.QRY_LOCATION_ACK_0201)
-public class JT808AckParams_0201_QryLocationAck implements JT808AckParams {
+public class JT808AckParams_0201_QryLocationAck implements JT808AckParams, Cloneable {
 
     private Trk trk;
 

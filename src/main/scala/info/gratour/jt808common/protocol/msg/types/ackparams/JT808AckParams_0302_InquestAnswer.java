@@ -11,7 +11,7 @@ import info.gratour.jt808common.protocol.JT808MsgConsts;
 import info.gratour.jtcommon.JTMsgId;
 
 @JTMsgId(JT808MsgConsts.INQUEST_ANSWER_0302)
-public class JT808AckParams_0302_InquestAnswer implements JT808AckParams {
+public class JT808AckParams_0302_InquestAnswer implements JT808AckParams, Cloneable {
 
     private short candidateId;
 

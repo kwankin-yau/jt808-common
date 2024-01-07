@@ -1,15 +1,20 @@
 # 3.0.0 - [2023-11-28]
 ## Improvement
 - `TermCmd`:
-  - add `externalId`, `senderToken`, `ackMsgId`, `ackSeqNo` properties.
+  - add `externalId`, `senderToken`, `ackMsgId`, `ackSeqNo`, `pub` properties.
 - `TermCmdStateChanged`:
   - add `appId`, `externalId`, `reqId` properties.
 - Introduce `JT808CmdParamsParser`, `JT808AckParamsParser` interfaces.
 - Introduce `TermCmdParamsParser`
 - Introduce `MBEncoder808_0107_QryAttrsAck`
+- Introduce `GnssDriver`, `GnssDriverContext`
 
 ## Changed
 - Maven group changed to `com.lucendar`
+
+## Fixed
+- AckParams object are not direct implement Cloneable interface, cause the call of super.clone() 
+  throws `CloneNotSupportedException`. 
 
 # 2.0.4 - [2023-10-24]
 ## Improvement

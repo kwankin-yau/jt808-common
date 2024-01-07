@@ -13,7 +13,7 @@ import info.gratour.jtcommon.JTMsgId;
 import java.util.Arrays;
 
 @JTMsgId(JT808MsgConsts.TAKE_PHOTO_ACK_0805)
-public class JT808AckParams_0805_TakePhotoAck implements JT808AckParams {
+public class JT808AckParams_0805_TakePhotoAck implements JT808AckParams, Cloneable {
 
     private byte result;
     private long[] mediaIds;

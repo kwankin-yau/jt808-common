@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.StringJoiner;
 
 @JTMsgId(JT1078MsgConsts.QRY_AV_RES_ACK_1205)
-public class JT1078AckParams_1205_QryAvResAck implements JT808AckParams {
+public class JT1078AckParams_1205_QryAvResAck implements JT808AckParams, Cloneable {
 
     private JT1078AvRes[] resList;
 

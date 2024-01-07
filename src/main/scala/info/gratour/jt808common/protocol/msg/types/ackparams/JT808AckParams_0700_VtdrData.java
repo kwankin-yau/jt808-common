@@ -14,7 +14,7 @@ import info.gratour.jtcommon.JTMsgId;
 import java.util.StringJoiner;
 
 @JTMsgId(JT808MsgConsts.VTDR_DATA_0700)
-public class JT808AckParams_0700_VtdrData implements JT808AckParams {
+public class JT808AckParams_0700_VtdrData implements JT808AckParams, Cloneable {
 
     private byte cmd;
     private JT808VtdrDataBlock dataBlock;

@@ -12,7 +12,7 @@ import info.gratour.jt808common.protocol.msg.types.trk.Trk;
 import info.gratour.jtcommon.JTMsgId;
 
 @JTMsgId(JT808MsgConsts.VEH_CTRL_ACK_0500)
-public class JT808AckParams_0500_VehCtrlAck implements JT808AckParams {
+public class JT808AckParams_0500_VehCtrlAck implements JT808AckParams, Cloneable {
 
     private Trk trk;
 

@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @JTMsgId(JT808MsgConsts.QRY_PARAMS_ACK_0104)
-public class JT808AckParams_0104_QryParamsAck implements JT808AckParams {
+public class JT808AckParams_0104_QryParamsAck implements JT808AckParams, Cloneable {
 
 
 

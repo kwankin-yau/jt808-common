@@ -14,7 +14,7 @@ import info.gratour.jtcommon.JTMsgId;
 import java.util.StringJoiner;
 
 @JTMsgId(JT1078MsgConsts.QRY_AV_ATTRS_ACK_1003)
-public class JT1078AckParams_1003_QryAvAttrsAck extends JT1078TermAvAttrs implements JT808AckParams {
+public class JT1078AckParams_1003_QryAvAttrsAck extends JT1078TermAvAttrs implements JT808AckParams, Cloneable {
 
 
     @Override
