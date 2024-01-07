@@ -59,9 +59,9 @@ publishing {
             name = "my-nexus"
             if (project.version.toString().endsWith("-SNAPSHOT")) {
                 name = "snapshotsRepo"
-                url = "https://wx.gratour.info:7999/repository/maven-snapshots/"
+                url = "${ossUser}"
             } else {
-                name = "releasesRepo"
+                name = "${ossPwd}"
                 url = "https://wx.gratour.info:7999/repository/my-nexus/"
             }
 
