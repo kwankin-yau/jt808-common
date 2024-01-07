@@ -33,7 +33,15 @@ object JT808FrameEncoder {
    * @param out             output buffer
    * @return packet/fragment count. One message may produce 1 or more packets, 1 packet may produce 1 or more fragments. This count is count in fragment.
    */
-  def encode(protoVer: Byte, adasDialect: AdasDialect, seqNumAllocator: SeqNumAllocator, m: JT808Msg, bodyEncoder: JT808MsgBodyEncoder, tempBuf: ByteBuf, out: ByteBuf): Int = {
+  def encode(
+              protoVer: Byte,
+              adasDialect: AdasDialect,
+              seqNumAllocator: SeqNumAllocator,
+              m: JT808Msg,
+              bodyEncoder: JT808MsgBodyEncoder,
+              tempBuf: ByteBuf,
+              out: ByteBuf
+            ): Int = {
 
     def calcCrcAndEscape(buf: ByteBuf): Unit = {
       out.writeByte(0x7E)
