@@ -165,6 +165,11 @@ public class TermCmdStateChanged {
         this.ackMsgId = ackMsgId;
     }
 
+    /**
+     * 应答消息的流水号
+     *
+     * @return 应答消息的流水号
+     */
     public Integer getAckSeqNo() {
         return ackSeqNo;
     }

@@ -28,7 +28,7 @@ public class JT1078MsgConsts {
     public static final int QRY_AV_RES_ACK_1205 = 0x1205;
     public static final String HEX_MSG_ID_QRY_AV_RES_ACK_1205 = "1205";
     public static final int REPLAY_AV_REQ_9201 = 0x9201;
-    public static final String HEX_MSG_ID_REPLY_AV_REQ_9201 = "9201";
+    public static final String HEX_MSG_ID_REPLAY_AV_REQ_9201 = "9201";
     public static final int REPLAY_AV_CTRL_9202 = 0x9202;
     public static final String HEX_MSG_ID_REPLAY_AV_CTRL_9202 = "9202";
     public static final int AV_UPLOAD_REQ_9206 = 0x9206;

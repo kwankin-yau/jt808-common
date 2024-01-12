@@ -54,33 +54,6 @@ signing {
 
 
 publishing {
-    repositories {
-        maven {
-            name = "my-nexus"
-            if (project.version.toString().endsWith("-SNAPSHOT")) {
-                name = "snapshotsRepo"
-                url = "${ossUser}"
-            } else {
-                name = "${ossPwd}"
-                url = "https://wx.gratour.info:7999/repository/my-nexus/"
-            }
-
-            credentials {
-                username = "${ossUser}"
-                password = "${ossPwd}"
-            }
-        }
-
-        maven {
-            name = "OSSRH"
-            url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-            credentials {
-                username = "${ossrhUsername}"
-                password = "${ossrhPassword}"
-            }
-        }
-    }
-
     publications {
         maven(MavenPublication) {
             from components.java

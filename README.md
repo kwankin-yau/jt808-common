@@ -5,12 +5,12 @@ JT/T 808/1078协议、ADAS协议公共库
 3. 定义驱动的接口原型 (GnssDriver/GnssDriverContext等)
 
 # 编码
-```scala
-JT808FrameEncoder.encode();
+```java
+JT808FrameEncoder.encode(JT808Consts.);
 ```
 
 # 解码
-```scala
+```java
 // 创建解码器，根据项目情况，选择合适的 AdasDialect，此处为广东的团体标准
 var decoder = new JT808MsgDecoder(AdasDialect.GDRTA_2020, false);
 

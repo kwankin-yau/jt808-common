@@ -9,7 +9,9 @@ package info.gratour.jt808common.codec.decoder.fragment;
 
 import info.gratour.jt808common.protocol.JT808Frame;
 
-public interface CollectedFragment {
+import java.io.Closeable;
+
+public interface CollectedFragment extends Closeable {
 
     int getMsgId();
 
@@ -25,4 +27,6 @@ public interface CollectedFragment {
     int getRecvCount();
 
     boolean isAllFragmentReceived();
+
+    void close();
 }

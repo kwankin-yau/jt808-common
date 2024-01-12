@@ -1,6 +1,6 @@
 package info.gratour.jt808common.codec.encoder
 
-import info.gratour.jt808common.AdasDialect
+import info.gratour.jt808common.{AdasDialect, JT808Consts}
 import info.gratour.jt808common.protocol.JT808Msg
 import info.gratour.jtcommon.{BcdUtils, JTConsts, JTUtils}
 import io.netty.buffer.ByteBuf
@@ -22,16 +22,18 @@ object JT808FrameEncoder {
   }
 
   /**
-   * Encode message to frames. The encoded frame are crc-calculated and escaped.
+   * Encode message to frames. The encoded frames are crc-calculated and escaped.
    *
-   * @param protoVer        protocol version, 0 for REV_2013, 1 for REV_2019, see also `PROTO_VER` serial constant defined in [[JTConsts]]
+   * @param protoVer        protocol version, 0 for REV_2013, 1 for REV_2019, see also `PROTO_VER` serial constant
+   *                        defined in [[info.gratour.jt808common.JT808Consts.ProtocolVersions]]
    * @param adasDialect     ADAS Dialect
    * @param seqNumAllocator message sequence number allocator.
    * @param m               message to encode
    * @param bodyEncoder     message body encoder
    * @param tempBuf         content in tempBuf will be clear
    * @param out             output buffer
-   * @return packet/fragment count. One message may produce 1 or more packets, 1 packet may produce 1 or more fragments. This count is count in fragment.
+   * @return packet/fragment count. One message may produce 1 or more packets, 1 packet may produce 1 or more fragments.
+   *         This count is count in fragments.
    */
   def encode(
               protoVer: Byte,
@@ -82,7 +84,7 @@ object JT808FrameEncoder {
     tempBuf.writeShort(0) // attributes
 
     val simNoMaxLen =
-      if (protoVer >= JTConsts.PROTO_VER__REV2019) {
+      if (protoVer >= JT808Consts.ProtocolVersions.PROTO_VER__REV2019) {
         tempBuf.writeByte(protoVer) // protoVer
         20
       } else
@@ -125,7 +127,7 @@ object JT808FrameEncoder {
           temp2.clear()
           temp2.writeShort(msgId) // message id
           temp2.writeShort(0) // attributes
-          if (protoVer >= JTConsts.PROTO_VER__REV2019)
+          if (protoVer >= JT808Consts.ProtocolVersions.PROTO_VER__REV2019)
             temp2.writeByte(protoVer) // protoVer
 
           // simNo
@@ -145,7 +147,7 @@ object JT808FrameEncoder {
           temp2.writeBytes(body, blockSz)
 
           var flags = JTUtils.set(blockSz, 13)
-          if (protoVer >= JTConsts.PROTO_VER__REV2019)
+          if (protoVer >= JT808Consts.ProtocolVersions.PROTO_VER__REV2019)
             flags = JTUtils.set(flags, 14)
 
           temp2.setShort(2, flags)
@@ -163,7 +165,7 @@ object JT808FrameEncoder {
       fragmentCount
     } else {
       val attr =
-        if (protoVer >= JTConsts.PROTO_VER__REV2019)
+        if (protoVer >= JT808Consts.ProtocolVersions.PROTO_VER__REV2019)
           JTUtils.set(bodySize, 14)
         else
           bodySize
@@ -174,8 +176,6 @@ object JT808FrameEncoder {
 
       1
     }
-
-
   }
 
 }
