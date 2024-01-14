@@ -7,7 +7,7 @@
 - Introduce `JT808CmdParamsParser`, `JT808AckParamsParser` interfaces.
 - Introduce `TermCmdParamsParser`
 - Introduce `MBEncoder808_0107_QryAttrsAck`
-- Introduce `GnssDriver`, `GnssDriverContext`
+- Introduce `LazyBytesProvider`
 
 ## Changed
 - Maven group changed to `com.lucendar`

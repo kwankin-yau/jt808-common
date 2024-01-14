@@ -6,7 +6,7 @@ import org.apache.commons.codec.binary.Hex;
 /**
  * An object keep current readerIndex of the ByteBuf and then read later.
  */
-public class ByteBufBackOffReader {
+public class ByteBufBackOffReader implements LazyBytesProvider {
 
     private final ByteBuf buf;
     private final int originalReaderIndex;
@@ -21,6 +21,7 @@ public class ByteBufBackOffReader {
         sz = buf.readableBytes();
     }
 
+    @Override
     public byte[] binary() {
         if (_binary == null) {
             _binary = new byte[sz];
@@ -30,6 +31,7 @@ public class ByteBufBackOffReader {
         return _binary;
     }
 
+    @Override
     public String hex() {
         if (_hex == null)
             _hex = Hex.encodeHexString(binary());
