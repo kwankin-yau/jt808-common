@@ -15,7 +15,6 @@ sourceCompatibility = '8'
 targetCompatibility = '8'
 
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 
@@ -35,21 +34,17 @@ dependencies {
     implementation('com.lucendar:lucendar-common:2.0.0')
 }
 
-task sourceJar(type: Jar) {
-    from sourceSets.main.allSource
-    archiveClassifier = 'sources'
-}
-
 javadoc {
     options.encoding = 'UTF-8'
 
-    if(JavaVersion.current().isJava9Compatible()) {
+    if (JavaVersion.current().isJava9Compatible()) {
         options.addBooleanOption('html5', true)
     }
 }
 
-signing {
-    sign configurations.archives
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 
@@ -57,7 +52,19 @@ publishing {
     publications {
         maven(MavenPublication) {
             from components.java
-            artifact sourceJar
         }
     }
 }
+
+javadoc {
+    options.encoding = 'UTF-8'
+
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+
+signing {
+    sign publishing.publications.maven
+}
+
