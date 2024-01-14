@@ -52,6 +52,35 @@ publishing {
     publications {
         maven(MavenPublication) {
             from components.java
+
+            pom {
+                name = 'jt808-common'
+                packaging = 'jar'
+                // optionally artifactId can be defined here
+                description = 'JT/T 808、1078、ADAS 协议编解码库'
+                url = 'https://github.com/kwankin-yau/jt808-common'
+
+                scm {
+                    connection = 'https://github.com/kwankin-yau/jt808-common.git'
+                    developerConnection = 'https://github.com/kwankin-yau/jt808-common.git'
+                    url = 'https://github.com/kwankin-yau/jt808-common'
+                }
+
+                licenses {
+                    license {
+                        name = 'MIT'
+                        url = 'http://opensource.org/licenses/MIT'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'kky'
+                        name = 'kwankin-yau'
+                        email = 'alphax@vip.163.com'
+                    }
+                }
+            }
         }
     }
 }
