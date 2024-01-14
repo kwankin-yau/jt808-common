@@ -4,10 +4,18 @@
  */
 package com.lucendar.gateway.common.trace;
 
-public interface TraceConfig {
+/**
+ * 终端调试跟踪状态
+ */
+public interface TraceStatus {
 
     String appId();
     String simNo();
 
+    /**
+     * 是否跟踪此终端
+     *
+     * @return
+     */
     boolean isActive();
 }

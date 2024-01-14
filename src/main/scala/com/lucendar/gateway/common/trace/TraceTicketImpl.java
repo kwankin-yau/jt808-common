@@ -6,7 +6,7 @@ package com.lucendar.gateway.common.trace;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class TraceTicketImpl implements TraceTicket, TraceConfig {
+public class TraceTicketImpl implements TraceTicket, TraceStatus {
 
     private final String appId;
     private final String simNo;

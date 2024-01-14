@@ -11,7 +11,6 @@ import io.netty.buffer.ByteBuf;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.io.Closeable;
-import java.io.IOException;
 
 /**
  * 驱动实例
