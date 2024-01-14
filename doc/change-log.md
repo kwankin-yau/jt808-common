@@ -1,3 +1,7 @@
+# 3.0.1 - [2024-01-14]
+## Fixed
+- 恢复 `com.lucendar.gateway.common` 包
+
 # 3.0.0 - [2023-11-28]
 ## Improvement
 - `TermCmd`:

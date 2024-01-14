@@ -9,11 +9,11 @@ JT/T 808/1078协议、ADAS协议公共库
 <dependency>
     <groupId>com.lucendar</groupId>
     <artifactId>jt808-common</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1</version>
 </dependency>
 ```
 
 ## Gradle
 ```groovy
-implementation 'com.lucendar:jt808-common:3.0.0'
+implementation 'com.lucendar:jt808-common:3.0.1'
 ```
