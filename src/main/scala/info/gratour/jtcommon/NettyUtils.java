@@ -49,8 +49,9 @@ public class NettyUtils {
     /**
      * Short name for byteBufToHexStringKeepReaderIndex
      *
-     * @param buf
-     * @return
+     * @param buf buf to format
+     * @param keepReaderIndex whether keep the `readerIndex` of the `buf`
+     * @return the formatted string.
      */
     public static String bufToHex(ByteBuf buf, boolean keepReaderIndex) {
         if (keepReaderIndex) {

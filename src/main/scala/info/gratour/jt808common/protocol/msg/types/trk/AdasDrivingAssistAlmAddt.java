@@ -9,7 +9,7 @@ public class AdasDrivingAssistAlmAddt implements Cloneable {
     public static final byte FLAG__END = 2;
 
     /**
-     * 前身碰撞报警
+     * 前向碰撞报警
      */
     public static final byte TYP__FRONT_CRASH = 1;
 
@@ -73,6 +73,9 @@ public class AdasDrivingAssistAlmAddt implements Cloneable {
      */
     public static final byte TYP__DEVICE_FAILURE = 0x14;
 
+    /**
+     * 不能识别或厂商自定义报警/事件类型
+     */
     public static final byte TYP__CUSTOM = (byte) 0xFF;
 
 

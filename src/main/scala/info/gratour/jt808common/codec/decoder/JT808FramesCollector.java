@@ -3,7 +3,6 @@ package info.gratour.jt808common.codec.decoder;
 import info.gratour.jt808common.codec.decoder.fragment.CollectedFragment;
 import info.gratour.jt808common.protocol.FrameSplitInfo;
 import info.gratour.jt808common.protocol.JT808Frame;
-import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.buffer.CompositeByteBuf;
 
@@ -62,11 +61,7 @@ public class JT808FramesCollector implements Closeable, CollectedFragment {
             body.addComponent(true, frames[i].getBody().retain());
         }
 
-        JT808Frame frame = new JT808Frame();
-        frame.setHeader(frames[0].getHeader());
-        frame.setBody(body);
-
-        return frame;
+        return new JT808Frame(frames[0].getHeader(), body);
     }
 
     @Override

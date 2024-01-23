@@ -66,7 +66,10 @@ public class JT808PacketFragmentManager implements Closeable {
 
 
     /**
-     * @param frame
+     * 收集接收到的数据包分片。
+     *
+     * @param frame 数据包分片。
+     * @param timeoutCallback 收集超时回调。
      * @return non-null if all fragment is collected.
      */
     public JT808Frame collect(JT808Frame frame, FragmentTimeoutCallback timeoutCallback) {

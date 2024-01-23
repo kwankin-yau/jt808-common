@@ -5,6 +5,7 @@ import info.gratour.jt808common.AdasDialect;
 import info.gratour.jt808common.protocol.msg.types.addt.MQEventAddt;
 
 import java.lang.reflect.Type;
+import java.util.StringJoiner;
 
 public class Event {
 
@@ -17,7 +18,7 @@ public class Event {
     private String simNo;
     private long recvTm;
     private String adasDialect;
-    private byte protoVer;
+    private String protoVer;
     private MQEventAddt addt;
 
     /**
@@ -68,15 +69,15 @@ public class Event {
     }
 
     /**
-     * JT808 protocol version. 0 for 2011/2013, 1 for 2019.
+     * 协议版本号。对于JT808 协议，0 为 2011/2013版, 1 为 2019版.
      *
-     * @return JT808 protocol version
+     * @return 协议版本号
      */
-    public byte getProtoVer() {
+    public String getProtoVer() {
         return protoVer;
     }
 
-    public void setProtoVer(byte protoVer) {
+    public void setProtoVer(String protoVer) {
         this.protoVer = protoVer;
     }
 
@@ -90,13 +91,13 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event{" +
-                "msgId='" + msgId + '\'' +
-                ", simNo='" + simNo + '\'' +
-                ", recvTm=" + recvTm +
-                ", protocol='" + adasDialect + '\'' +
-                ", protoVer=" + protoVer +
-                ", addt=" + addt +
-                '}';
+        return new StringJoiner(", ", Event.class.getSimpleName() + "[", "]")
+                .add("msgId='" + msgId + "'")
+                .add("simNo='" + simNo + "'")
+                .add("recvTm=" + recvTm)
+                .add("adasDialect='" + adasDialect + "'")
+                .add("protoVer='" + protoVer + "'")
+                .add("addt=" + addt)
+                .toString();
     }
 }

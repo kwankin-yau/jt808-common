@@ -7,15 +7,34 @@
  *******************************************************************************/
 package info.gratour.jt808common.protocol.msg.types.trk;
 
+/**
+ * 盲区监测系统报警附加信息
+ */
 public class AdasBlindAreaAlmAddt implements Cloneable {
 
     public static final byte FLAG__NOT_AVAILABLE = 0;
     public static final byte FLAG__START = 1;
     public static final byte FLAG__END = 2;
 
+    /**
+     * 后方接近报警
+     */
     public static final byte TYP__REAR_TOO_CLOSE = 1;
+
+    /**
+     * 左侧后方接近报警
+     */
     public static final byte TYP__LEFT_REAR_TOO_CLOSE = 2;
+
+    /**
+     * 右侧后方接近报警
+     */
     public static final byte TYP__RIGHT_REAR_TOO_CLOSE = 3;
+
+    /**
+     * 不能识别或厂商自定义报警/事件类型
+     */
+    public static final byte TYP__CUSTOM = (byte) 0xFF;
 
     private int almId;
     private byte flag;

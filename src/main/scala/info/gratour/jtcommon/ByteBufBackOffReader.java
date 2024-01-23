@@ -38,4 +38,8 @@ public class ByteBufBackOffReader implements LazyBytesProvider {
 
         return _hex;
     }
+
+    public ByteBuf slice() {
+        return buf.slice(originalReaderIndex, sz);
+    }
 }

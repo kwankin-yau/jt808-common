@@ -85,8 +85,8 @@ public class MQEventAddt_0702_DriverIdentity implements MQEventAddt, JT808AckPar
     }
 
     /**
-     * ID Card Number of the driver. Introduced by REV_2019
-     * @return
+     * Get ID Card Number of the driver. Introduced by REV_2019.
+     * @return ID Card Number of the driver.
      */
     public String getIdCardNum() {
         return idCardNum;

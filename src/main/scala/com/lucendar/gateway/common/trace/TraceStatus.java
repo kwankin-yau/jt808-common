@@ -15,7 +15,7 @@ public interface TraceStatus {
     /**
      * 是否跟踪此终端
      *
-     * @return
+     * @return 是否跟踪此终端
      */
     boolean isActive();
 }

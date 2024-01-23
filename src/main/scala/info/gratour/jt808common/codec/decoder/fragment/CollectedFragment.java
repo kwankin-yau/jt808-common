@@ -16,9 +16,9 @@ public interface CollectedFragment extends Closeable {
     int getMsgId();
 
     /**
-     * All fragments stubs, null element for not received, otherwise received.
+     * Get all fragments stubs, null element for not received, otherwise received.
      *
-     * @return
+     * @return all fragments stubs.
      */
     JT808Frame[] getFrames();
 

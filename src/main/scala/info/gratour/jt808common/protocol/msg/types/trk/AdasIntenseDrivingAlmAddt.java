@@ -7,6 +7,9 @@
  *******************************************************************************/
 package info.gratour.jt808common.protocol.msg.types.trk;
 
+/**
+ * 激烈驾驶报警
+ */
 public class AdasIntenseDrivingAlmAddt implements Cloneable {
 
     public static final byte FLAG__NOT_AVAILABLE = 0;
@@ -16,37 +19,42 @@ public class AdasIntenseDrivingAlmAddt implements Cloneable {
     /**
      * 急加速报警
      */
-    public static final byte TYP__RAPID_ACCELERATE = 0;
+    public static final byte TYP__RAPID_ACCELERATE = 1;
 
     /**
      * 急减速报警
      */
-    public static final byte TYP__RAPID_DECELERATE = 1;
+    public static final byte TYP__RAPID_DECELERATE = 2;
 
     /**
      * 急转弯报警
      */
-    public static final byte TYP__RAPID_TURN = 2;
+    public static final byte TYP__RAPID_TURN = 3;
 
     /**
      * 怠速报警
      */
-    public static final byte TYP__IDLING = 3;
+    public static final byte TYP__IDLING = 4;
 
     /**
      * 异常熄火报警
      */
-    public static final byte TYP__UNEXPECTED_FLAME_OUT = 4;
+    public static final byte TYP__UNEXPECTED_FLAME_OUT = 5;
 
     /**
      * 空挡滑行报警
      */
-    public static final byte TYP__SLIDING_ON_N = 5;
+    public static final byte TYP__SLIDING_ON_N = 6;
 
     /**
      * 发动机超转报警
      */
-    public static final byte TYP__ENGINE_RPM_TOO_HIGH = 6;
+    public static final byte TYP__ENGINE_RPM_TOO_HIGH = 7;
+
+    /**
+     * 不能识别或厂商自定义报警/事件类型
+     */
+    public static final byte TYP__CUSTOM = (byte) 0xFF;
 
     private int almId;
     private byte flag;

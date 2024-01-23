@@ -32,9 +32,9 @@ public class CP_9207_AvUploadCtrl implements JT808CmdParams {
     private byte ctrl;
 
     /**
-     * The cmdId of the originate av upload cmd(9206). Used by application, JT1078 message codec does not use this
+     * Get the cmdId of the originate av upload cmd(9206). Used by application, JT1078 message codec does not use this
      * property.
-     * @return
+     * @return The cmdId of the originate av upload cmd(9206).
      */
     public String getOrigCmdId() {
         return origCmdId;
@@ -45,8 +45,8 @@ public class CP_9207_AvUploadCtrl implements JT808CmdParams {
     }
 
     /**
-     * The JT808 message seqNo of the originate av upload cmd(9206).
-     * @return
+     * Get the JT808 message seqNo of the originate av upload cmd(9206).
+     * @return The JT808 message seqNo of the originate av upload cmd(9206).
      */
     public int getOrigSeqNo() {
         return origSeqNo;

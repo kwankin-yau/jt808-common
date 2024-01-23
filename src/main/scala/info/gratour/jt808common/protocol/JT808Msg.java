@@ -4,11 +4,15 @@ import info.gratour.jtcommon.JTMsg;
 import info.gratour.jtcommon.JTMsgId;
 import info.gratour.jtcommon.JTUtils;
 
+import java.util.Map;
+import java.util.StringJoiner;
+
 public class JT808Msg implements JTMsg {
 
     private int msgId;
     private String simNo;
     private int seqNo;
+    private Map<String, Object> headers;
 
     public JT808Msg() {
         msgId = jtMsgId();
@@ -53,12 +57,21 @@ public class JT808Msg implements JTMsg {
         this.seqNo = seqNo;
     }
 
+    public Map<String, Object> getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(Map<String, Object> headers) {
+        this.headers = headers;
+    }
+
     @Override
     public String toString() {
-        return "JT808Msg{" +
-                "msgId=" + JTUtils.msgIdToHex(msgId) +
-                ", simNo='" + simNo + '\'' +
-                ", seqNo=" + seqNo +
-                '}';
+        return new StringJoiner(", ", JT808Msg.class.getSimpleName() + "[", "]")
+                .add("msgId=" + msgId)
+                .add("simNo='" + simNo + "'")
+                .add("seqNo=" + seqNo)
+                .add("headers=" + headers)
+                .toString();
     }
 }

@@ -32,6 +32,13 @@ public enum AdasDialect {
     /**
      * 渝标
      */
-    CHONG_QING,
+    CHONG_QING
     ;
+
+    public static AdasDialect valueOfDefault(String name, AdasDialect defaultValue) {
+        if (name == null)
+            return defaultValue;
+        else
+            return valueOf(name);
+    }
 }

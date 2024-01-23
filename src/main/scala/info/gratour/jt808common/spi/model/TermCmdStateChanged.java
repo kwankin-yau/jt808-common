@@ -8,6 +8,7 @@
 package info.gratour.jt808common.spi.model;
 
 import com.google.gson.reflect.TypeToken;
+import com.lucendar.common.utils.CommonUtils;
 import com.lucendar.common.utils.DateTimeUtils;
 import info.gratour.jt808common.protocol.msg.types.ackparams.JT808AckParams;
 import info.gratour.jtcommon.JTUtils;
@@ -15,6 +16,9 @@ import info.gratour.jtcommon.JTUtils;
 import java.lang.reflect.Type;
 import java.util.StringJoiner;
 
+/**
+ * 终端指令状态变更通知
+ */
 public class TermCmdStateChanged {
 
     public static final Type TYPE = new TypeToken<TermCmdStateChanged>() {
@@ -23,6 +27,18 @@ public class TermCmdStateChanged {
 
     private String appId;
 
+    /**
+     * 消息唯一号。每个变更通知的消息唯一号均不一样，可用于去重复。由发出此通知的模块设置。
+     * <p>
+     * 通常由 `com.lucendar.common.utils.CommonUtils#uuidBase64NoPadding()`产生。
+     * <p>
+     * 参见：本类的setRandomUuid()方法
+     */
+    private String uuid;
+
+    /**
+     * 对应的TermCmd的id
+     */
     private String id;
     private String externalId;
     private String reqId;
@@ -44,6 +60,19 @@ public class TermCmdStateChanged {
     private Integer ackSeqNo;
     private Integer ackCode;
     private JT808AckParams ackParams;
+
+    /**
+     * 发布此通知的实例ID。用于发布到MQ上网关区分是否自己发布的通知
+     */
+    private String pub;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getAppId() {
         return appId;
@@ -210,9 +239,18 @@ public class TermCmdStateChanged {
         return status < 0;
     }
 
+    public String getPub() {
+        return pub;
+    }
+
+    public void setPub(String pub) {
+        this.pub = pub;
+    }
+
     /**
+     * 从 TermCmd 对象中复制属性。
      *
-     * @param cmd
+     * @param cmd 源 TermCmd 对象
      * @param changeTm 状态变更的时间
      */
     public void assign(TermCmd cmd, long changeTm) {
@@ -239,16 +277,22 @@ public class TermCmdStateChanged {
     public int jtInitMsgId() {
         return JTUtils.hexToMsgId(initMsgId);
     }
+    public void setRandomUuid() {
+        uuid = CommonUtils.uuidBase64NoPadding();
+    }
+
 
     @Override
     public String toString() {
         return new StringJoiner(", ", TermCmdStateChanged.class.getSimpleName() + "[", "]")
                 .add("appId='" + appId + "'")
+                .add("uuid='" + uuid + "'")
                 .add("id='" + id + "'")
                 .add("externalId='" + externalId + "'")
-                .add("reqTm=" + reqTm)
+                .add("reqId='" + reqId + "'")
+                .add("reqTm='" + reqTm + "'")
                 .add("status=" + status)
-                .add("tm=" + tm)
+                .add("tm='" + tm + "'")
                 .add("initMsgId='" + initMsgId + "'")
                 .add("subCmdTyp='" + subCmdTyp + "'")
                 .add("msgSn=" + msgSn)
@@ -259,6 +303,7 @@ public class TermCmdStateChanged {
                 .add("ackSeqNo=" + ackSeqNo)
                 .add("ackCode=" + ackCode)
                 .add("ackParams=" + ackParams)
+                .add("pub='" + pub + "'")
                 .toString();
     }
 }

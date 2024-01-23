@@ -1,6 +1,13 @@
 # 3.1.0 - [2023-11-28]
 ## 完善
 - 引用 GNSS 驱动
+- `JT808Msg` 增加 `headers` 属性
+- `JT808Frame` 改为只读对象，并增加 `backOffReader` 属性
+- `TermCmdStateChanged` 增加 `uuid`, `pub` 属性, `setRandomUuid` 方法
+- 新增 `info.gratour.jt808common.adas.AdasAlmTypes` 平台ADAS报警类型定义类
+
+## 变更
+- `info.gratour.jt808common.spi.model.Event` 的 `protoVer` 属性改为 `String` 类型
 
 # 3.0.0 - [2023-11-28]
 ## Improvement

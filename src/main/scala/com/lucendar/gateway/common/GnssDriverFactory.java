@@ -15,20 +15,22 @@ import java.util.Map;
  */
 public interface GnssDriverFactory {
 
+    String DRIVER_ID__JT808 = "jt808";
+
     String CONFIG__ADAS_DIALECT = "adasDialect";
 
     /**
-     * 驱动的ID，不同的驱动，其ID必须不一。
+     * 取驱动的ID，不同的驱动，其ID必须不一。
      *
-     * @return
+     * @return 驱动的ID
      */
     String id();
 
     /**
      * 检查一个报文是否可由本驱动处理。
      *
-     * @param buf
-     * @return
+     * @param buf 报文
+     * @return 是否可由本驱动处理。
      */
     boolean probe(ByteBuf buf);
 
@@ -37,20 +39,17 @@ public interface GnssDriverFactory {
      *
      * @param config 驱动的初始配置
      * @param verifyCrc 是否校验报文的校验码
-     * @param alloc
-     * @param timerProvider
-     * @return
+     * @param ctx 驱动上下文
+     * @return 驱动实例对象
      */
     GnssDriver createDriver(
             Map<String, String> config,
             boolean verifyCrc,
-            ByteBufAllocator alloc,
-            TimerProvider timerProvider);
+            GnssDriverContext ctx);
 
     default GnssDriver createDriver(
             Map<String, String> config,
-            ByteBufAllocator alloc,
-            TimerProvider timerProvider) {
-        return createDriver(config, true, alloc, timerProvider);
+            GnssDriverContext ctx) {
+        return createDriver(config, true, ctx);
     }
 }

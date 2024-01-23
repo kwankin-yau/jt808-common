@@ -1,29 +1,31 @@
 package info.gratour.jt808common.protocol;
 
+import info.gratour.jtcommon.ByteBufBackOffReader;
+import info.gratour.jtcommon.LazyBytesProvider;
 import io.netty.buffer.ByteBuf;
 import io.netty.util.ReferenceCounted;
 
 import java.io.Closeable;
+import java.util.StringJoiner;
 
 public class JT808Frame implements Closeable, ReferenceCounted {
 
-    private JT808FrameHeader header;
-    private ByteBuf body;
+    private final JT808FrameHeader header;
+    private final ByteBuf body;
+    private final ByteBufBackOffReader backOffReader;
+
+    public JT808Frame(JT808FrameHeader header, ByteBuf body) {
+        this.header = header;
+        this.body = body;
+        this.backOffReader = new ByteBufBackOffReader(body);
+    }
 
     public JT808FrameHeader getHeader() {
         return header;
     }
 
-    public void setHeader(JT808FrameHeader header) {
-        this.header = header;
-    }
-
     public ByteBuf getBody() {
         return body;
-    }
-
-    public void setBody(ByteBuf body) {
-        this.body = body;
     }
 
 
@@ -34,10 +36,11 @@ public class JT808Frame implements Closeable, ReferenceCounted {
 
     @Override
     public String toString() {
-        return "JT808Frame{" +
-                "header=" + header +
-                ", bodySize=" + (body != null ? body.readableBytes() : 0) +
-                '}';
+        return new StringJoiner(", ", JT808Frame.class.getSimpleName() + "[", "]")
+                .add("header=" + header)
+                .add("body=" + body)
+                .add("backOffReader=" + backOffReader)
+                .toString();
     }
 
     @Override
@@ -77,5 +80,9 @@ public class JT808Frame implements Closeable, ReferenceCounted {
     @Override
     public boolean release(int decrement) {
         return body.release(decrement);
+    }
+
+    public ByteBufBackOffReader getBackOffReader() {
+        return backOffReader;
     }
 }

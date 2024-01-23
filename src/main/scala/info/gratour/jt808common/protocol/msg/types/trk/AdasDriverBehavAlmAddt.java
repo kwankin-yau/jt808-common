@@ -49,10 +49,6 @@ public class AdasDriverBehavAlmAddt implements Cloneable {
      */
     public static final byte TYP__STEERING_WHEEL_NOT_HOLDING = 6;
 
-    /**
-     * 探头遮挡报警（粤标）
-     */
-    public static final byte TYP__CAMERA_COVERED = 6;
 
     /**
      * 驾驶员行为监测功能失效报警
@@ -105,6 +101,11 @@ public class AdasDriverBehavAlmAddt implements Cloneable {
     public static final byte TYP__IGNITED_CAPTURE = 0x14;
 
     /**
+     * 探头遮挡报警（粤标）
+     */
+    public static final byte TYP__CAMERA_COVERED = (byte) 0xF0;
+
+    /**
      * 不能识别或厂商自定义报警/事件类型
      */
     public static final byte TYP__CUSTOM = (byte) 0xFF;
@@ -145,9 +146,9 @@ public class AdasDriverBehavAlmAddt implements Cloneable {
     }
 
     /**
-     * The original protocol uploaded alarm type.
+     * Get the original protocol uploaded alarm type.
      *
-     * @return
+     * @return the original protocol uploaded alarm type.
      */
     public short getTyp() {
         return typ;
@@ -158,9 +159,9 @@ public class AdasDriverBehavAlmAddt implements Cloneable {
     }
 
     /**
-     * The mapped alarm type.
+     * Get the mapped alarm type.
      *
-     * @return
+     * @return the mapped alarm type.
      */
 
     public short getTyp2() {

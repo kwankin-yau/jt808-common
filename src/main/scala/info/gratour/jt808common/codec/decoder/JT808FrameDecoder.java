@@ -6,7 +6,9 @@ import info.gratour.jt808common.protocol.FrameSplitInfo;
 import info.gratour.jt808common.protocol.JT808Frame;
 import info.gratour.jt808common.protocol.JT808FrameHeader;
 import info.gratour.jtcommon.BcdUtils;
+import info.gratour.jtcommon.ByteBufBackOffReader;
 import info.gratour.jtcommon.JTUtils;
+import info.gratour.jtcommon.LazyBytesProvider;
 import info.gratour.jtcommon.NettyUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
@@ -139,6 +141,7 @@ public class JT808FrameDecoder implements AutoCloseable {
         } else
             return false;
     }
+
     /**
      * Decode a frame object from ByteBuf.
      *
@@ -152,14 +155,16 @@ public class JT808FrameDecoder implements AutoCloseable {
             LOGGER.debug("BEFORE-decodeFrame: " + NettyUtils.bufToHex(buf));
         }
 
+        LazyBytesProvider bytes = new ByteBufBackOffReader(buf);
+
         if (buf.readableBytes() < MIN_FRAME_LENGTH_REV_2013) {
             LOGGER.debug("Invalid JT/T 808 frame.");
-            throw new CodecError("Invalid JT/T 808 frame.");
+            throw new CodecError("Invalid JT/T 808 frame.", bytes);
         }
 
         if (doVerifyCrc && !verifyCrc(buf)) {
             LOGGER.debug("CRC verification failed.");
-            throw new CrcError("CRC verification failed.");
+            throw new CrcError("CRC verification failed.", bytes);
         }
 
 
@@ -197,11 +202,12 @@ public class JT808FrameDecoder implements AutoCloseable {
             header.setSplitInfo(splitInfo);
         }
 
-
-        JT808Frame r = new JT808Frame();
-        r.setHeader(header);
         buf.retain();
-        r.setBody(buf.slice(buf.readerIndex(), buf.readableBytes() - 2)); // exclude crc and end-tag
+
+        JT808Frame r = new JT808Frame(
+                header,
+                buf.slice(buf.readerIndex(), buf.readableBytes() - 2) // exclude crc and end-tag
+        );
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Frame decoded (" + r.getClass().getSimpleName() + "):" + r.toString());

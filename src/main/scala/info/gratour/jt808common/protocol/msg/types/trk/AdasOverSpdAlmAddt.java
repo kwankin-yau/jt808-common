@@ -7,6 +7,9 @@
  *******************************************************************************/
 package info.gratour.jt808common.protocol.msg.types.trk;
 
+/**
+ * 卫星定位超速报警
+ */
 public class AdasOverSpdAlmAddt implements Cloneable {
 
 
