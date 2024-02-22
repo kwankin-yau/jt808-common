@@ -9,6 +9,25 @@ package info.gratour.jt808common.protocol.msg.types.addt;
 
 public class MQEventAddt_0800_MultiMediaEvent implements MQEventAddt {
 
+    public static final int MEDIA_TYPE__IMAGE = 0;
+    public static final int MEDIA_TYPE__AUDIO = 1;
+    public static final int MEDIA_TYPE__VIDEO = 2;
+
+    public static final int MEDIA_FMT__JPEG = 0;
+    public static final int MEDIA_FMT__TIF = 1;
+    public static final int MEDIA_FMT__MP3 = 2;
+    public static final int MEDIA_FMT__WAV = 3;
+    public static final int MEDIA_FMT__WMV = 4;
+
+    public static final int EVT_TYPE__PLATFORM_CMD = 0;
+    public static final int EVT_TYPE__PERIODICAL_ACT = 1;
+    public static final int EVT_TYPE__ROB = 2;
+    public static final int EVT_TYPE__CRASH_ROLLOVER = 3;
+    public static final int EVT_TYPE__OPEN_DOOR = 4;
+    public static final int EVT_TYPE__CLOSE_DOOR = 5;
+    public static final int EVT_TYPE__CLOSE_DOOR_AND_OVERSPD = 6;
+    public static final int EVT_TYPE__FIXED_DISTANCE = 7;
+
     private long mediaId;
     private byte typ;
     private byte fmt;

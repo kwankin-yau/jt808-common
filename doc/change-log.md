@@ -5,6 +5,9 @@
 - `JT808Frame` 改为只读对象，并增加 `backOffReader` 属性
 - `TermCmdStateChanged` 增加 `uuid`, `pub` 属性, `setRandomUuid` 方法
 - 新增 `info.gratour.jt808common.adas.AdasAlmTypes` 平台ADAS报警类型定义类
+- `MQEventAddt_0800_MultiMediaEvent` 新增 MEDIA_TYPE__xxxx, MEDIA_FMT__xxxx, EVT_TYPE__xxxx 等常量定义.
+- 新增 `MBEncoder808_Track.encodeTrackBasicInfo` 方法
+- 新增 `MBEncoder808_0800_MultiMediaEvent`, `MBEncoder808_0801_MultiMediaData` 两个消息体编码器
 
 ## 变更
 - `info.gratour.jt808common.spi.model.Event` 的 `protoVer` 属性改为 `String` 类型

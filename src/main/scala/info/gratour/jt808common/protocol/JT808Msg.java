@@ -68,7 +68,7 @@ public class JT808Msg implements JTMsg {
     @Override
     public String toString() {
         return new StringJoiner(", ", JT808Msg.class.getSimpleName() + "[", "]")
-                .add("msgId=" + msgId)
+                .add("msgId=" + msgIdToHex())
                 .add("simNo='" + simNo + "'")
                 .add("seqNo=" + seqNo)
                 .add("headers=" + headers)

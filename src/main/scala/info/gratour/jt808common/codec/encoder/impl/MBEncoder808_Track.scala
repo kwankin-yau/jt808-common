@@ -17,7 +17,7 @@ import org.apache.commons.codec.binary.Hex
 
 object MBEncoder808_Track extends JTCodecHelper {
 
-  def encodeTrack(protoVer: Byte, adasDialect: AdasDialect, t: Trk, out: ByteBuf): Unit = {
+  def encodeTrackBasicInfo(protoVer: Byte, t: Trk, out: ByteBuf): Unit = {
     out.writeInt(t.getAlm)
     out.writeInt(t.getSt)
     out.writeAxis(t.getLat)
@@ -26,6 +26,10 @@ object MBEncoder808_Track extends JTCodecHelper {
     out.writeShort((t.getSpd * 10).toInt)
     out.writeShort(t.getDir)
     JT808Utils.timestampToBcd6(t.getGpsTm, out)
+  }
+
+  def encodeTrack(protoVer: Byte, adasDialect: AdasDialect, t: Trk, out: ByteBuf): Unit = {
+    encodeTrackBasicInfo(protoVer, t, out)
 
     def addtWriteShort(id: Int, value: Short): Unit = {
       out.writeByte(id)
